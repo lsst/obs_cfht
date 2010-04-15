@@ -1,0 +1,923 @@
+Camera: { 
+    name: "CFHT MegaCam 704382o.fits" 
+    nCol: 1 
+    nRow: 1 
+    Raft: { 
+        name: "R:0,0" 
+        serial: -1 
+        index: 0 0 
+        offset: 0.0 0.0 
+    } 
+} 
+Amp: { 
+    height: 4612 
+    width: 1024 
+    extended: 0 
+    preRows: 0 
+    overclockH: 32 
+    overclockV: 32 
+} 
+Ccd: { 
+    pixelSize: 0.013500 
+    nCol: 2 
+    nRow: 1 
+    Amp: { 
+        index: 0 0 
+        readoutCorner: LLC 
+    } 
+    Amp: { 
+        index: 1 0 
+        readoutCorner: LRC 
+    } 
+} 
+CcdDiskLayout: { 
+    HduPerAmp: true 
+    Amp: { 
+        serial: 0 
+        flipLR: false 
+        flipTB: false 
+        hdu: 0 
+    } 
+    Amp: { 
+        serial: 1 
+        flipLR: false 
+        flipTB: false 
+        hdu: 0 
+    } 
+} 
+Raft: { 
+    nCol: 9 
+    nRow: 4 
+    name: "R:0,0" 
+    serial: -1 
+    Ccd: { 
+        name: "R:0,0 S:0,3 CFHTid:0 8341-7-5" 
+        serial: -1 
+        index: 0 3 
+        offset: -114.399000 99.461250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:1,3 CFHTid:1 8352-3-4" 
+        serial: -1 
+        index: 1 3 
+        offset: -85.806000 99.474750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:2,3 CFHTid:2 8352-15-3" 
+        serial: -1 
+        index: 2 3 
+        offset: -57.240000 99.488250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:3,3 CFHTid:3 8261-14-4" 
+        serial: -1 
+        index: 3 3 
+        offset: -28.687500 99.501750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:4,3 CFHTid:4 8341-17-4" 
+        serial: -1 
+        index: 4 3 
+        offset: -0.054000 99.501750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:5,3 CFHTid:5 8351-20-5" 
+        serial: -1 
+        index: 5 3 
+        offset: 28.431000 99.488250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:6,3 CFHTid:6 8351-13-3" 
+        serial: -1 
+        index: 6 3 
+        offset: 57.078000 99.461250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:7,3 CFHTid:7 8351-6-3" 
+        serial: -1 
+        index: 7 3 
+        offset: 85.657500 99.434250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:8,3 CFHTid:8 8261-13-3" 
+        serial: -1 
+        index: 8 3 
+        offset: 114.250500 99.447750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:0,2 CFHTid:9 9172-1-3" 
+        serial: -1 
+        index: 0 2 
+        offset: -114.385500 31.515750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:1,2 CFHTid:10 8352-4-4" 
+        serial: -1 
+        index: 1 2 
+        offset: -85.792500 31.502250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:2,2 CFHTid:11 8352-15-5" 
+        serial: -1 
+        index: 2 2 
+        offset: -57.240000 31.488750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:3,2 CFHTid:12 8351-20-4" 
+        serial: -1 
+        index: 3 2 
+        offset: -28.660500 31.529250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:4,2 CFHTid:13 8351-17-3" 
+        serial: -1 
+        index: 4 2 
+        offset: -0.081000 31.542750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:5,2 CFHTid:14 8434-13-5" 
+        serial: -1 
+        index: 5 2 
+        offset: 28.498500 31.488750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:6,2 CFHTid:15 8341-17-3" 
+        serial: -1 
+        index: 6 2 
+        offset: 57.091500 31.488750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:7,2 CFHTid:16 8351-11-4" 
+        serial: -1 
+        index: 7 2 
+        offset: 85.644000 31.542750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:8,2 CFHTid:17 7432-19-3" 
+        serial: -1 
+        index: 8 2 
+        offset: 114.250500 31.394250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:0,1 CFHTid:18 9172-4-3" 
+        serial: -1 
+        index: 0 1 
+        offset: -114.385500 -31.475250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:1,1 CFHTid:19 8341-16-5" 
+        serial: -1 
+        index: 1 1 
+        offset: -85.806000 -31.448250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:2,1 CFHTid:20 8352-13-4" 
+        serial: -1 
+        index: 2 1 
+        offset: -57.240000 -31.461750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:3,1 CFHTid:21 8374-17-5" 
+        serial: -1 
+        index: 3 1 
+        offset: -28.647000 -31.448250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:4,1 CFHTid:22 8351-11-5" 
+        serial: -1 
+        index: 4 1 
+        offset: -0.081000 -31.461750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:5,1 CFHTid:23 8351-6-4" 
+        serial: -1 
+        index: 5 1 
+        offset: 28.566000 -31.421250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:6,1 CFHTid:24 8351-18-5" 
+        serial: -1 
+        index: 6 1 
+        offset: 57.078000 -31.434750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:7,1 CFHTid:25 8352-18-5" 
+        serial: -1 
+        index: 7 1 
+        offset: 85.671000 -31.380750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:8,1 CFHTid:26 8351-7-3" 
+        serial: -1 
+        index: 8 1 
+        offset: 114.196500 -31.475250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:0,0 CFHTid:27 8261-16-5" 
+        serial: -1 
+        index: 0 0 
+        offset: -114.291000 -99.501750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:1,0 CFHTid:28 7432-3-3" 
+        serial: -1 
+        index: 1 0 
+        offset: -85.819500 -99.353250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:2,0 CFHTid:29 8351-16-4" 
+        serial: -1 
+        index: 2 0 
+        offset: -57.213000 -99.366750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:3,0 CFHTid:30 8261-19-5" 
+        serial: -1 
+        index: 3 0 
+        offset: -28.606500 -99.434250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:4,0 CFHTid:31 8351-8-3" 
+        serial: -1 
+        index: 4 0 
+        offset: -0.054000 -99.407250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:5,0 CFHTid:32 8352-10-4" 
+        serial: -1 
+        index: 5 0 
+        offset: 28.525500 -99.420750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:6,0 CFHTid:33 8352-15-4" 
+        serial: -1 
+        index: 6 0 
+        offset: 57.118500 -99.366750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:7,0 CFHTid:34 8261-7-3" 
+        serial: -1 
+        index: 7 0 
+        offset: 85.684500 -99.380250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "R:0,0 S:8,0 CFHTid:35 8261-14-3" 
+        serial: -1 
+        index: 8 0 
+        offset: 114.169500 -99.515250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+} 
+Electronic: { 
+    Raft: { 
+        name: "R:0,0" 
+        serial: -1 
+        Ccd: { 
+            name: "R:0,0 S:0,3 CFHTid:0 8341-7-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.540 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.630 
+                readNoise: 6.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:1,3 CFHTid:1 8352-3-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.600 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.630 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:2,3 CFHTid:2 8352-15-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.570 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.670 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:3,3 CFHTid:3 8261-14-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.580 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.680 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:4,3 CFHTid:4 8341-17-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.520 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.610 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:5,3 CFHTid:5 8351-20-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.660 
+                readNoise: 6.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:6,3 CFHTid:6 8351-13-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.540 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.710 
+                readNoise: 7.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:7,3 CFHTid:7 8351-6-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.530 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.610 
+                readNoise: 6.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:8,3 CFHTid:8 8261-13-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.770 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.680 
+                readNoise: 7.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:0,2 CFHTid:9 9172-1-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.610 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.760 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:1,2 CFHTid:10 8352-4-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.580 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.710 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:2,2 CFHTid:11 8352-15-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.630 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 6.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:3,2 CFHTid:12 8351-20-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.660 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.740 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:4,2 CFHTid:13 8351-17-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.660 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:5,2 CFHTid:14 8434-13-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.740 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:6,2 CFHTid:15 8341-17-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.490 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.630 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:7,2 CFHTid:16 8351-11-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.640 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:8,2 CFHTid:17 7432-19-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.880 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 2.070 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:0,1 CFHTid:18 9172-4-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.640 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.660 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:1,1 CFHTid:19 8341-16-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.570 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.590 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:2,1 CFHTid:20 8352-13-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.660 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.730 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:3,1 CFHTid:21 8374-17-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.540 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.560 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:4,1 CFHTid:22 8351-11-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.640 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.650 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:5,1 CFHTid:23 8351-6-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.560 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.580 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:6,1 CFHTid:24 8351-18-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.690 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:7,1 CFHTid:25 8352-18-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:8,1 CFHTid:26 8351-7-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.590 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.590 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:0,0 CFHTid:27 8261-16-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.670 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.760 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:1,0 CFHTid:28 7432-3-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.630 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.640 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:2,0 CFHTid:29 8351-16-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.810 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.850 
+                readNoise: 7.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:3,0 CFHTid:30 8261-19-5" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:4,0 CFHTid:31 8351-8-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.650 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.740 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:5,0 CFHTid:32 8352-10-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.620 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:6,0 CFHTid:33 8352-15-4" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.550 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.580 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:7,0 CFHTid:34 8261-7-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.640 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.660 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "R:0,0 S:8,0 CFHTid:35 8261-14-3" 
+            serial: -1 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.550 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+    } 
+} 
