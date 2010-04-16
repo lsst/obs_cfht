@@ -116,9 +116,10 @@ def printRaftCcdGeom(buff, ccdId, ccdname, xidx, yidx, xpos, ypos):
             buff.write('    serial: -1 \n')
     
     buff.write('    Ccd: { \n')
-    buff.write('        name: "R:0,0 S:%d,%d CFHTid:%d %s" \n' % (xidx, yidx, ccdId, ccdname))
-    if hack:
-        buff.write('        serial: -1 \n')
+    #buff.write('        name: "R:0,0 S:%d,%d CFHTid:%d %s" \n' % (xidx, yidx, ccdId, ccdname))
+    #buff.write('        serial: -1 \n')
+    buff.write('        name: "CFHT %d" \n' % (ccdId))
+    buff.write('        serial: %s \n' % (re.sub('-', '', ccdname)))
     buff.write('        index: %d %d \n' % (xidx, yidx))
     buff.write('        offset: %.6f %.6f \n' % (xpos, ypos))
     buff.write('        nQuarter: 0 \n')
@@ -137,9 +138,10 @@ def printElectronics(buff, ccdId, ccdname, xidx, yidx, infoA, infoB):
             buff.write('        serial: -1 \n')
 
     buff.write('        Ccd: { \n')
-    buff.write('            name: "R:0,0 S:%d,%d CFHTid:%d %s" \n' % (xidx, yidx, ccdId, ccdname))
-    if hack:
-        buff.write('            serial: -1 \n')
+    #buff.write('            name: "R:0,0 S:%d,%d CFHTid:%d %s" \n' % (xidx, yidx, ccdId, ccdname))
+    #buff.write('            serial: -1 \n')
+    buff.write('            name: "CFHT %d" \n' % (ccdId))
+    buff.write('            serial: %s \n' % (re.sub('-', '', ccdname)))
     
     buff.write('            Amp: { \n')
     if not hack:
