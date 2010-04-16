@@ -41,7 +41,7 @@ class CfhtGeomTestCase(unittest.TestCase):
         policyFile = pexPolicy.DefaultPolicyFile("afw", "CameraGeomDictionary.paf", "policy")
         defPolicy = pexPolicy.Policy.createPolicy(policyFile, policyFile.getRepositoryPath(), True)
 
-        polFile = pexPolicy.DefaultPolicyFile("obs_cfht", "Full_STA_geom.paf", "megacam/description")
+        polFile = pexPolicy.DefaultPolicyFile("obs_cfht", "Full_Megacam_geom.paf", "megacam/description")
         self.geomPolicy = pexPolicy.Policy.createPolicy(polFile)
         self.geomPolicy.mergeDefaults(defPolicy.getDictionary())
 
