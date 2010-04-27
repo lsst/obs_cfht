@@ -139,7 +139,7 @@ class CfhtMapper(Mapper):
                 self.camera, afwCameraGeom.Id(ampId[0]), ampId[1], ampId[2])
         item.setDetector(detector)
 
-    def _setCcdDetection(self, item, dataId):
+    def _setCcdDetector(self, item, dataId):
         ccdId = self._extractDetectorName(dataId)
         detector = cameraGeomUtils.findCcd(
                 self.camera, afwCameraGeom.Id(ccdId))
@@ -319,6 +319,18 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def std_postISRCCD(self, item, dataId):
+        return self._standardizeExposure(item, dataId)
+
+###############################################################################
+
+    def map_visitim(self, dataId):
+        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
+        path = os.path.join(self.root, self.visitimTemplate % pathId)
+        return ButlerLocation(
+                "lsst.afw.image.ExposureF", "ExposureF",
+                "FitsStorage", path, dataId)
+
+    def std_visitim(self, item, dataId):
         return self._standardizeExposure(item, dataId)
 
 ###############################################################################
