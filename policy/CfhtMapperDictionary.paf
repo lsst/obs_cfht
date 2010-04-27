@@ -43,21 +43,21 @@ definitions: {
         type: string
         description: "The Python substitution template for the post-ISR CCD image pathnames."
         maxOccurs: 1
-        default: "postISRCCD/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+        default: "postISRCCD/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
     }
     visitimTemplate: {
         type: string
         description: "The Python substitution template for the CR-removed visit 
 image pathnames."
         maxOccurs: 1
-        default: "visitim/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+        default: "visitim/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
     }
     calexpTemplate: {
         type: string
         description: "The Python substitution template for the calibrated scienc
 e exposure pathnames."
         maxOccurs: 1
-        default: "calexp/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+        default: "calexp/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
     }
 
     root: {
