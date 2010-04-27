@@ -81,7 +81,7 @@ class CfhtMapper(Mapper):
         self.keys.append(["filter", "expTime"])
 
         for datasetType in ["raw", "bias", "flat", "fringe",
-            "postISR", "postISRCCD", "visitim", "calexp", "src", "obj"]:
+            "postISR", "postISRCCD", "visitim", "psf", "calexp", "src", "obj"]:
             # dark
             key = datasetType + "Template"
             if self.policy.exists(key):
@@ -108,18 +108,24 @@ class CfhtMapper(Mapper):
 #
 ###############################################################################
 
-    def _mapIdToActual(self, dataId):
+    def _needField(self, dataId):
+        if dataId.has_key('field'):
+            return dataId
         actualId = dict(dataId)
-        if not actualId.has_key('field'):
-            rows = self.registry.executeQuery(("field",), ("raw",),
-                    {'visit': "?"}, None, (dataId['visit'],))
-            assert len(rows) == 1
-            actualId['field'] = str(rows[0][0])
-        if not actualId.has_key('filter'):
-            rows = self.registry.executeQuery(("filter",), ("raw",),
-                    {'visit': "?"}, None, (dataId['visit'],))
-            assert len(rows) == 1
-            actualId['filter'] = str(rows[0][0])
+        rows = self.registry.executeQuery(("field",), ("raw",),
+                {'visit': "?"}, None, (dataId['visit'],))
+        assert len(rows) == 1
+        actualId['field'] = str(rows[0][0])
+        return actualId
+
+    def _needFilter(self, dataId):
+        if dataId.has_key('filter'):
+            return dataId
+        actualId = dict(dataId)
+        rows = self.registry.executeQuery(("filter",), ("raw",),
+                {'visit': "?"}, None, (dataId['visit'],))
+        assert len(rows) == 1
+        actualId['filter'] = str(rows[0][0])
         return actualId
 
     def _mapActualToPath(self, actualId):
@@ -185,15 +191,21 @@ class CfhtMapper(Mapper):
 
     def _calibLookup(self, datasetType, dataId):
         result = dict(dataId)
-        rows = self.registry.executeQuery(("taiObs",), ("raw",),
+        rows = self.registry.executeQuery(("taiObs","filter"), ("raw",),
                 {"visit": "?"}, None, (dataId['visit'],))
         assert len(rows) == 1
-        taiObs = rows[0][0]
+        taiObs, filter = rows[0]
 
-        rows = self.calibRegistry.executeQuery(("derivedRunId",),
-                (datasetType,), None,
-                ("DATE(?)", "DATE(validStart)", "DATE(validEnd)"),
-                (taiObs,))
+        if datasetType in ("flat", "fringe"):
+            rows = self.calibRegistry.executeQuery(("derivedRunId",),
+                    (datasetType,), {"filter": "?"},
+                    ("DATE(?)", "DATE(validStart)", "DATE(validEnd)"),
+                    (filter, taiObs))
+        else:
+            rows = self.calibRegistry.executeQuery(("derivedRunId",),
+                    (datasetType,), None,
+                    ("DATE(?)", "DATE(validStart)", "DATE(validEnd)"),
+                    (taiObs,))
         assert len(rows) == 1
         result['run'] = str(rows[0][0])
         return result
@@ -212,7 +224,7 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_raw(self, dataId):
-        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
+        pathId = self._needField(self._needFilter(dataId))
         path = os.path.join(self.root, self.rawTemplate % pathId)
         return ButlerLocation(
                 "lsst.afw.image.DecoratedImageU", "DecoratedImageU",
@@ -237,8 +249,7 @@ class CfhtMapper(Mapper):
 
     def map_bias(self, dataId):
         dataId = self._calibLookup("bias", dataId)
-        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
-        path = os.path.join(self.calibRoot, self.biasTemplate % pathId)
+        path = os.path.join(self.calibRoot, self.biasTemplate % dataId)
         return ButlerLocation(
                 "lsst.afw.image.ExposureF", "ExposureF",
                 "FitsStorage", path, dataId)
@@ -268,9 +279,9 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_flat(self, dataId):
+        dataId = self._needFilter(dataId)
         dataId = self._calibLookup("flat", dataId)
-        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
-        path = os.path.join(self.calibRoot, self.flatTemplate % pathId)
+        path = os.path.join(self.calibRoot, self.flatTemplate % dataId)
         return ButlerLocation(
                 "lsst.afw.image.ExposureF", "ExposureF",
                 "FitsStorage", path, dataId)
@@ -284,9 +295,9 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_fringe(self, dataId):
+        dataId = self._needFilter(dataId)
         dataId = self._calibLookup("fringe", dataId)
-        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
-        path = os.path.join(self.calibRoot, self.fringeTemplate % pathId)
+        path = os.path.join(self.calibRoot, self.fringeTemplate % dataId)
         return ButlerLocation(
                 "lsst.afw.image.ExposureF", "ExposureF",
                 "FitsStorage", path, dataId)
@@ -300,7 +311,7 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_postISR(self, dataId):
-        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
+        pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.postISRTemplate % pathId)
         return ButlerLocation(
                 "lsst.afw.image.ExposureF", "ExposureF",
@@ -312,7 +323,7 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_postISRCCD(self, dataId):
-        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
+        pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.postISRCCDTemplate % pathId)
         return ButlerLocation(
                 "lsst.afw.image.ExposureF", "ExposureF",
@@ -324,7 +335,7 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_visitim(self, dataId):
-        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
+        pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.visitimTemplate % pathId)
         return ButlerLocation(
                 "lsst.afw.image.ExposureF", "ExposureF",
@@ -335,8 +346,17 @@ class CfhtMapper(Mapper):
 
 ###############################################################################
 
+    def map_psf(self, dataId):
+        pathId = self._needFilter(dataId)
+        path = os.path.join(self.root, self.psfTemplate % pathId)
+        return ButlerLocation(
+                "lsst.meas.algorithms.PSF", "PSF",
+                "BoostStorage", path, dataId)
+
+###############################################################################
+
     def map_calexp(self, dataId):
-        pathId = self._mapActualToPath(self._mapIdToActual(dataId))
+        pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.calexpTemplate % pathId)
         return ButlerLocation(
                 "lsst.afw.image.ExposureF", "ExposureF",
