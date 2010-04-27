@@ -10,7 +10,7 @@ import lsst.afw.image.utils as imageUtils
 import lsst.pex.policy as pexPolicy
 
 class CfhtMapper(Mapper):
-    def __init__(self, policy=None, root=".", calibRoot=None):
+    def __init__(self, policy=None, root=".", registry=None, calibRoot=None):
         Mapper.__init__(self)
 
         self.policy = policy
@@ -31,8 +31,8 @@ class CfhtMapper(Mapper):
         if self.calibRoot is None:
             self.calibRoot = self.root
 
-        registryPath = None
-        if self.policy.exists('registryPath'):
+        registryPath = registry
+        if registryPath is None and self.policy.exists('registryPath'):
             registryPath = self.policy.getString('registryPath')
             if not os.path.exists(registryPath):
                 registryPath = None
