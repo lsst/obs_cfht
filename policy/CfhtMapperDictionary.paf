@@ -7,25 +7,25 @@ definitions: {
         type: string
         description: "The Python substitution template for the raw image pathnames."
         maxOccurs: 1
-	default: "%(field)/raw/%(visit)d-f%(filter)s/s00/c%(ccd)02d-a%(amp)d.fits"
+	default: "%(field)s/raw/v%(visit)d-f%(filter)s/s00/c%(ccd)02d-a%(amp)d.fits"
     }
     biasTemplate: {
         type: string
         description: "The Python substitution template for the bias image pathnames."
         maxOccurs: 1
-	default: "bias/v%(runid)s/c%(ccd)02d-a%(amp)d.fits"
+	default: "bias/v%(run)s/c%(ccd)02d-a%(amp)d.fits"
     }
-    darkTemplate: {
-        type: string
-        description: "The Python substitution template for the dark image pathnames."
-        maxOccurs: 1
-	default: "dark/v%(runid)s/c%(ccd)02d-a%(amp)d.fits"
-    }
+    # darkTemplate: {
+    #     type: string
+    #     description: "The Python substitution template for the dark image pathnames."
+    #     maxOccurs: 1
+    #     default: "dark/v%(run)s/c%(ccd)02d-a%(amp)d.fits"
+    # }
     flatTemplate: {
         type: string
         description: "The Python substitution template for the flat image pathnames."
         maxOccurs: 1
-	default: "flat/v%(runid)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+	default: "flat/v%(run)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
     }
     fringeTemplate: {
         type: string
