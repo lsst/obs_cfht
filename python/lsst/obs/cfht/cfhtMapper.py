@@ -90,9 +90,7 @@ class CfhtMapper(Mapper):
         self.cameraPolicyLocation = os.path.join(
                 defaultFile.getRepositoryPath(),
                 self.policy.getString('cameraDescription'))
-        cameraPolicy = pexPolicy.Policy.createPolicy(
-                self.cameraPolicyLocation, pexPolicy.Policy())
-        cameraGeomUtils.mergeGeomDefaults(cameraPolicy)
+        cameraPolicy = cameraGeomUtils.getGeomPolicy(self.cameraPolicyLocation)
         self.camera = cameraGeomUtils.makeCamera(cameraPolicy)
 
         filterPolicy = pexPolicy.Policy.createPolicy(
@@ -208,8 +206,8 @@ class CfhtMapper(Mapper):
                 "PafStorage", self.cameraPolicyLocation, dataId)
 
     def std_camera(self, item, dataId):
-        cameraGeomUtils.mergeGeomDefaults(item)
-        return cameraGeomUtils.makeCamera(item)
+        pol = cameraGeomUtils.getGeomPolicy(item)
+        return cameraGeomUtils.makeCamera(pol)
 
 ###############################################################################
 
