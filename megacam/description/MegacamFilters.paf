@@ -4,25 +4,25 @@ description: "The CFHT MegaCam Filters from http://www.cfht.hawaii.edu/Instrumen
 
 Filter: {
     name: "u"
-    lambdaEff: 374
+    lambdaEff: 374.0
 }
 Filter: {
     name: "g"
-    lambdaEff: 487
+    lambdaEff: 487.0
 }
 Filter: {
     name: "r"
-    lambdaEff: 625
+    lambdaEff: 625.0
 }
 Filter: {
     name: "i"
-    lambdaEff: 770
+    lambdaEff: 770.0
 }
 Filter: {
     name: "i2"
-    lambdaEff: 770
+    lambdaEff: 770.0
 }
 Filter: {
     name: "z"
-    lambdaEff: 900
+    lambdaEff: 900.0
 }
