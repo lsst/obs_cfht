@@ -1,7 +1,7 @@
 import os
 import re
 import sqlite3
-from lsst.daf.persistence import Mapper, ButlerLocation
+from lsst.daf.persistence import Mapper, ButlerLocation, LogicalLocation
 import lsst.daf.butlerUtils as butlerUtils
 import lsst.afw.image as afwImage
 import lsst.afw.cameraGeom as afwCameraGeom
@@ -30,6 +30,10 @@ class CfhtMapper(Mapper):
             self.calibRoot = self.policy.getString('calibRoot')
         if self.calibRoot is None:
             self.calibRoot = self.root
+
+        # Do any location map substitutions
+        self.root = LogicalLocation(self.root).locString()
+        self.calibRoot = LogicalLocation(self.calibRoot).locString()
 
         registryPath = registry
         if registryPath is None and self.policy.exists('registryPath'):
