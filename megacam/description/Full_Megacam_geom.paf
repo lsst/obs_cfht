@@ -1,5 +1,6 @@
 Camera: { 
     name: "CFHT MegaCam 704382o.fits" 
+    serial: 1
     nCol: 1 
     nRow: 1 
     Raft: { 
@@ -23,11 +24,11 @@ Ccd: {
     nRow: 1 
     Amp: { 
         index: 0 0 
-        readoutCorner: LLC 
+        readoutCorner: LRC 
     } 
     Amp: { 
         index: 1 0 
-        readoutCorner: LRC 
+        readoutCorner: LLC 
     } 
 } 
 CcdDiskLayout: { 
