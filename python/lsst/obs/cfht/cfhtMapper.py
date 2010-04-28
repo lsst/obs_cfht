@@ -206,8 +206,11 @@ class CfhtMapper(Mapper):
                     (datasetType,), None,
                     ("DATE(?)", "DATE(validStart)", "DATE(validEnd)"),
                     (taiObs,))
-        assert len(rows) == 1
-        result['run'] = str(rows[0][0])
+        if len(rows) == 0:
+            result['run'] = "***NONEXISTENT***"
+        else:
+            assert len(rows) == 1
+            result['run'] = str(rows[0][0])
         return result
 
 ###############################################################################
