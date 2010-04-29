@@ -238,8 +238,13 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def query_raw(self, key, format, dataId):
-
-        return self.registry.getCollection(key, format, dataId)
+        where = {}
+        values = []
+        for k, v in dataId.iteritems():
+            where[k] = '?'
+            values.append(v)
+        return self.registry.executeQuery(format, ("raw",),
+                where, None, values)
 
     def std_raw(self, item, dataId):
         exposure = afwImage.makeExposure(
