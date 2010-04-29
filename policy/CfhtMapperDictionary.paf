@@ -83,6 +83,12 @@ e exposure pathnames."
         maxOccurs: 1
         default: "registry.sqlite3"
     }
+    calibRegistryPath: {
+        type: string
+        description: "The pathname to the calibration registry.  Can be absolute, relative to the root, or relative to the current directory."
+        maxOccurs: 1
+        default: "calibRegistry.sqlite3"
+    }
     skypixPolicy: {
         type: policy
         # description: "Subpolicy for configuring the sky pixelization."
