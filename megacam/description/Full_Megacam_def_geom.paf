@@ -1,0 +1,4260 @@
+Camera: { 
+    name: "CFHT MegaCam 704382o.fits" 
+    serial: 1
+    nCol: 1 
+    nRow: 1 
+    Raft: { 
+        name: "R:0,0" 
+        serial: -1 
+        index: 0 0 
+        offset: 0.0 0.0 
+    } 
+} 
+Amp: { 
+    height: 4612 
+    width: 1024 
+    extended: 0 
+    preRows: 0 
+    overclockH: 32 
+    overclockV: 32 
+} 
+Ccd: { 
+    pixelSize: 0.013500 
+    nCol: 2 
+    nRow: 1 
+    Amp: { 
+        index: 0 0 
+        readoutCorner: LRC 
+    } 
+    Amp: { 
+        index: 1 0 
+        readoutCorner: LLC 
+    } 
+} 
+CcdDiskLayout: { 
+    HduPerAmp: true 
+    Amp: { 
+        serial: 0 
+        flipLR: false 
+        flipTB: false 
+        hdu: 0 
+    } 
+    Amp: { 
+        serial: 1 
+        flipLR: false 
+        flipTB: false 
+        hdu: 0 
+    } 
+} 
+Raft: { 
+    nCol: 9 
+    nRow: 4 
+    name: "R:0,0" 
+    serial: -1 
+    Ccd: { 
+        name: "CFHT 0" 
+        serial: 834175 
+        index: 0 3 
+        offset: -114.399000 99.461250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 1" 
+        serial: 835234 
+        index: 1 3 
+        offset: -85.806000 99.474750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 2" 
+        serial: 8352153 
+        index: 2 3 
+        offset: -57.240000 99.488250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 3" 
+        serial: 8261144 
+        index: 3 3 
+        offset: -28.687500 99.501750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 4" 
+        serial: 8341174 
+        index: 4 3 
+        offset: -0.054000 99.501750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 5" 
+        serial: 8351205 
+        index: 5 3 
+        offset: 28.431000 99.488250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 6" 
+        serial: 8351133 
+        index: 6 3 
+        offset: 57.078000 99.461250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 7" 
+        serial: 835163 
+        index: 7 3 
+        offset: 85.657500 99.434250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 8" 
+        serial: 8261133 
+        index: 8 3 
+        offset: 114.250500 99.447750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 9" 
+        serial: 917213 
+        index: 0 2 
+        offset: -114.385500 31.515750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 10" 
+        serial: 835244 
+        index: 1 2 
+        offset: -85.792500 31.502250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 11" 
+        serial: 8352155 
+        index: 2 2 
+        offset: -57.240000 31.488750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 12" 
+        serial: 8351204 
+        index: 3 2 
+        offset: -28.660500 31.529250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 13" 
+        serial: 8351173 
+        index: 4 2 
+        offset: -0.081000 31.542750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 14" 
+        serial: 8434135 
+        index: 5 2 
+        offset: 28.498500 31.488750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 15" 
+        serial: 8341173 
+        index: 6 2 
+        offset: 57.091500 31.488750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 16" 
+        serial: 8351114 
+        index: 7 2 
+        offset: 85.644000 31.542750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 17" 
+        serial: 7432193 
+        index: 8 2 
+        offset: 114.250500 31.394250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 18" 
+        serial: 917243 
+        index: 0 1 
+        offset: -114.385500 -31.475250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 19" 
+        serial: 8341165 
+        index: 1 1 
+        offset: -85.806000 -31.448250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 20" 
+        serial: 8352134 
+        index: 2 1 
+        offset: -57.240000 -31.461750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 21" 
+        serial: 8374175 
+        index: 3 1 
+        offset: -28.647000 -31.448250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 22" 
+        serial: 8351115 
+        index: 4 1 
+        offset: -0.081000 -31.461750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 23" 
+        serial: 835164 
+        index: 5 1 
+        offset: 28.566000 -31.421250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 24" 
+        serial: 8351185 
+        index: 6 1 
+        offset: 57.078000 -31.434750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 25" 
+        serial: 8352185 
+        index: 7 1 
+        offset: 85.671000 -31.380750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 26" 
+        serial: 835173 
+        index: 8 1 
+        offset: 114.196500 -31.475250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 27" 
+        serial: 8261165 
+        index: 0 0 
+        offset: -114.291000 -99.501750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 28" 
+        serial: 743233 
+        index: 1 0 
+        offset: -85.819500 -99.353250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 29" 
+        serial: 8351164 
+        index: 2 0 
+        offset: -57.213000 -99.366750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 30" 
+        serial: 8261195 
+        index: 3 0 
+        offset: -28.606500 -99.434250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 31" 
+        serial: 835183 
+        index: 4 0 
+        offset: -0.054000 -99.407250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 32" 
+        serial: 8352104 
+        index: 5 0 
+        offset: 28.525500 -99.420750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 33" 
+        serial: 8352154 
+        index: 6 0 
+        offset: 57.118500 -99.366750 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 34" 
+        serial: 826173 
+        index: 7 0 
+        offset: 85.684500 -99.380250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+    Ccd: { 
+        name: "CFHT 35" 
+        serial: 8261143 
+        index: 8 0 
+        offset: 114.169500 -99.515250 
+        nQuarter: 0 
+        orientation: 0.000000 0.000000 0.000000 
+    } 
+} 
+Electronic: { 
+    Raft: { 
+        name: "R:0,0" 
+        serial: -1 
+        Ccd: { 
+            name: "CFHT 0" 
+            serial: 834175 
+            Amp: { 
+                index: 0 0 
+                gain: 1.540 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.630 
+                readNoise: 6.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 1" 
+            serial: 835234 
+            Amp: { 
+                index: 0 0 
+                gain: 1.600 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.630 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 2" 
+            serial: 8352153 
+            Amp: { 
+                index: 0 0 
+                gain: 1.570 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.670 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 3" 
+            serial: 8261144 
+            Amp: { 
+                index: 0 0 
+                gain: 1.580 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.680 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 4" 
+            serial: 8341174 
+            Amp: { 
+                index: 0 0 
+                gain: 1.520 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.610 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 5" 
+            serial: 8351205 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.660 
+                readNoise: 6.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 6" 
+            serial: 8351133 
+            Amp: { 
+                index: 0 0 
+                gain: 1.540 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.710 
+                readNoise: 7.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 7" 
+            serial: 835163 
+            Amp: { 
+                index: 0 0 
+                gain: 1.530 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.610 
+                readNoise: 6.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 8" 
+            serial: 8261133 
+            Amp: { 
+                index: 0 0 
+                gain: 1.770 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.680 
+                readNoise: 7.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 9" 
+            serial: 917213 
+            Amp: { 
+                index: 0 0 
+                gain: 1.610 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.760 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 10" 
+            serial: 835244 
+            Amp: { 
+                index: 0 0 
+                gain: 1.580 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.710 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 11" 
+            serial: 8352155 
+            Amp: { 
+                index: 0 0 
+                gain: 1.630 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 6.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 12" 
+            serial: 8351204 
+            Amp: { 
+                index: 0 0 
+                gain: 1.660 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.740 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 13" 
+            serial: 8351173 
+            Amp: { 
+                index: 0 0 
+                gain: 1.660 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 14" 
+            serial: 8434135 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.740 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 15" 
+            serial: 8341173 
+            Amp: { 
+                index: 0 0 
+                gain: 1.490 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.630 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 16" 
+            serial: 8351114 
+            Amp: { 
+                index: 0 0 
+                gain: 1.640 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 17" 
+            serial: 7432193 
+            Amp: { 
+                index: 0 0 
+                gain: 1.880 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 2.070 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 18" 
+            serial: 917243 
+            Amp: { 
+                index: 0 0 
+                gain: 1.640 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.660 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 19" 
+            serial: 8341165 
+            Amp: { 
+                index: 0 0 
+                gain: 1.570 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.590 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 20" 
+            serial: 8352134 
+            Amp: { 
+                index: 0 0 
+                gain: 1.660 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.730 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 21" 
+            serial: 8374175 
+            Amp: { 
+                index: 0 0 
+                gain: 1.540 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.560 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 22" 
+            serial: 8351115 
+            Amp: { 
+                index: 0 0 
+                gain: 1.640 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.650 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 23" 
+            serial: 835164 
+            Amp: { 
+                index: 0 0 
+                gain: 1.560 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.580 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 24" 
+            serial: 8351185 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.690 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 25" 
+            serial: 8352185 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 26" 
+            serial: 835173 
+            Amp: { 
+                index: 0 0 
+                gain: 1.590 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.590 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 27" 
+            serial: 8261165 
+            Amp: { 
+                index: 0 0 
+                gain: 1.670 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.760 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 28" 
+            serial: 743233 
+            Amp: { 
+                index: 0 0 
+                gain: 1.630 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.640 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 29" 
+            serial: 8351164 
+            Amp: { 
+                index: 0 0 
+                gain: 1.810 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.850 
+                readNoise: 7.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 30" 
+            serial: 8261195 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.720 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 31" 
+            serial: 835183 
+            Amp: { 
+                index: 0 0 
+                gain: 1.650 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.740 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 32" 
+            serial: 8352104 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.620 
+                readNoise: 5.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 33" 
+            serial: 8352154 
+            Amp: { 
+                index: 0 0 
+                gain: 1.550 
+                readNoise: 3.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.580 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 34" 
+            serial: 826173 
+            Amp: { 
+                index: 0 0 
+                gain: 1.640 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.660 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 35" 
+            serial: 8261143 
+            Amp: { 
+                index: 0 0 
+                gain: 1.620 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+            Amp: { 
+                index: 1 0 
+                gain: 1.550 
+                readNoise: 4.000 
+                saturationLevel: 65535.000 
+            } 
+        } 
+    } 
+} 
+Camera: { 
+    name: "CFHT MegaCam 2003B.mask.0.36.00.n.fits" 
+    Raft: { 
+        name: "R:0,0" 
+        Ccd: { 
+            name: "CFHT 0" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 962 
+                x1: 4643 
+                y1: 962 
+            } 
+            Defect: { 
+                x0: 252 
+                y0: 1994 
+                x1: 4643 
+                y1: 1994 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1577 
+                x1: 4643 
+                y1: 1578 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1627 
+                x1: 4643 
+                y1: 1627 
+            } 
+            Defect: { 
+                x0: 1140 
+                y0: 1527 
+                x1: 4643 
+                y1: 1527 
+            } 
+            Defect: { 
+                x0: 702 
+                y0: 1426 
+                x1: 4643 
+                y1: 1427 
+            } 
+            Defect: { 
+                x0: 2300 
+                y0: 857 
+                x1: 4643 
+                y1: 857 
+            } 
+            Defect: { 
+                x0: 2797 
+                y0: 845 
+                x1: 4643 
+                y1: 846 
+            } 
+            Defect: { 
+                x0: 3844 
+                y0: 1767 
+                x1: 4643 
+                y1: 1767 
+            } 
+            Defect: { 
+                x0: 3804 
+                y0: 1366 
+                x1: 4643 
+                y1: 1366 
+            } 
+            Defect: { 
+                x0: 4229 
+                y0: 1872 
+                x1: 4643 
+                y1: 1872 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1317 
+                x1: 4643 
+                y1: 1317 
+            } 
+            Defect: { 
+                x0: 2328 
+                y0: 856 
+                x1: 2383 
+                y1: 858 
+            } 
+            Defect: { 
+                x0: 2797 
+                y0: 844 
+                x1: 2864 
+                y1: 847 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 1" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 555 
+                y0: 924 
+                x1: 4643 
+                y1: 925 
+            } 
+            Defect: { 
+                x0: 1649 
+                y0: 880 
+                x1: 4643 
+                y1: 880 
+            } 
+            Defect: { 
+                x0: 3526 
+                y0: 820 
+                x1: 4643 
+                y1: 820 
+            } 
+            Defect: { 
+                x0: 3979 
+                y0: 88 
+                x1: 4643 
+                y1: 88 
+            } 
+            Defect: { 
+                x0: 626 
+                y0: 1687 
+                x1: 726 
+                y1: 1687 
+            } 
+            Defect: { 
+                x0: 835 
+                y0: 871 
+                x1: 935 
+                y1: 871 
+            } 
+            Defect: { 
+                x0: 2922 
+                y0: 1026 
+                x1: 3022 
+                y1: 1026 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 2" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 2942 
+                y0: 154 
+                x1: 4643 
+                y1: 155 
+            } 
+            Defect: { 
+                x0: 1697 
+                y0: 358 
+                x1: 4643 
+                y1: 361 
+            } 
+            Defect: { 
+                x0: 3396 
+                y0: 960 
+                x1: 3406 
+                y1: 968 
+            } 
+            Defect: { 
+                x0: 4278 
+                y0: 110 
+                x1: 4285 
+                y1: 114 
+            } 
+            Defect: { 
+                x0: 4427 
+                y0: 77 
+                x1: 4441 
+                y1: 78 
+            } 
+            Defect: { 
+                x0: 4362 
+                y0: 1524 
+                x1: 4366 
+                y1: 1527 
+            } 
+            Defect: { 
+                x0: 1104 
+                y0: 1407 
+                x1: 1105 
+                y1: 1409 
+            } 
+            Defect: { 
+                x0: 1145 
+                y0: 1424 
+                x1: 1146 
+                y1: 1425 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 3" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 4" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 4487 
+                y0: 925 
+                x1: 4643 
+                y1: 925 
+            } 
+            Defect: { 
+                x0: 4099 
+                y0: 1416 
+                x1: 4643 
+                y1: 1417 
+            } 
+            Defect: { 
+                x0: 4141 
+                y0: 1471 
+                x1: 4643 
+                y1: 1471 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 472 
+                x1: 4643 
+                y1: 472 
+            } 
+            Defect: { 
+                x0: 4419 
+                y0: 1710 
+                x1: 4519 
+                y1: 1710 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 5" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 3872 
+                y0: 639 
+                x1: 4643 
+                y1: 639 
+            } 
+            Defect: { 
+                x0: 3672 
+                y0: 638 
+                x1: 3871 
+                y1: 640 
+            } 
+            Defect: { 
+                x0: 3504 
+                y0: 1671 
+                x1: 3515 
+                y1: 1675 
+            } 
+            Defect: { 
+                x0: 3504 
+                y0: 1670 
+                x1: 3604 
+                y1: 1671 
+            } 
+            Defect: { 
+                x0: 4003 
+                y0: 296 
+                x1: 4103 
+                y1: 296 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 6" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1164 
+                x1: 4643 
+                y1: 1164 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1174 
+                x1: 4643 
+                y1: 1174 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 7" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 2578 
+                y0: 36 
+                x1: 4643 
+                y1: 39 
+            } 
+            Defect: { 
+                x0: 425 
+                y0: 490 
+                x1: 4643 
+                y1: 490 
+            } 
+            Defect: { 
+                x0: 3007 
+                y0: 666 
+                x1: 4643 
+                y1: 666 
+            } 
+            Defect: { 
+                x0: 3898 
+                y0: 86 
+                x1: 4643 
+                y1: 86 
+            } 
+            Defect: { 
+                x0: 4537 
+                y0: 1508 
+                x1: 4540 
+                y1: 1509 
+            } 
+            Defect: { 
+                x0: 4201 
+                y0: 1527 
+                x1: 4205 
+                y1: 1528 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 8" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 2537 
+                y0: 556 
+                x1: 4643 
+                y1: 557 
+            } 
+            Defect: { 
+                x0: 3605 
+                y0: 1325 
+                x1: 4643 
+                y1: 1326 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1746 
+                x1: 4643 
+                y1: 1746 
+            } 
+            Defect: { 
+                x0: 949 
+                y0: 1739 
+                x1: 4643 
+                y1: 1748 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1360 
+                x1: 4643 
+                y1: 1360 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 138 
+                x1: 4643 
+                y1: 139 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 184 
+                x1: 4643 
+                y1: 185 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 187 
+                x1: 4643 
+                y1: 187 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 189 
+                x1: 4643 
+                y1: 189 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1338 
+                x1: 4643 
+                y1: 1339 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1388 
+                x1: 4643 
+                y1: 1388 
+            } 
+            Defect: { 
+                x0: 3793 
+                y0: 991 
+                x1: 3793 
+                y1: 991 
+            } 
+            Defect: { 
+                x0: 3821 
+                y0: 1086 
+                x1: 3822 
+                y1: 1086 
+            } 
+            Defect: { 
+                x0: 315 
+                y0: 1744 
+                x1: 515 
+                y1: 1745 
+            } 
+            Defect: { 
+                x0: 738 
+                y0: 324 
+                x1: 838 
+                y1: 324 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 9" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 422 
+                x1: 4643 
+                y1: 429 
+            } 
+            Defect: { 
+                x0: 2259 
+                y0: 291 
+                x1: 2263 
+                y1: 294 
+            } 
+            Defect: { 
+                x0: 2529 
+                y0: 1073 
+                x1: 2534 
+                y1: 1077 
+            } 
+            Defect: { 
+                x0: 2921 
+                y0: 243 
+                x1: 2926 
+                y1: 245 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 10" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 2712 
+                y0: 1657 
+                x1: 4643 
+                y1: 1657 
+            } 
+            Defect: { 
+                x0: 2981 
+                y0: 497 
+                x1: 3081 
+                y1: 497 
+            } 
+            Defect: { 
+                x0: 4248 
+                y0: 1813 
+                x1: 4259 
+                y1: 1821 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 11" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 1322 
+                y0: 330 
+                x1: 4643 
+                y1: 332 
+            } 
+            Defect: { 
+                x0: 4433 
+                y0: 551 
+                x1: 4441 
+                y1: 558 
+            } 
+            Defect: { 
+                x0: 95 
+                y0: 1525 
+                x1: 97 
+                y1: 1527 
+            } 
+            Defect: { 
+                x0: 1314 
+                y0: 1881 
+                x1: 1316 
+                y1: 1885 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 313 
+                x1: 4643 
+                y1: 314 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 264 
+                x1: 4643 
+                y1: 264 
+            } 
+            Defect: { 
+                x0: 1987 
+                y0: 1079 
+                x1: 1987 
+                y1: 1082 
+            } 
+            Defect: { 
+                x0: 2505 
+                y0: 504 
+                x1: 2511 
+                y1: 508 
+            } 
+            Defect: { 
+                x0: 2261 
+                y0: 1121 
+                x1: 2270 
+                y1: 1122 
+            } 
+            Defect: { 
+                x0: 2960 
+                y0: 115 
+                x1: 2969 
+                y1: 115 
+            } 
+            Defect: { 
+                x0: 2586 
+                y0: 1276 
+                x1: 2589 
+                y1: 1278 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 12" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 1406 
+                y0: 1890 
+                x1: 4643 
+                y1: 1891 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1516 
+                x1: 4643 
+                y1: 1516 
+            } 
+            Defect: { 
+                x0: 381 
+                y0: 1371 
+                x1: 383 
+                y1: 1374 
+            } 
+            Defect: { 
+                x0: 852 
+                y0: 632 
+                x1: 854 
+                y1: 633 
+            } 
+            Defect: { 
+                x0: 709 
+                y0: 1341 
+                x1: 809 
+                y1: 1341 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 13" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 417 
+                y0: 1810 
+                x1: 418 
+                y1: 1811 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 14" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 4519 
+                y0: 1992 
+                x1: 4643 
+                y1: 1993 
+            } 
+            Defect: { 
+                x0: 634 
+                y0: 1784 
+                x1: 635 
+                y1: 1786 
+            } 
+            Defect: { 
+                x0: 3134 
+                y0: 1887 
+                x1: 3139 
+                y1: 1891 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 542 
+                x1: 4643 
+                y1: 543 
+            } 
+            Defect: { 
+                x0: 3325 
+                y0: 645 
+                x1: 3329 
+                y1: 649 
+            } 
+            Defect: { 
+                x0: 3810 
+                y0: 682 
+                x1: 3814 
+                y1: 686 
+            } 
+            Defect: { 
+                x0: 1248 
+                y0: 1550 
+                x1: 1252 
+                y1: 1554 
+            } 
+            Defect: { 
+                x0: 1541 
+                y0: 1864 
+                x1: 1545 
+                y1: 1867 
+            } 
+            Defect: { 
+                x0: 2063 
+                y0: 802 
+                x1: 2066 
+                y1: 805 
+            } 
+            Defect: { 
+                x0: 2250 
+                y0: 908 
+                x1: 2256 
+                y1: 911 
+            } 
+            Defect: { 
+                x0: 2160 
+                y0: 1717 
+                x1: 2166 
+                y1: 1720 
+            } 
+            Defect: { 
+                x0: 2932 
+                y0: 645 
+                x1: 2997 
+                y1: 648 
+            } 
+            Defect: { 
+                x0: 3003 
+                y0: 207 
+                x1: 3008 
+                y1: 210 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 15" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 121 
+                y0: 806 
+                x1: 127 
+                y1: 813 
+            } 
+            Defect: { 
+                x0: 1092 
+                y0: 1495 
+                x1: 1120 
+                y1: 1496 
+            } 
+            Defect: { 
+                x0: 1092 
+                y0: 1496 
+                x1: 4643 
+                y1: 1496 
+            } 
+            Defect: { 
+                x0: 2668 
+                y0: 1148 
+                x1: 2715 
+                y1: 1149 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 16" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 580 
+                y0: 987 
+                x1: 584 
+                y1: 992 
+            } 
+            Defect: { 
+                x0: 1067 
+                y0: 1267 
+                x1: 1069 
+                y1: 1268 
+            } 
+            Defect: { 
+                x0: 1755 
+                y0: 480 
+                x1: 1759 
+                y1: 483 
+            } 
+            Defect: { 
+                x0: 1752 
+                y0: 1079 
+                x1: 1755 
+                y1: 1082 
+            } 
+            Defect: { 
+                x0: 1583 
+                y0: 391 
+                x1: 1587 
+                y1: 392 
+            } 
+            Defect: { 
+                x0: 1900 
+                y0: 934 
+                x1: 1904 
+                y1: 936 
+            } 
+            Defect: { 
+                x0: 1920 
+                y0: 256 
+                x1: 1922 
+                y1: 258 
+            } 
+            Defect: { 
+                x0: 1920 
+                y0: 655 
+                x1: 1922 
+                y1: 656 
+            } 
+            Defect: { 
+                x0: 2011 
+                y0: 125 
+                x1: 2014 
+                y1: 126 
+            } 
+            Defect: { 
+                x0: 2076 
+                y0: 162 
+                x1: 2079 
+                y1: 164 
+            } 
+            Defect: { 
+                x0: 1918 
+                y0: 1575 
+                x1: 1921 
+                y1: 1578 
+            } 
+            Defect: { 
+                x0: 2050 
+                y0: 1834 
+                x1: 2055 
+                y1: 1838 
+            } 
+            Defect: { 
+                x0: 2084 
+                y0: 2016 
+                x1: 2086 
+                y1: 2018 
+            } 
+            Defect: { 
+                x0: 2539 
+                y0: 1510 
+                x1: 2542 
+                y1: 1513 
+            } 
+            Defect: { 
+                x0: 2796 
+                y0: 820 
+                x1: 2801 
+                y1: 823 
+            } 
+            Defect: { 
+                x0: 2601 
+                y0: 1033 
+                x1: 2603 
+                y1: 1035 
+            } 
+            Defect: { 
+                x0: 2594 
+                y0: 1707 
+                x1: 2606 
+                y1: 1712 
+            } 
+            Defect: { 
+                x0: 2600 
+                y0: 1853 
+                x1: 2602 
+                y1: 1857 
+            } 
+            Defect: { 
+                x0: 2737 
+                y0: 2002 
+                x1: 2748 
+                y1: 2008 
+            } 
+            Defect: { 
+                x0: 2982 
+                y0: 1684 
+                x1: 2986 
+                y1: 1687 
+            } 
+            Defect: { 
+                x0: 3154 
+                y0: 1183 
+                x1: 3159 
+                y1: 1186 
+            } 
+            Defect: { 
+                x0: 3250 
+                y0: 1449 
+                x1: 3260 
+                y1: 1456 
+            } 
+            Defect: { 
+                x0: 3301 
+                y0: 1215 
+                x1: 3304 
+                y1: 1217 
+            } 
+            Defect: { 
+                x0: 3442 
+                y0: 1127 
+                x1: 3447 
+                y1: 1130 
+            } 
+            Defect: { 
+                x0: 3496 
+                y0: 1379 
+                x1: 3499 
+                y1: 1382 
+            } 
+            Defect: { 
+                x0: 3572 
+                y0: 1306 
+                x1: 3576 
+                y1: 1309 
+            } 
+            Defect: { 
+                x0: 3472 
+                y0: 1473 
+                x1: 3476 
+                y1: 1475 
+            } 
+            Defect: { 
+                x0: 3545 
+                y0: 1563 
+                x1: 3548 
+                y1: 1566 
+            } 
+            Defect: { 
+                x0: 3492 
+                y0: 1676 
+                x1: 3494 
+                y1: 1679 
+            } 
+            Defect: { 
+                x0: 3474 
+                y0: 1700 
+                x1: 3476 
+                y1: 1703 
+            } 
+            Defect: { 
+                x0: 3497 
+                y0: 1784 
+                x1: 3499 
+                y1: 1787 
+            } 
+            Defect: { 
+                x0: 3369 
+                y0: 1803 
+                x1: 3371 
+                y1: 1804 
+            } 
+            Defect: { 
+                x0: 3392 
+                y0: 2002 
+                x1: 3394 
+                y1: 2004 
+            } 
+            Defect: { 
+                x0: 3665 
+                y0: 1526 
+                x1: 3670 
+                y1: 1530 
+            } 
+            Defect: { 
+                x0: 3678 
+                y0: 1459 
+                x1: 3685 
+                y1: 1463 
+            } 
+            Defect: { 
+                x0: 3794 
+                y0: 1321 
+                x1: 3796 
+                y1: 1323 
+            } 
+            Defect: { 
+                x0: 3724 
+                y0: 1159 
+                x1: 3726 
+                y1: 1161 
+            } 
+            Defect: { 
+                x0: 3876 
+                y0: 1308 
+                x1: 3882 
+                y1: 1312 
+            } 
+            Defect: { 
+                x0: 3875 
+                y0: 1158 
+                x1: 3881 
+                y1: 1163 
+            } 
+            Defect: { 
+                x0: 3834 
+                y0: 967 
+                x1: 3836 
+                y1: 970 
+            } 
+            Defect: { 
+                x0: 3919 
+                y0: 1793 
+                x1: 3923 
+                y1: 1797 
+            } 
+            Defect: { 
+                x0: 4167 
+                y0: 1701 
+                x1: 4170 
+                y1: 1704 
+            } 
+            Defect: { 
+                x0: 4070 
+                y0: 1226 
+                x1: 4073 
+                y1: 1229 
+            } 
+            Defect: { 
+                x0: 4187 
+                y0: 995 
+                x1: 4189 
+                y1: 998 
+            } 
+            Defect: { 
+                x0: 4094 
+                y0: 909 
+                x1: 4098 
+                y1: 911 
+            } 
+            Defect: { 
+                x0: 4086 
+                y0: 1005 
+                x1: 4091 
+                y1: 1007 
+            } 
+            Defect: { 
+                x0: 4073 
+                y0: 1057 
+                x1: 4074 
+                y1: 1057 
+            } 
+            Defect: { 
+                x0: 4124 
+                y0: 624 
+                x1: 4127 
+                y1: 626 
+            } 
+            Defect: { 
+                x0: 4269 
+                y0: 512 
+                x1: 4270 
+                y1: 513 
+            } 
+            Defect: { 
+                x0: 4391 
+                y0: 732 
+                x1: 4394 
+                y1: 734 
+            } 
+            Defect: { 
+                x0: 4486 
+                y0: 605 
+                x1: 4489 
+                y1: 606 
+            } 
+            Defect: { 
+                x0: 4514 
+                y0: 767 
+                x1: 4524 
+                y1: 771 
+            } 
+            Defect: { 
+                x0: 4227 
+                y0: 280 
+                x1: 4232 
+                y1: 283 
+            } 
+            Defect: { 
+                x0: 4215 
+                y0: 139 
+                x1: 4220 
+                y1: 142 
+            } 
+            Defect: { 
+                x0: 4171 
+                y0: 719 
+                x1: 4174 
+                y1: 720 
+            } 
+            Defect: { 
+                x0: 3471 
+                y0: 712 
+                x1: 3474 
+                y1: 714 
+            } 
+            Defect: { 
+                x0: 3622 
+                y0: 349 
+                x1: 3625 
+                y1: 352 
+            } 
+            Defect: { 
+                x0: 3746 
+                y0: 594 
+                x1: 3753 
+                y1: 599 
+            } 
+            Defect: { 
+                x0: 3157 
+                y0: 737 
+                x1: 3162 
+                y1: 742 
+            } 
+            Defect: { 
+                x0: 3185 
+                y0: 255 
+                x1: 3189 
+                y1: 257 
+            } 
+            Defect: { 
+                x0: 3045 
+                y0: 203 
+                x1: 3047 
+                y1: 206 
+            } 
+            Defect: { 
+                x0: 1248 
+                y0: 740 
+                x1: 1250 
+                y1: 743 
+            } 
+            Defect: { 
+                x0: 1289 
+                y0: 514 
+                x1: 1294 
+                y1: 516 
+            } 
+            Defect: { 
+                x0: 977 
+                y0: 172 
+                x1: 978 
+                y1: 172 
+            } 
+            Defect: { 
+                x0: 888 
+                y0: 440 
+                x1: 891 
+                y1: 442 
+            } 
+            Defect: { 
+                x0: 858 
+                y0: 445 
+                x1: 862 
+                y1: 449 
+            } 
+            Defect: { 
+                x0: 1412 
+                y0: 540 
+                x1: 1413 
+                y1: 541 
+            } 
+            Defect: { 
+                x0: 1460 
+                y0: 575 
+                x1: 1461 
+                y1: 576 
+            } 
+            Defect: { 
+                x0: 2588 
+                y0: 504 
+                x1: 2589 
+                y1: 504 
+            } 
+            Defect: { 
+                x0: 3968 
+                y0: 760 
+                x1: 3971 
+                y1: 762 
+            } 
+            Defect: { 
+                x0: 4040 
+                y0: 576 
+                x1: 4045 
+                y1: 578 
+            } 
+            Defect: { 
+                x0: 1394 
+                y0: 247 
+                x1: 1397 
+                y1: 248 
+            } 
+            Defect: { 
+                x0: 1929 
+                y0: 1628 
+                x1: 1931 
+                y1: 1631 
+            } 
+            Defect: { 
+                x0: 4510 
+                y0: 1470 
+                x1: 4643 
+                y1: 1470 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 17" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 3660 
+                y0: 1213 
+                x1: 3687 
+                y1: 1240 
+            } 
+            Defect: { 
+                x0: 3702 
+                y0: 1459 
+                x1: 3710 
+                y1: 1459 
+            } 
+            Defect: { 
+                x0: 3838 
+                y0: 885 
+                x1: 3840 
+                y1: 887 
+            } 
+            Defect: { 
+                x0: 3841 
+                y0: 885 
+                x1: 4643 
+                y1: 885 
+            } 
+            Defect: { 
+                x0: 3702 
+                y0: 1459 
+                x1: 4643 
+                y1: 1459 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 18" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 579 
+                x1: 4643 
+                y1: 579 
+            } 
+            Defect: { 
+                x0: 1122 
+                y0: 1687 
+                x1: 1126 
+                y1: 1690 
+            } 
+            Defect: { 
+                x0: 1378 
+                y0: 730 
+                x1: 1382 
+                y1: 734 
+            } 
+            Defect: { 
+                x0: 4030 
+                y0: 1124 
+                x1: 4035 
+                y1: 1228 
+            } 
+            Defect: { 
+                x0: 3776 
+                y0: 1865 
+                x1: 4643 
+                y1: 1865 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 19" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 211 
+                y0: 2071 
+                x1: 4643 
+                y1: 2071 
+            } 
+            Defect: { 
+                x0: 226 
+                y0: 2070 
+                x1: 266 
+                y1: 2072 
+            } 
+            Defect: { 
+                x0: 2179 
+                y0: 356 
+                x1: 4643 
+                y1: 357 
+            } 
+            Defect: { 
+                x0: 3535 
+                y0: 1466 
+                x1: 4643 
+                y1: 1467 
+            } 
+            Defect: { 
+                x0: 3734 
+                y0: 491 
+                x1: 3741 
+                y1: 501 
+            } 
+            Defect: { 
+                x0: 1482 
+                y0: 1140 
+                x1: 1490 
+                y1: 1145 
+            } 
+            Defect: { 
+                x0: 1569 
+                y0: 1956 
+                x1: 1574 
+                y1: 1961 
+            } 
+            Defect: { 
+                x0: 1643 
+                y0: 1920 
+                x1: 1647 
+                y1: 1923 
+            } 
+            Defect: { 
+                x0: 3042 
+                y0: 2051 
+                x1: 3142 
+                y1: 2051 
+            } 
+            Defect: { 
+                x0: 2686 
+                y0: 2034 
+                x1: 2691 
+                y1: 2038 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 20" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 1335 
+                y0: 1631 
+                x1: 4643 
+                y1: 1631 
+            } 
+            Defect: { 
+                x0: 578 
+                y0: 738 
+                x1: 588 
+                y1: 747 
+            } 
+            Defect: { 
+                x0: 579 
+                y0: 818 
+                x1: 583 
+                y1: 823 
+            } 
+            Defect: { 
+                x0: 647 
+                y0: 276 
+                x1: 650 
+                y1: 279 
+            } 
+            Defect: { 
+                x0: 1421 
+                y0: 1147 
+                x1: 1432 
+                y1: 1150 
+            } 
+            Defect: { 
+                x0: 1368 
+                y0: 591 
+                x1: 1373 
+                y1: 596 
+            } 
+            Defect: { 
+                x0: 1788 
+                y0: 127 
+                x1: 1791 
+                y1: 129 
+            } 
+            Defect: { 
+                x0: 2131 
+                y0: 1207 
+                x1: 2139 
+                y1: 1210 
+            } 
+            Defect: { 
+                x0: 2018 
+                y0: 1111 
+                x1: 2021 
+                y1: 1116 
+            } 
+            Defect: { 
+                x0: 2616 
+                y0: 525 
+                x1: 2618 
+                y1: 530 
+            } 
+            Defect: { 
+                x0: 2561 
+                y0: 2000 
+                x1: 2567 
+                y1: 2003 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 21" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 159 
+                y0: 467 
+                x1: 160 
+                y1: 474 
+            } 
+            Defect: { 
+                x0: 851 
+                y0: 1848 
+                x1: 858 
+                y1: 1853 
+            } 
+            Defect: { 
+                x0: 864 
+                y0: 664 
+                x1: 868 
+                y1: 668 
+            } 
+            Defect: { 
+                x0: 3039 
+                y0: 1385 
+                x1: 3049 
+                y1: 1394 
+            } 
+            Defect: { 
+                x0: 4103 
+                y0: 1688 
+                x1: 4115 
+                y1: 1697 
+            } 
+            Defect: { 
+                x0: 4304 
+                y0: 246 
+                x1: 4309 
+                y1: 249 
+            } 
+            Defect: { 
+                x0: 3947 
+                y0: 1388 
+                x1: 3950 
+                y1: 1391 
+            } 
+            Defect: { 
+                x0: 157 
+                y0: 467 
+                x1: 161 
+                y1: 474 
+            } 
+            Defect: { 
+                x0: 309 
+                y0: 393 
+                x1: 313 
+                y1: 395 
+            } 
+            Defect: { 
+                x0: 862 
+                y0: 661 
+                x1: 870 
+                y1: 669 
+            } 
+            Defect: { 
+                x0: 848 
+                y0: 1848 
+                x1: 859 
+                y1: 1853 
+            } 
+            Defect: { 
+                x0: 3339 
+                y0: 1913 
+                x1: 3344 
+                y1: 1918 
+            } 
+            Defect: { 
+                x0: 3694 
+                y0: 905 
+                x1: 3704 
+                y1: 910 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 22" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 239 
+                y0: 1939 
+                x1: 243 
+                y1: 1942 
+            } 
+            Defect: { 
+                x0: 735 
+                y0: 1485 
+                x1: 4643 
+                y1: 1486 
+            } 
+            Defect: { 
+                x0: 1809 
+                y0: 1412 
+                x1: 1811 
+                y1: 1418 
+            } 
+            Defect: { 
+                x0: 2695 
+                y0: 1894 
+                x1: 2698 
+                y1: 1897 
+            } 
+            Defect: { 
+                x0: 4328 
+                y0: 2008 
+                x1: 4334 
+                y1: 2009 
+            } 
+            Defect: { 
+                x0: 4334 
+                y0: 2008 
+                x1: 4335 
+                y1: 2012 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 23" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 1517 
+                y0: 444 
+                x1: 4643 
+                y1: 445 
+            } 
+            Defect: { 
+                x0: 3185 
+                y0: 1899 
+                x1: 3189 
+                y1: 1907 
+            } 
+            Defect: { 
+                x0: 15 
+                y0: 1451 
+                x1: 20 
+                y1: 1453 
+            } 
+            Defect: { 
+                x0: 488 
+                y0: 254 
+                x1: 489 
+                y1: 263 
+            } 
+            Defect: { 
+                x0: 3184 
+                y0: 1898 
+                x1: 3190 
+                y1: 1907 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 24" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 1690 
+                y0: 581 
+                x1: 4643 
+                y1: 581 
+            } 
+            Defect: { 
+                x0: 1673 
+                y0: 580 
+                x1: 1722 
+                y1: 582 
+            } 
+            Defect: { 
+                x0: 2926 
+                y0: 186 
+                x1: 2929 
+                y1: 188 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 581 
+                x1: 4643 
+                y1: 581 
+            } 
+            Defect: { 
+                x0: 205 
+                y0: 1748 
+                x1: 210 
+                y1: 1752 
+            } 
+            Defect: { 
+                x0: 920 
+                y0: 1537 
+                x1: 922 
+                y1: 1539 
+            } 
+            Defect: { 
+                x0: 1356 
+                y0: 817 
+                x1: 1361 
+                y1: 823 
+            } 
+            Defect: { 
+                x0: 1770 
+                y0: 297 
+                x1: 1776 
+                y1: 300 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1048 
+                x1: 4643 
+                y1: 1048 
+            } 
+            Defect: { 
+                x0: 2925 
+                y0: 186 
+                x1: 2929 
+                y1: 188 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 25" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 1448 
+                y0: 1764 
+                x1: 4643 
+                y1: 1764 
+            } 
+            Defect: { 
+                x0: 196 
+                y0: 1673 
+                x1: 201 
+                y1: 1674 
+            } 
+            Defect: { 
+                x0: 538 
+                y0: 344 
+                x1: 543 
+                y1: 347 
+            } 
+            Defect: { 
+                x0: 840 
+                y0: 263 
+                x1: 841 
+                y1: 263 
+            } 
+            Defect: { 
+                x0: 865 
+                y0: 1923 
+                x1: 866 
+                y1: 1924 
+            } 
+            Defect: { 
+                x0: 1104 
+                y0: 1561 
+                x1: 1106 
+                y1: 1562 
+            } 
+            Defect: { 
+                x0: 1225 
+                y0: 1631 
+                x1: 1229 
+                y1: 1632 
+            } 
+            Defect: { 
+                x0: 1314 
+                y0: 1361 
+                x1: 1318 
+                y1: 1362 
+            } 
+            Defect: { 
+                x0: 1382 
+                y0: 1432 
+                x1: 1385 
+                y1: 1433 
+            } 
+            Defect: { 
+                x0: 1337 
+                y0: 1137 
+                x1: 1360 
+                y1: 1146 
+            } 
+            Defect: { 
+                x0: 2069 
+                y0: 157 
+                x1: 2070 
+                y1: 158 
+            } 
+            Defect: { 
+                x0: 2289 
+                y0: 1116 
+                x1: 2298 
+                y1: 1122 
+            } 
+            Defect: { 
+                x0: 2293 
+                y0: 1117 
+                x1: 2298 
+                y1: 1122 
+            } 
+            Defect: { 
+                x0: 2379 
+                y0: 1271 
+                x1: 2383 
+                y1: 1274 
+            } 
+            Defect: { 
+                x0: 2931 
+                y0: 958 
+                x1: 2933 
+                y1: 959 
+            } 
+            Defect: { 
+                x0: 3453 
+                y0: 1047 
+                x1: 3456 
+                y1: 1049 
+            } 
+            Defect: { 
+                x0: 4335 
+                y0: 1989 
+                x1: 4337 
+                y1: 1990 
+            } 
+            Defect: { 
+                x0: 4556 
+                y0: 367 
+                x1: 4558 
+                y1: 368 
+            } 
+            Defect: { 
+                x0: 2240 
+                y0: 937 
+                x1: 2247 
+                y1: 944 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 26" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 4358 
+                y0: 982 
+                x1: 4643 
+                y1: 985 
+            } 
+            Defect: { 
+                x0: 1167 
+                y0: 106 
+                x1: 4643 
+                y1: 106 
+            } 
+            Defect: { 
+                x0: 1039 
+                y0: 1009 
+                x1: 4643 
+                y1: 1010 
+            } 
+            Defect: { 
+                x0: 1039 
+                y0: 1008 
+                x1: 1055 
+                y1: 1011 
+            } 
+            Defect: { 
+                x0: 1712 
+                y0: 1815 
+                x1: 1860 
+                y1: 1815 
+            } 
+            Defect: { 
+                x0: 4610 
+                y0: 1459 
+                x1: 4610 
+                y1: 1459 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1815 
+                x1: 4643 
+                y1: 1815 
+            } 
+            Defect: { 
+                x0: 256 
+                y0: 1336 
+                x1: 260 
+                y1: 1338 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 27" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 532 
+                y0: 295 
+                x1: 4643 
+                y1: 295 
+            } 
+            Defect: { 
+                x0: 387 
+                y0: 508 
+                x1: 4643 
+                y1: 508 
+            } 
+            Defect: { 
+                x0: 355 
+                y0: 1535 
+                x1: 4643 
+                y1: 1535 
+            } 
+            Defect: { 
+                x0: 516 
+                y0: 1827 
+                x1: 4643 
+                y1: 1829 
+            } 
+            Defect: { 
+                x0: 689 
+                y0: 2038 
+                x1: 4643 
+                y1: 2038 
+            } 
+            Defect: { 
+                x0: 305 
+                y0: 1461 
+                x1: 345 
+                y1: 1461 
+            } 
+            Defect: { 
+                x0: 355 
+                y0: 1534 
+                x1: 447 
+                y1: 1536 
+            } 
+            Defect: { 
+                x0: 689 
+                y0: 2037 
+                x1: 773 
+                y1: 2039 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1090 
+                x1: 4643 
+                y1: 1090 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1377 
+                x1: 4643 
+                y1: 1377 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1327 
+                x1: 4643 
+                y1: 1328 
+            } 
+            Defect: { 
+                x0: 1844 
+                y0: 1037 
+                x1: 1851 
+                y1: 1041 
+            } 
+            Defect: { 
+                x0: 1818 
+                y0: 1029 
+                x1: 1861 
+                y1: 1042 
+            } 
+            Defect: { 
+                x0: 1844 
+                y0: 1021 
+                x1: 1855 
+                y1: 1033 
+            } 
+            Defect: { 
+                x0: 3261 
+                y0: 1060 
+                x1: 3265 
+                y1: 1083 
+            } 
+            Defect: { 
+                x0: 3249 
+                y0: 1076 
+                x1: 3262 
+                y1: 1078 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 28" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 2120 
+                y0: 949 
+                x1: 4643 
+                y1: 987 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 987 
+                x1: 4643 
+                y1: 987 
+            } 
+            Defect: { 
+                x0: 2566 
+                y0: 1984 
+                x1: 2569 
+                y1: 1989 
+            } 
+            Defect: { 
+                x0: 149 
+                y0: 469 
+                x1: 166 
+                y1: 484 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 955 
+                x1: 4643 
+                y1: 955 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 964 
+                x1: 4643 
+                y1: 964 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 981 
+                x1: 4643 
+                y1: 981 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 993 
+                x1: 4643 
+                y1: 993 
+            } 
+            Defect: { 
+                x0: 644 
+                y0: 909 
+                x1: 653 
+                y1: 916 
+            } 
+            Defect: { 
+                x0: 783 
+                y0: 811 
+                x1: 791 
+                y1: 815 
+            } 
+            Defect: { 
+                x0: 1201 
+                y0: 595 
+                x1: 1208 
+                y1: 599 
+            } 
+            Defect: { 
+                x0: 1256 
+                y0: 1211 
+                x1: 1262 
+                y1: 1217 
+            } 
+            Defect: { 
+                x0: 1092 
+                y0: 1365 
+                x1: 1095 
+                y1: 1367 
+            } 
+            Defect: { 
+                x0: 1635 
+                y0: 32 
+                x1: 1680 
+                y1: 38 
+            } 
+            Defect: { 
+                x0: 1950 
+                y0: 1916 
+                x1: 1957 
+                y1: 1920 
+            } 
+            Defect: { 
+                x0: 2171 
+                y0: 2001 
+                x1: 2184 
+                y1: 2011 
+            } 
+            Defect: { 
+                x0: 2003 
+                y0: 1509 
+                x1: 2005 
+                y1: 1511 
+            } 
+            Defect: { 
+                x0: 2054 
+                y0: 1511 
+                x1: 2057 
+                y1: 1513 
+            } 
+            Defect: { 
+                x0: 2324 
+                y0: 583 
+                x1: 2340 
+                y1: 591 
+            } 
+            Defect: { 
+                x0: 2554 
+                y0: 1979 
+                x1: 2572 
+                y1: 1991 
+            } 
+            Defect: { 
+                x0: 3325 
+                y0: 266 
+                x1: 3329 
+                y1: 269 
+            } 
+            Defect: { 
+                x0: 3411 
+                y0: 1971 
+                x1: 3418 
+                y1: 1977 
+            } 
+            Defect: { 
+                x0: 3861 
+                y0: 1269 
+                x1: 3866 
+                y1: 1274 
+            } 
+            Defect: { 
+                x0: 3726 
+                y0: 1107 
+                x1: 3736 
+                y1: 1114 
+            } 
+            Defect: { 
+                x0: 3729 
+                y0: 63 
+                x1: 3739 
+                y1: 68 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 29" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 4022 
+                y0: 884 
+                x1: 4643 
+                y1: 884 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 121 
+                x1: 4643 
+                y1: 121 
+            } 
+            Defect: { 
+                x0: 1915 
+                y0: 279 
+                x1: 1921 
+                y1: 280 
+            } 
+            Defect: { 
+                x0: 1915 
+                y0: 279 
+                x1: 2045 
+                y1: 279 
+            } 
+            Defect: { 
+                x0: 4022 
+                y0: 883 
+                x1: 4643 
+                y1: 885 
+            } 
+            Defect: { 
+                x0: 4200 
+                y0: 503 
+                x1: 4204 
+                y1: 506 
+            } 
+            Defect: { 
+                x0: 834 
+                y0: 1583 
+                x1: 842 
+                y1: 1587 
+            } 
+            Defect: { 
+                x0: 2243 
+                y0: 1840 
+                x1: 4643 
+                y1: 1840 
+            } 
+            Defect: { 
+                x0: 3446 
+                y0: 1936 
+                x1: 3458 
+                y1: 1941 
+            } 
+            Defect: { 
+                x0: 3941 
+                y0: 1976 
+                x1: 3949 
+                y1: 1982 
+            } 
+            Defect: { 
+                x0: 4193 
+                y0: 499 
+                x1: 4206 
+                y1: 508 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 30" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 215 
+                y0: 1902 
+                x1: 4643 
+                y1: 1902 
+            } 
+            Defect: { 
+                x0: 101 
+                y0: 272 
+                x1: 101 
+                y1: 272 
+            } 
+            Defect: { 
+                x0: 383 
+                y0: 311 
+                x1: 383 
+                y1: 311 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2018 
+                x1: 4643 
+                y1: 2018 
+            } 
+            Defect: { 
+                x0: 215 
+                y0: 1901 
+                x1: 355 
+                y1: 1903 
+            } 
+            Defect: { 
+                x0: 1334 
+                y0: 946 
+                x1: 1334 
+                y1: 946 
+            } 
+            Defect: { 
+                x0: 1298 
+                y0: 946 
+                x1: 1298 
+                y1: 946 
+            } 
+            Defect: { 
+                x0: 1241 
+                y0: 946 
+                x1: 1241 
+                y1: 946 
+            } 
+            Defect: { 
+                x0: 1825 
+                y0: 1855 
+                x1: 4643 
+                y1: 1862 
+            } 
+            Defect: { 
+                x0: 3005 
+                y0: 384 
+                x1: 4643 
+                y1: 385 
+            } 
+            Defect: { 
+                x0: 2987 
+                y0: 1011 
+                x1: 4643 
+                y1: 1012 
+            } 
+            Defect: { 
+                x0: 3005 
+                y0: 1228 
+                x1: 3094 
+                y1: 1228 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1321 
+                x1: 4643 
+                y1: 1321 
+            } 
+            Defect: { 
+                x0: 3399 
+                y0: 719 
+                x1: 3960 
+                y1: 719 
+            } 
+            Defect: { 
+                x0: 4153 
+                y0: 569 
+                x1: 4164 
+                y1: 574 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 31" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 2191 
+                y0: 929 
+                x1: 4643 
+                y1: 929 
+            } 
+            Defect: { 
+                x0: 324 
+                y0: 679 
+                x1: 336 
+                y1: 679 
+            } 
+            Defect: { 
+                x0: 2191 
+                y0: 928 
+                x1: 2496 
+                y1: 930 
+            } 
+            Defect: { 
+                x0: 1284 
+                y0: 1732 
+                x1: 1286 
+                y1: 1734 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 32" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 2693 
+                y0: 955 
+                x1: 4643 
+                y1: 956 
+            } 
+            Defect: { 
+                x0: 3478 
+                y0: 1873 
+                x1: 4643 
+                y1: 1873 
+            } 
+            Defect: { 
+                x0: 321 
+                y0: 46 
+                x1: 325 
+                y1: 49 
+            } 
+            Defect: { 
+                x0: 458 
+                y0: 1624 
+                x1: 462 
+                y1: 1624 
+            } 
+            Defect: { 
+                x0: 3372 
+                y0: 569 
+                x1: 3373 
+                y1: 574 
+            } 
+            Defect: { 
+                x0: 319 
+                y0: 44 
+                x1: 326 
+                y1: 50 
+            } 
+            Defect: { 
+                x0: 666 
+                y0: 793 
+                x1: 670 
+                y1: 800 
+            } 
+            Defect: { 
+                x0: 732 
+                y0: 358 
+                x1: 736 
+                y1: 360 
+            } 
+            Defect: { 
+                x0: 2035 
+                y0: 197 
+                x1: 2042 
+                y1: 201 
+            } 
+            Defect: { 
+                x0: 3370 
+                y0: 569 
+                x1: 3374 
+                y1: 575 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 33" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 4055 
+                y0: 173 
+                x1: 4643 
+                y1: 175 
+            } 
+            Defect: { 
+                x0: 2267 
+                y0: 1123 
+                x1: 4643 
+                y1: 1126 
+            } 
+            Defect: { 
+                x0: 1104 
+                y0: 1255 
+                x1: 1106 
+                y1: 1257 
+            } 
+            Defect: { 
+                x0: 1319 
+                y0: 1435 
+                x1: 1325 
+                y1: 1437 
+            } 
+            Defect: { 
+                x0: 1326 
+                y0: 1616 
+                x1: 1330 
+                y1: 1617 
+            } 
+            Defect: { 
+                x0: 2010 
+                y0: 1085 
+                x1: 2014 
+                y1: 1087 
+            } 
+            Defect: { 
+                x0: 2181 
+                y0: 829 
+                x1: 2185 
+                y1: 830 
+            } 
+            Defect: { 
+                x0: 3454 
+                y0: 1076 
+                x1: 3455 
+                y1: 1077 
+            } 
+            Defect: { 
+                x0: 3363 
+                y0: 1989 
+                x1: 3367 
+                y1: 1992 
+            } 
+            Defect: { 
+                x0: 705 
+                y0: 192 
+                x1: 709 
+                y1: 194 
+            } 
+            Defect: { 
+                x0: 1326 
+                y0: 1615 
+                x1: 1330 
+                y1: 1618 
+            } 
+            Defect: { 
+                x0: 1322 
+                y0: 1939 
+                x1: 1324 
+                y1: 1940 
+            } 
+            Defect: { 
+                x0: 1326 
+                y0: 1615 
+                x1: 1330 
+                y1: 1618 
+            } 
+            Defect: { 
+                x0: 1318 
+                y0: 1434 
+                x1: 1326 
+                y1: 1439 
+            } 
+            Defect: { 
+                x0: 1293 
+                y0: 1331 
+                x1: 1297 
+                y1: 1335 
+            } 
+            Defect: { 
+                x0: 1101 
+                y0: 1255 
+                x1: 1107 
+                y1: 1258 
+            } 
+            Defect: { 
+                x0: 1406 
+                y0: 685 
+                x1: 1416 
+                y1: 695 
+            } 
+            Defect: { 
+                x0: 1373 
+                y0: 586 
+                x1: 1377 
+                y1: 588 
+            } 
+            Defect: { 
+                x0: 961 
+                y0: 800 
+                x1: 967 
+                y1: 804 
+            } 
+            Defect: { 
+                x0: 1830 
+                y0: 569 
+                x1: 1834 
+                y1: 571 
+            } 
+            Defect: { 
+                x0: 2008 
+                y0: 1084 
+                x1: 2016 
+                y1: 1088 
+            } 
+            Defect: { 
+                x0: 2178 
+                y0: 827 
+                x1: 2186 
+                y1: 830 
+            } 
+            Defect: { 
+                x0: 2757 
+                y0: 216 
+                x1: 2760 
+                y1: 218 
+            } 
+            Defect: { 
+                x0: 2748 
+                y0: 1304 
+                x1: 2750 
+                y1: 1305 
+            } 
+            Defect: { 
+                x0: 2733 
+                y0: 1457 
+                x1: 2747 
+                y1: 1464 
+            } 
+            Defect: { 
+                x0: 3322 
+                y0: 500 
+                x1: 3328 
+                y1: 502 
+            } 
+            Defect: { 
+                x0: 3452 
+                y0: 1075 
+                x1: 3456 
+                y1: 1078 
+            } 
+            Defect: { 
+                x0: 3614 
+                y0: 1472 
+                x1: 3616 
+                y1: 1474 
+            } 
+            Defect: { 
+                x0: 4000 
+                y0: 376 
+                x1: 4005 
+                y1: 378 
+            } 
+            Defect: { 
+                x0: 4053 
+                y0: 433 
+                x1: 4057 
+                y1: 436 
+            } 
+            Defect: { 
+                x0: 4515 
+                y0: 305 
+                x1: 4522 
+                y1: 312 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 34" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 4108 
+                y0: 379 
+                x1: 4127 
+                y1: 426 
+            } 
+            Defect: { 
+                x0: 2976 
+                y0: 1580 
+                x1: 4643 
+                y1: 1580 
+            } 
+            Defect: { 
+                x0: 2279 
+                y0: 1273 
+                x1: 4643 
+                y1: 1273 
+            } 
+            Defect: { 
+                x0: 1299 
+                y0: 1467 
+                x1: 4643 
+                y1: 1468 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 1468 
+                x1: 4643 
+                y1: 1468 
+            } 
+            Defect: { 
+                x0: 1299 
+                y0: 1466 
+                x1: 1428 
+                y1: 1466 
+            } 
+            Defect: { 
+                x0: 2398 
+                y0: 693 
+                x1: 2413 
+                y1: 709 
+            } 
+            Defect: { 
+                x0: 2278 
+                y0: 1272 
+                x1: 2544 
+                y1: 1274 
+            } 
+            Defect: { 
+                x0: 2976 
+                y0: 1579 
+                x1: 3092 
+                y1: 1581 
+            } 
+            Defect: { 
+                x0: 3019 
+                y0: 1910 
+                x1: 3063 
+                y1: 1947 
+            } 
+            Defect: { 
+                x0: 4488 
+                y0: 1780 
+                x1: 4492 
+                y1: 1783 
+            } 
+            Defect: { 
+                x0: 4103 
+                y0: 411 
+                x1: 4107 
+                y1: 426 
+            } 
+            Defect: { 
+                x0: 1309 
+                y0: 158 
+                x1: 1409 
+                y1: 158 
+            } 
+        } 
+        Ccd: { 
+            name: "CFHT 35" 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 0 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 0 
+                x1: 4643 
+                y1: 31 
+            } 
+            Defect: { 
+                x0: 4611 
+                y0: 0 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 0 
+                y0: 2080 
+                x1: 4643 
+                y1: 2111 
+            } 
+            Defect: { 
+                x0: 2233 
+                y0: 364 
+                x1: 2238 
+                y1: 368 
+            } 
+            Defect: { 
+                x0: 2377 
+                y0: 223 
+                x1: 2383 
+                y1: 230 
+            } 
+        } 
+    } 
+} 
