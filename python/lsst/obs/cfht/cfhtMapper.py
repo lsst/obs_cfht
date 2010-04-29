@@ -379,6 +379,17 @@ class CfhtMapper(Mapper):
 
 ###############################################################################
 
+    def map_src(self, dataId):
+        pathId = self._needFilter(dataId)
+        path = os.path.join(self.root, self.srcTemplate % pathId)
+        ampExposureId = (dataId['visit'] << 8) + dataId['ccd']
+        return ButlerLocation(
+                "lsst.afw.detection.PersistableSourceVector",
+                "PersistableSourceVector",
+                "BoostStorage", path, {"ampExposureId": ampExposureId})
+
+###############################################################################
+
 def stripFits(propertySet):
     for kw in ("SIMPLE", "BITPIX", "EXTEND", "NAXIS", "NAXIS1", "NAXIS2",
             "BSCALE", "BZERO"):
