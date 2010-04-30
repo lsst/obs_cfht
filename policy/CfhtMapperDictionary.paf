@@ -68,7 +68,7 @@ e exposure pathnames."
     }
     srcTemplate: {
         type: string
-        description: "The Python substitution template for the source vectorpathnames."
+        description: "The Python substitution template for the source vector pathnames."
         maxOccurs: 1
         default: "src/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
     }
@@ -105,6 +105,12 @@ e exposure pathnames."
         description: "The pathname to the camera description (in PAF form).  Can be absolute or relative to the repository containing this dictionary."
         maxOccurs: 1
         default: "../megacam/description/Full_Megacam_geom.paf"
+    }
+    defectPath: {
+        type: string
+        description: "The pathname to the directory containing the defect policies and registry.  Relative to the repository containing this dictionary."
+        maxOccurs: 1
+        default: "../megacam/description"
     }
     filterDescription: {
         type: string

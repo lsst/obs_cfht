@@ -1,4 +1,5 @@
 import os
+import pdb
 import re
 import sqlite3
 from lsst.daf.persistence import Mapper, ButlerLocation, LogicalLocation
@@ -99,12 +100,13 @@ class CfhtMapper(Mapper):
 
         self.defectRegistry = None
         if self.policy.exists('defectPath'):
-            self.defectPath = self.policy.getString('defectPath')
+            self.defectPath = os.path.join(
+                    self.repositoryPath, self.policy.getString('defectPath'))
             defectRegistryLocation = os.path.join(
-                    self.repositoryPath, self.defectPath,
-                    "defectRegistry.sqlite3")
+                    self.defectPath, "defectRegistry.sqlite3")
             self.defectRegistry = \
                     butlerUtils.Registry.create(defectRegistryLocation)
+        self.cameras = {}
 
         filterPolicy = pexPolicy.Policy.createPolicy(
                 os.path.join(self.repositoryPath,
@@ -244,16 +246,22 @@ class CfhtMapper(Mapper):
         if len(rows) == 0:
             return None
         assert len(rows) == 1
-        return pexPolicy.Policy.createPolicy(
-                os.path.join(self.defectPath, str(rows[0][0])))
+        return os.path.join(self.defectPath, str(rows[0][0]))
 
     def _cameraWithDefects(self, dataId):
         defectPolicy = self._defectLookup(dataId)
         if defectPolicy is None:
-            return cameraGeomUtils.makeCamera(self.cameraPolicy)
-        cameraPolicy = pexPolicy.Policy(self.cameraPolicy, True)
-        cameraPolicy.set("Defects", defectPolicy)
-        return cameraGeomUtils.makeCamera(cameraPolicy)
+            if not self.cameras.has_key(""):
+                self.cameras[""] = \
+                        cameraGeomUtils.makeCamera(self.cameraPolicy)
+            return self.cameras[""]
+        if not self.cameras.has_key(defectPolicy):
+            cameraPolicy = pexPolicy.Policy(self.cameraPolicy, True)
+            cameraPolicy.set("Defects",
+                    pexPolicy.Policy.createPolicy(defectPolicy).get("Defects"))
+            self.cameras[defectPolicy] = \
+                    cameraGeomUtils.makeCamera(cameraPolicy)
+        return self.cameras[defectPolicy]
 
 
 ###############################################################################
