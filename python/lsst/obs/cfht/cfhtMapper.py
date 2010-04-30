@@ -18,8 +18,9 @@ class CfhtMapper(Mapper):
             self.policy = pexPolicy.Policy()
         defaultFile = pexPolicy.DefaultPolicyFile("obs_cfht",
                 "CfhtMapperDictionary.paf", "policy")
+        self.repositoryPath = defaultFile.getRepositoryPath()
         defaultPolicy = pexPolicy.Policy.createPolicy(defaultFile,
-                defaultFile.getRepositoryPath())
+                self.repositoryPath)
         self.policy.mergeDefaults(defaultPolicy)
 
         self.root = root
@@ -91,14 +92,22 @@ class CfhtMapper(Mapper):
             if self.policy.exists(key):
                 setattr(self, key, self.policy.getString(key))
 
-        self.cameraPolicyLocation = os.path.join(
-                defaultFile.getRepositoryPath(),
+        self.cameraPolicyLocation = os.path.join(self.repositoryPath,
                 self.policy.getString('cameraDescription'))
-        cameraPolicy = cameraGeomUtils.getGeomPolicy(self.cameraPolicyLocation)
-        self.camera = cameraGeomUtils.makeCamera(cameraPolicy)
+        self.cameraPolicy = cameraGeomUtils.getGeomPolicy(
+                self.cameraPolicyLocation)
+
+        self.defectRegistry = None
+        if self.policy.exists('defectPath'):
+            self.defectPath = self.policy.getString('defectPath')
+            defectRegistryLocation = os.path.join(
+                    self.repositoryPath, self.defectPath,
+                    "defectRegistry.sqlite3")
+            self.defectRegistry = \
+                    butlerUtils.Registry.create(defectRegistryLocation)
 
         filterPolicy = pexPolicy.Policy.createPolicy(
-                os.path.join(defaultFile.getRepositoryPath(),
+                os.path.join(self.repositoryPath,
                     self.policy.getString('filterDescription')))
         imageUtils.defineFiltersFromPolicy(filterPolicy, reset=True)
 
@@ -145,14 +154,15 @@ class CfhtMapper(Mapper):
 
     def _setAmpDetector(self, item, dataId):
         ampId = self._extractAmpId(dataId)
+        camera = self._cameraWithDefects(dataId)
         detector = cameraGeomUtils.findAmp(
-                self.camera, afwCameraGeom.Id(ampId[0]), ampId[1], ampId[2])
+                camera, afwCameraGeom.Id(ampId[0]), ampId[1], ampId[2])
         item.setDetector(detector)
 
     def _setCcdDetector(self, item, dataId):
         ccdId = self._extractDetectorName(dataId)
-        detector = cameraGeomUtils.findCcd(
-                self.camera, afwCameraGeom.Id(ccdId))
+        camera = self._cameraWithDefects(dataId)
+        detector = cameraGeomUtils.findCcd(camera, afwCameraGeom.Id(ccdId))
         item.setDetector(detector)
 
     def _setFilter(self, item, dataId):
@@ -217,6 +227,35 @@ class CfhtMapper(Mapper):
             result['run'] = str(rows[0][0])
         return result
 
+    def _defectLookup(self, dataId):
+        if self.defectRegistry is None:
+            return None
+
+        rows = self.registry.executeQuery(("taiObs",), ("raw",),
+                {"visit": "?"}, None, (dataId['visit'],))
+        if len(rows) == 0:
+            return None
+        assert len(rows) == 1
+        taiObs = rows[0][0]
+
+        rows = self.defectRegistry.executeQuery(("path",), ("defect",), None,
+                ("DATETIME(?)", "DATETIME(validStart)", "DATETIME(validEnd)"),
+                (taiObs,))
+        if len(rows) == 0:
+            return None
+        assert len(rows) == 1
+        return pexPolicy.Policy.createPolicy(
+                os.path.join(self.defectPath, str(rows[0][0])))
+
+    def _cameraWithDefects(self, dataId):
+        defectPolicy = self._defectLookup(dataId)
+        if defectPolicy is None:
+            return cameraGeomUtils.makeCamera(self.cameraPolicy)
+        cameraPolicy = pexPolicy.Policy(self.cameraPolicy, True)
+        cameraPolicy.set("Defects", defectPolicy)
+        return cameraGeomUtils.makeCamera(cameraPolicy)
+
+
 ###############################################################################
 
     def map_camera(self, dataId):
@@ -226,6 +265,9 @@ class CfhtMapper(Mapper):
 
     def std_camera(self, item, dataId):
         pol = cameraGeomUtils.getGeomPolicy(item)
+        defectPol = self._defectLookup(dataId)
+        if defectPol is not None:
+            pol.set("Defects", defectPol)
         return cameraGeomUtils.makeCamera(pol)
 
 ###############################################################################
