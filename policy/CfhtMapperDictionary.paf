@@ -39,6 +39,12 @@ definitions: {
         maxOccurs: 1
 	default: "postISR/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
     }
+    satPixelSetTemplate: {
+        type: string
+        description: "The Python substitution template for the saturated pixel set pathnames."
+        maxOccurs: 1
+        default: "postISR/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.satPixelSet"
+    }
     postISRCCDTemplate: {
         type: string
         description: "The Python substitution template for the post-ISR CCD image pathnames."
@@ -47,22 +53,19 @@ definitions: {
     }
     visitimTemplate: {
         type: string
-        description: "The Python substitution template for the CR-removed visit 
-image pathnames."
+        description: "The Python substitution template for the CR-removed visit image pathnames."
         maxOccurs: 1
         default: "visitim/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
     }
     psfTemplate: {
         type: string
-        description: "The Python substitution template for the measured PSF path
-names."
+        description: "The Python substitution template for the measured PSF pathnames."
         maxOccurs: 1
         default: "psf/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
     }
     calexpTemplate: {
         type: string
-        description: "The Python substitution template for the calibrated scienc
-e exposure pathnames."
+        description: "The Python substitution template for the calibrated science exposure pathnames."
         maxOccurs: 1
         default: "calexp/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
     }
@@ -87,13 +90,11 @@ e exposure pathnames."
         type: string
         description: "The pathname to the image registry.  Can be absolute, relative to the root, or relative to the current directory."
         maxOccurs: 1
-        default: "registry.sqlite3"
     }
     calibRegistryPath: {
         type: string
         description: "The pathname to the calibration registry.  Can be absolute, relative to the root, or relative to the current directory."
         maxOccurs: 1
-        default: "calibRegistry.sqlite3"
     }
     skypixPolicy: {
         type: policy

@@ -1,18 +1,19 @@
 import os
-import pdb
 import re
-import sqlite3
 from lsst.daf.persistence import Mapper, ButlerLocation, LogicalLocation
 import lsst.daf.butlerUtils as butlerUtils
 import lsst.afw.image as afwImage
 import lsst.afw.cameraGeom as afwCameraGeom
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
 import lsst.afw.image.utils as imageUtils
+import lsst.pex.logging as pexLog
 import lsst.pex.policy as pexPolicy
 
 class CfhtMapper(Mapper):
     def __init__(self, policy=None, root=".", registry=None, calibRoot=None):
         Mapper.__init__(self)
+
+        self.log = pexLog.Log(pexLog.getDefaultLog(), "CfhtMapper")
 
         self.policy = policy
         if self.policy is None:
@@ -37,61 +38,17 @@ class CfhtMapper(Mapper):
         self.root = LogicalLocation(self.root).locString()
         self.calibRoot = LogicalLocation(self.calibRoot).locString()
 
-        registryPath = registry
-        if registryPath is None and self.policy.exists('registryPath'):
-            registryPath = self.policy.getString('registryPath')
-            if not os.path.exists(registryPath):
-                registryPath = None
-        if registryPath is None:
-            registryPath = os.path.join(self.root, "registry.sqlite3")
-            if not os.path.exists(registryPath):
-                registryPath = None
-        if registryPath is None:
-            registryPath = "registry.sqlite3"
-            if not os.path.exists(registryPath):
-                registryPath = None
-        if registryPath is not None:
-            self.registry = butlerUtils.Registry.create(registryPath)
-
-        # self.keys = self.registry.getFields()
-        self.keys = ["field", "visit", "ccd", "amp", "filter"]
-
-        self.filterMap = {
-            "u.MP9301": "u",
-            "g.MP9401": "g",
-            "r.MP9601": "r",
-            "i.MP9701": "i",
-            "i.MP9702": "i2",
-            "z.MP9801": "z"
-         }
-
-        calibRegistryPath = None
-        if self.policy.exists('calibRegistryPath'):
-            calibRegistryPath = self.policy.getString('calibRegistryPath')
-            if not os.path.exists(calibRegistryPath):
-                calibRegistryPath = None
-        if calibRegistryPath is None:
-            calibRegistryPath = os.path.join(self.calibRoot,
-                    "calibRegistry.sqlite3")
-            if not os.path.exists(calibRegistryPath):
-                calibRegistryPath = None
-        if calibRegistryPath is None:
-            calibRegistryPath = "calibRegistry.sqlite3"
-            if not os.path.exists(calibRegistryPath):
-                calibRegistryPath = None
-        if calibRegistryPath is not None:
-            self.calibRegistry = butlerUtils.Registry.create(calibRegistryPath)
-            # for k in self.calibRegistry.getFields():
-            #     if k not in self.keys:
-            #         self.keys.append(k)
-        self.keys.append(["filter", "expTime"])
-
         for datasetType in ["raw", "bias", "flat", "fringe",
-            "postISR", "postISRCCD", "visitim", "psf", "calexp", "src", "obj"]:
-            # dark
+            "postISR", "satPixelSet", "postISRCCD", "visitim",
+            "psf", "calexp", "src", "obj"]:
             key = datasetType + "Template"
             if self.policy.exists(key):
                 setattr(self, key, self.policy.getString(key))
+
+        self._setupRegistry(registry)
+        self._setupCalibRegistry()
+        self.keys = ["field", "visit", "ccd", "amp", "filter", "skyTile"]
+        self.keys.append(["filter", "expTime"])
 
         self.cameraPolicyLocation = os.path.join(self.repositoryPath,
                 self.policy.getString('cameraDescription'))
@@ -113,6 +70,14 @@ class CfhtMapper(Mapper):
                     self.policy.getString('filterDescription')))
         imageUtils.defineFiltersFromPolicy(filterPolicy, reset=True)
 
+        self.filterMap = {
+            "u.MP9301": "u",
+            "g.MP9401": "g",
+            "r.MP9601": "r",
+            "i.MP9701": "i",
+            "i.MP9702": "i2",
+            "z.MP9801": "z"
+         }
 
     def getKeys(self):
         return self.keys
@@ -122,6 +87,56 @@ class CfhtMapper(Mapper):
 # Utility functions
 #
 ###############################################################################
+
+    def _setupRegistry(self, registry):
+        registryPath = registry
+        if registryPath is None and self.policy.exists('registryPath'):
+            registryPath = self.policy.getString('registryPath')
+            if not os.path.exists(registryPath):
+                registryPath = None
+        if registryPath is None:
+            registryPath = os.path.join(self.root, "registry.sqlite3")
+            if not os.path.exists(registryPath):
+                registryPath = None
+        if registryPath is None:
+            registryPath = "registry.sqlite3"
+            if not os.path.exists(registryPath):
+                registryPath = None
+        if registryPath is not None:
+            self.log.log(pexLog.INFO,
+                    "Registry loaded from %s" % (registryPath,))
+            self.registry = butlerUtils.Registry.create(registryPath)
+        else:
+            # TODO Try a FsRegistry(self.root) for raw (and all outputs?)
+            self.registry = None
+
+    def _setupCalibRegistry(self):
+        calibRegistryPath = None
+        if self.policy.exists('calibRegistryPath'):
+            calibRegistryPath = self.policy.getString('calibRegistryPath')
+            if not os.path.exists(calibRegistryPath):
+                calibRegistryPath = None
+        if calibRegistryPath is None:
+            calibRegistryPath = os.path.join(self.calibRoot,
+                    "calibRegistry.sqlite3")
+            if not os.path.exists(calibRegistryPath):
+                calibRegistryPath = None
+        if calibRegistryPath is None:
+            calibRegistryPath = "calibRegistry.sqlite3"
+            if not os.path.exists(calibRegistryPath):
+                calibRegistryPath = None
+        if calibRegistryPath is not None:
+            self.log.log(pexLog.INFO,
+                    "Calibration registry loaded from %s" %
+                    (calibRegistryPath,))
+            self.calibRegistry = butlerUtils.Registry.create(calibRegistryPath)
+
+            # for k in self.calibRegistry.getFields():
+            #     if k not in self.keys:
+            #         self.keys.append(k)
+        else:
+            # TODO Try a FsRegsitry(self.calibRoot) for all calibration types
+            self.calibRegistry = None
 
     def _needField(self, dataId):
         if dataId.has_key('field'):
@@ -172,6 +187,7 @@ class CfhtMapper(Mapper):
         filterName = None
         if md.exists("FILTER"):
             filterName = item.getMetadata().get("FILTER").strip()
+            # filterName = afwImage.Filter(filterName).getFilterProperty().getName()
             if self.filterMap.has_key(filterName):
                 filterName = self.filterMap[filterName]
         if filterName is None:
@@ -181,13 +197,6 @@ class CfhtMapper(Mapper):
             filterName = str(rows[0][0])
         filter = afwImage.Filter(filterName)
         item.setFilter(filter)
-
-    def _setWcs(self, item):
-        md = item.getMetadata()
-        item.setWcs(afwImage.makeWcs(md))
-        wcsMetadata = exposure.getWcs().getFitsMetadata()
-        for kw in wcsMetadata.paramNames():
-            md.remove(kw)
 
     def _standardizeExposure(self, item, dataId, isAmp=False):
         stripFits(item.getMetadata())
@@ -293,7 +302,7 @@ class CfhtMapper(Mapper):
         for k, v in dataId.iteritems():
             where[k] = '?'
             values.append(v)
-        return self.registry.executeQuery(format, ("raw",),
+        return self.registry.executeQuery(format, ("raw", "raw_skyTile"),
                 where, None, values)
 
     def std_raw(self, item, dataId):
@@ -316,9 +325,6 @@ class CfhtMapper(Mapper):
                 "lsst.afw.image.ExposureF", "ExposureF",
                 "FitsStorage", path, dataId)
 
-    def query_bias(self, key, format, dataId):
-        return self.calibRegistry.queryMetadata("bias", key, format, dataId)
-
     def std_bias(self, item, dataId):
         return self._standardizeCalib(item, dataId, False)
 
@@ -331,9 +337,6 @@ class CfhtMapper(Mapper):
 #         return ButlerLocation(
 #                 "lsst.afw.image.ExposureF", "ExposureF",
 #                 "FitsStorage", path, dataId)
-# 
-#     def query_dark(self, key, format, dataId):
-#         return self.calibRegistry.queryMetadata("dark", key, format, dataId)
 # 
 #     def std_dark(self, item, dataId):
 #         return self._standardizeCalib(item, dataId, False)
@@ -348,9 +351,6 @@ class CfhtMapper(Mapper):
                 "lsst.afw.image.ExposureF", "ExposureF",
                 "FitsStorage", path, dataId)
 
-    def query_flat(self, key, format, dataId):
-        return self.calibRegistry.queryMetadata("flat", key, format, dataId)
-
     def std_flat(self, item, dataId):
         return self._standardizeCalib(item, dataId, True)
 
@@ -363,9 +363,6 @@ class CfhtMapper(Mapper):
         return ButlerLocation(
                 "lsst.afw.image.ExposureF", "ExposureF",
                 "FitsStorage", path, dataId)
-
-    def query_fringe(self, key, format, dataId):
-        return self.calibRegistry.queryMetadata("fringe", key, format, dataId)
 
     def std_fringe(self, item, dataId):
         return self._standardizeCalib(item, dataId, True)
@@ -381,6 +378,13 @@ class CfhtMapper(Mapper):
 
     def std_postISR(self, item, dataId):
         return self._standardizeExposure(item, dataId, True)
+
+###############################################################################
+
+    def map_satPixelSet(self, dataId):
+        pathId = self._needFilter(dataId)
+        path = os.path.join(self.root, self.satPixelSetTemplate % pathId)
+        return ButlerLocation(None, None, "PickleStorage", path, None)
 
 ###############################################################################
 
