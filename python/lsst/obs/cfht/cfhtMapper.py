@@ -33,6 +33,13 @@ class CfhtMapper(Mapper):
             self.calibRoot = self.policy.getString('calibRoot')
         if self.calibRoot is None:
             self.calibRoot = self.root
+            
+        if not os.path.exists(self.root):
+            self.log.log(pexLog.Log.WARN,
+                    "Root directory not found: %s" % (root,))
+        if not os.path.exists(self.calibRoot):
+            self.log.log(pexLog.Log.WARN,
+                    "Calibration root directory not found: %s" % (calibRoot,))
 
         # Do any location map substitutions
         self.root = LogicalLocation(self.root).locString()
@@ -103,7 +110,7 @@ class CfhtMapper(Mapper):
             if not os.path.exists(registryPath):
                 registryPath = None
         if registryPath is not None:
-            self.log.log(pexLog.INFO,
+            self.log.log(pexLog.Log.INFO,
                     "Registry loaded from %s" % (registryPath,))
             self.registry = butlerUtils.Registry.create(registryPath)
         else:
@@ -142,6 +149,10 @@ class CfhtMapper(Mapper):
         if dataId.has_key('field'):
             return dataId
         actualId = dict(dataId)
+        if not dataId.has_key('visit'):
+            raise KeyError, \
+                    "Data id missing visit key, cannot look up field\n" + \
+                    str(dataId)
         rows = self.registry.executeQuery(("field",), ("raw",),
                 {'visit': "?"}, None, (dataId['visit'],))
         assert len(rows) == 1
@@ -152,6 +163,10 @@ class CfhtMapper(Mapper):
         if dataId.has_key('filter'):
             return dataId
         actualId = dict(dataId)
+        if not dataId.has_key('visit'):
+            raise KeyError, \
+                    "Data id missing visit key, cannot look up filter\n" + \
+                    str(dataId)
         rows = self.registry.executeQuery(("filter",), ("raw",),
                 {'visit': "?"}, None, (dataId['visit'],))
         assert len(rows) == 1
