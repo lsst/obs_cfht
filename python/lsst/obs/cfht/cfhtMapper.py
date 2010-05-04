@@ -33,17 +33,17 @@ class CfhtMapper(Mapper):
             self.calibRoot = self.policy.getString('calibRoot')
         if self.calibRoot is None:
             self.calibRoot = self.root
-            
+
+        # Do any location map substitutions
+        self.root = LogicalLocation(self.root).locString()
+        self.calibRoot = LogicalLocation(self.calibRoot).locString()
+
         if not os.path.exists(self.root):
             self.log.log(pexLog.Log.WARN,
                     "Root directory not found: %s" % (root,))
         if not os.path.exists(self.calibRoot):
             self.log.log(pexLog.Log.WARN,
                     "Calibration root directory not found: %s" % (calibRoot,))
-
-        # Do any location map substitutions
-        self.root = LogicalLocation(self.root).locString()
-        self.calibRoot = LogicalLocation(self.calibRoot).locString()
 
         for datasetType in ["raw", "bias", "flat", "fringe",
             "postISR", "satPixelSet", "postISRCCD", "visitim",
@@ -133,7 +133,7 @@ class CfhtMapper(Mapper):
             if not os.path.exists(calibRegistryPath):
                 calibRegistryPath = None
         if calibRegistryPath is not None:
-            self.log.log(pexLog.INFO,
+            self.log.log(pexLog.Log.INFO,
                     "Calibration registry loaded from %s" %
                     (calibRegistryPath,))
             self.calibRegistry = butlerUtils.Registry.create(calibRegistryPath)
@@ -142,7 +142,7 @@ class CfhtMapper(Mapper):
             #     if k not in self.keys:
             #         self.keys.append(k)
         else:
-            # TODO Try a FsRegsitry(self.calibRoot) for all calibration types
+            # TODO Try a FsRegistry(self.calibRoot) for all calibration types
             self.calibRegistry = None
 
     def _needField(self, dataId):
@@ -153,9 +153,14 @@ class CfhtMapper(Mapper):
             raise KeyError, \
                     "Data id missing visit key, cannot look up field\n" + \
                     str(dataId)
+        if not hasattr(self, 'registry') or self.registry is None:
+            raise RuntimeError, "No registry available to find field for visit"
         rows = self.registry.executeQuery(("field",), ("raw",),
                 {'visit': "?"}, None, (dataId['visit'],))
-        assert len(rows) == 1
+        if len(rows) != 1:
+            raise RuntimeError, \
+                    "Unable to find unique field for visit %d: %s" % \
+                    (dataId['visit'], str(rows))
         actualId['field'] = str(rows[0][0])
         return actualId
 
@@ -167,9 +172,14 @@ class CfhtMapper(Mapper):
             raise KeyError, \
                     "Data id missing visit key, cannot look up filter\n" + \
                     str(dataId)
+        if not hasattr(self, 'registry') or self.registry is None:
+            raise RuntimeError, "No registry available to find filter for visit"
         rows = self.registry.executeQuery(("filter",), ("raw",),
                 {'visit': "?"}, None, (dataId['visit'],))
-        assert len(rows) == 1
+        if len(rows) != 1:
+            raise RuntimeError, \
+                    "Unable to find unique filter for visit %d: %s" % \
+                    (dataId['visit'], str(rows))
         actualId['filter'] = str(rows[0][0])
         return actualId
 
@@ -208,7 +218,10 @@ class CfhtMapper(Mapper):
         if filterName is None:
             rows = self.registry.executeQuery(("filter",), ("raw",),
                     {'visit': "?"}, None, (dataId['visit'],))
-            assert len(rows) == 1
+            if len(rows) != 1:
+                raise RuntimeError, \
+                        "Unable to find unique filter for visit %d: %s" % \
+                        (dataId['visit'], str(rows))
             filterName = str(rows[0][0])
         filter = afwImage.Filter(filterName)
         item.setFilter(filter)
@@ -231,11 +244,18 @@ class CfhtMapper(Mapper):
 
     def _calibLookup(self, datasetType, dataId):
         result = dict(dataId)
+        if not hasattr(self, 'registry') or self.registry is None:
+            raise RuntimeError, "No registry available to find filter for visit"
         rows = self.registry.executeQuery(("taiObs","filter"), ("raw",),
                 {"visit": "?"}, None, (dataId['visit'],))
-        assert len(rows) == 1
+        if len(rows) != 1:
+            raise RuntimeError, \
+                    "Unable to find unique taiObs/filter for visit %d: %s" % \
+                    (dataId['visit'], str(rows))
         taiObs, filter = rows[0]
 
+        if not hasattr(self, 'calibRegistry') or self.calibRegistry is None:
+            raise RuntimeError, "No calibration data registry available"
         if datasetType in ("flat", "fringe"):
             rows = self.calibRegistry.executeQuery(("derivedRunId",),
                     (datasetType,), {"filter": "?"},
@@ -249,7 +269,10 @@ class CfhtMapper(Mapper):
         if len(rows) == 0:
             result['run'] = "***NONEXISTENT***"
         else:
-            assert len(rows) == 1
+            if len(rows) != 1:
+                raise RuntimeError, \
+                        "Unable to find unique calibration for visit " + \
+                        "%d (%s): %s" % (dataId['visit'], taiObs, str(rows))
             result['run'] = str(rows[0][0])
         return result
 
