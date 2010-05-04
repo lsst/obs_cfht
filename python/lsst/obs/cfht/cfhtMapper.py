@@ -422,7 +422,7 @@ class CfhtMapper(Mapper):
     def map_satPixelSet(self, dataId):
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.satPixelSetTemplate % pathId)
-        return ButlerLocation(None, None, "PickleStorage", path, None)
+        return ButlerLocation(None, None, "PickleStorage", path, {})
 
 ###############################################################################
 
@@ -474,7 +474,7 @@ class CfhtMapper(Mapper):
     def map_src(self, dataId):
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.srcTemplate % pathId)
-        ampExposureId = (dataId['visit'] << 8) + dataId['ccd']
+        ampExposureId = (dataId['visit'] << 6) + dataId['ccd']
         return ButlerLocation(
                 "lsst.afw.detection.PersistableSourceVector",
                 "PersistableSourceVector",
