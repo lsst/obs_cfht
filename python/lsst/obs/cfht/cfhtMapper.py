@@ -86,6 +86,9 @@ class CfhtMapper(Mapper):
             "z.MP9801": "z"
          }
 
+        self.filterIdMap = {
+                'u': 0, 'g': 1, 'r': 2, 'i': 3, 'z': 4, 'y': 5, 'i2': 5}
+
     def getKeys(self):
         return self.keys
 
@@ -475,10 +478,12 @@ class CfhtMapper(Mapper):
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.srcTemplate % pathId)
         ampExposureId = (dataId['visit'] << 6) + dataId['ccd']
+        filterId = self.filterIdMap[pathId['filter']]
         return ButlerLocation(
                 "lsst.afw.detection.PersistableSourceVector",
                 "PersistableSourceVector",
-                "BoostStorage", path, {"ampExposureId": ampExposureId})
+                "BoostStorage", path,
+                {"ampExposureId": ampExposureId, "filterId": filterId})
 
 ###############################################################################
 
