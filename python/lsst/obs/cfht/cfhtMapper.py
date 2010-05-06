@@ -151,7 +151,7 @@ class CfhtMapper(Mapper):
     def _needField(self, dataId):
         if dataId.has_key('field'):
             return dataId
-        actualId = dict(dataId)
+        actualId = dataId.copy()
         if not dataId.has_key('visit'):
             raise KeyError, \
                     "Data id missing visit key, cannot look up field\n" + \
@@ -186,9 +186,18 @@ class CfhtMapper(Mapper):
         actualId['filter'] = str(rows[0][0])
         return actualId
 
+    def _transformId(self, dataId):
+        actualId = dataId.copy()
+        if actualId.has_key("ccdName"):
+            m = re.search(r'CFHT (\d+)', actualId['ccdName'])
+            actualId['ccd'] = int(m.group(1))
+        if actualId.has_key("ampName"):
+            m = re.search(r'ID(\d+)', actualId['ampName'])
+            actualId['amp'] = int(m.group(1))
+        return actualId
+
     def _mapActualToPath(self, actualId):
-        pathId = dict(actualId)
-        return pathId
+        return actualId
 
     def _extractDetectorName(self, dataId):
         return "CFHT %(ccd)d" % dataId
@@ -246,7 +255,7 @@ class CfhtMapper(Mapper):
         return item
 
     def _calibLookup(self, datasetType, dataId):
-        result = dict(dataId)
+        result = dataId.copy()
         if not hasattr(self, 'registry') or self.registry is None:
             raise RuntimeError, "No registry available to find filter for visit"
         rows = self.registry.executeQuery(("taiObs","filter"), ("raw",),
@@ -317,11 +326,13 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_camera(self, dataId):
+        dataId = self._transformId(dataId)
         return ButlerLocation(
                 "lsst.afw.cameraGeom.Camera", "Camera",
                 "PafStorage", self.cameraPolicyLocation, dataId)
 
     def std_camera(self, item, dataId):
+        dataId = self._transformId(dataId)
         pol = cameraGeomUtils.getGeomPolicy(item)
         defectPol = self._defectLookup(dataId)
         if defectPol is not None:
@@ -331,6 +342,7 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_raw(self, dataId):
+        dataId = self._transformId(dataId)
         pathId = self._needField(self._needFilter(dataId))
         path = os.path.join(self.root, self.rawTemplate % pathId)
         return ButlerLocation(
@@ -338,6 +350,7 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def query_raw(self, key, format, dataId):
+        dataId = self._transformId(dataId)
         where = {}
         values = []
         for k, v in dataId.iteritems():
@@ -347,6 +360,7 @@ class CfhtMapper(Mapper):
                 where, None, values)
 
     def std_raw(self, item, dataId):
+        dataId = self._transformId(dataId)
         exposure = afwImage.makeExposure(
                 afwImage.makeMaskedImage(item.getImage()))
         md = item.getMetadata()
@@ -360,6 +374,7 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_bias(self, dataId):
+        dataId = self._transformId(dataId)
         dataId = self._calibLookup("bias", dataId)
         path = os.path.join(self.calibRoot, self.biasTemplate % dataId)
         return ButlerLocation(
@@ -367,11 +382,13 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def std_bias(self, item, dataId):
+        dataId = self._transformId(dataId)
         return self._standardizeCalib(item, dataId, False)
 
 ###############################################################################
 
 #     def map_dark(self, dataId):
+#         dataId = self._transformId(dataId)
 #         dataId = self._calibLookup("dark", dataId)
 #         pathId = self._mapActualToPath(self._mapIdToActual(dataId))
 #         path = os.path.join(self.calibRoot, self.darkTemplate % pathId)
@@ -380,11 +397,13 @@ class CfhtMapper(Mapper):
 #                 "FitsStorage", path, dataId)
 # 
 #     def std_dark(self, item, dataId):
+#         dataId = self._transformId(dataId)
 #         return self._standardizeCalib(item, dataId, False)
 
 ###############################################################################
 
     def map_flat(self, dataId):
+        dataId = self._transformId(dataId)
         dataId = self._needFilter(dataId)
         dataId = self._calibLookup("flat", dataId)
         path = os.path.join(self.calibRoot, self.flatTemplate % dataId)
@@ -393,11 +412,13 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def std_flat(self, item, dataId):
+        dataId = self._transformId(dataId)
         return self._standardizeCalib(item, dataId, True)
 
 ###############################################################################
 
     def map_fringe(self, dataId):
+        dataId = self._transformId(dataId)
         dataId = self._needFilter(dataId)
         dataId = self._calibLookup("fringe", dataId)
         path = os.path.join(self.calibRoot, self.fringeTemplate % dataId)
@@ -406,11 +427,13 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def std_fringe(self, item, dataId):
+        dataId = self._transformId(dataId)
         return self._standardizeCalib(item, dataId, True)
 
 ###############################################################################
 
     def map_postISR(self, dataId):
+        dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.postISRTemplate % pathId)
         return ButlerLocation(
@@ -418,11 +441,13 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def std_postISR(self, item, dataId):
+        dataId = self._transformId(dataId)
         return self._standardizeExposure(item, dataId, True)
 
 ###############################################################################
 
     def map_satPixelSet(self, dataId):
+        dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.satPixelSetTemplate % pathId)
         return ButlerLocation(None, None, "PickleStorage", path, {})
@@ -430,6 +455,7 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_postISRCCD(self, dataId):
+        dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.postISRCCDTemplate % pathId)
         return ButlerLocation(
@@ -437,11 +463,13 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def std_postISRCCD(self, item, dataId):
+        dataId = self._transformId(dataId)
         return self._standardizeExposure(item, dataId)
 
 ###############################################################################
 
     def map_visitim(self, dataId):
+        dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.visitimTemplate % pathId)
         return ButlerLocation(
@@ -449,11 +477,13 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def std_visitim(self, item, dataId):
+        dataId = self._transformId(dataId)
         return self._standardizeExposure(item, dataId)
 
 ###############################################################################
 
     def map_psf(self, dataId):
+        dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.psfTemplate % pathId)
         return ButlerLocation(
@@ -463,6 +493,7 @@ class CfhtMapper(Mapper):
 ###############################################################################
 
     def map_calexp(self, dataId):
+        dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.calexpTemplate % pathId)
         return ButlerLocation(
@@ -470,11 +501,13 @@ class CfhtMapper(Mapper):
                 "FitsStorage", path, dataId)
 
     def std_calexp(self, item, dataId):
+        dataId = self._transformId(dataId)
         return self._standardizeExposure(item, dataId)
 
 ###############################################################################
 
     def map_src(self, dataId):
+        dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.srcTemplate % pathId)
         ampExposureId = (dataId['visit'] << 6) + dataId['ccd']
