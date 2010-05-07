@@ -46,8 +46,9 @@ class CfhtMapper(Mapper):
                     "Calibration root directory not found: %s" % (calibRoot,))
 
         for datasetType in ["raw", "bias", "flat", "fringe",
-            "postISR", "satPixelSet", "postISRCCD", "visitim",
-            "psf", "calexp", "src", "obj"]:
+            "postISR", "postISRCCD", "visitim", "psf", "calexp", "src",
+            "sourceHist", "badSourceHist", "source", "badSource",
+            "invalidSource", "object", "badObject"]:
             key = datasetType + "Template"
             if self.policy.exists(key):
                 setattr(self, key, self.policy.getString(key))
@@ -447,14 +448,6 @@ class CfhtMapper(Mapper):
 
 ###############################################################################
 
-    def map_satPixelSet(self, dataId):
-        dataId = self._transformId(dataId)
-        pathId = self._needFilter(dataId)
-        path = os.path.join(self.root, self.satPixelSetTemplate % pathId)
-        return ButlerLocation(None, None, "PickleStorage", path, {})
-
-###############################################################################
-
     def map_postISRCCD(self, dataId):
         dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
@@ -518,6 +511,64 @@ class CfhtMapper(Mapper):
                 "PersistableSourceVector",
                 "BoostStorage", path,
                 {"ampExposureId": ampExposureId, "filterId": filterId})
+
+###############################################################################
+
+    def map_sourceHist(self, dataId):
+        dataId = self._transformId(dataId)
+        path = os.path.join(self.root, self.sourceHistTemplate % dataId)
+        return ButlerLocation(
+                "lsst.afw.image.DecoratedImageU",
+                "DecoratedImageU",
+                "FitsStorage", path)
+
+    def map_badSourceHist(self, dataId):
+        dataId = self._transformId(dataId)
+        path = os.path.join(self.root, self.badSourceHistTemplate % dataId)
+        return ButlerLocation(
+                "lsst.afw.image.DecoratedImageU",
+                "DecoratedImageU",
+                "FitsStorage", path)
+
+    def map_source(self, dataId):
+        dataId = self._transformId(dataId)
+        path = os.path.join(self.root, self.sourceTemplate % dataId)
+        return ButlerLocation(
+                "lsst.afw.detection.PersistableSourceVector",
+                "PersistableSourceVector",
+                "BoostStorage", path)
+
+    def map_badSource(self, dataId):
+        dataId = self._transformId(dataId)
+        path = os.path.join(self.root, self.badSourceTemplate % dataId)
+        return ButlerLocation(
+                "lsst.afw.detection.PersistableSourceVector",
+                "PersistableSourceVector",
+                "BoostStorage", path)
+
+    def map_invalidSource(self, dataId):
+        dataId = self._transformId(dataId)
+        path = os.path.join(self.root, self.invalidSourceHistTemplate % dataId)
+        return ButlerLocation(
+                "lsst.afw.detection.PersistableSourceVector",
+                "PersistableSourceVector",
+                "BoostStorage", path)
+
+    def map_object(self, dataId):
+        dataId = self._transformId(dataId)
+        path = os.path.join(self.root, self.objectTemplate % dataId)
+        return ButlerLocation(
+                "lsst.ap.cluster.PersistableSourceClusterVector",
+                "PersistableSourceClusterVector",
+                "BoostStorage", path)
+
+    def map_badObject(self, dataId):
+        dataId = self._transformId(dataId)
+        path = os.path.join(self.root, self.badObjectTemplate % dataId)
+        return ButlerLocation(
+                "lsst.ap.cluster.PersistableSourceClusterVector",
+                "PersistableSourceClusterVector",
+                "BoostStorage", path)
 
 ###############################################################################
 
