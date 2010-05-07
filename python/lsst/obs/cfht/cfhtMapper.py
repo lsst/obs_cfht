@@ -520,7 +520,7 @@ class CfhtMapper(Mapper):
         return ButlerLocation(
                 "lsst.afw.image.DecoratedImageU",
                 "DecoratedImageU",
-                "FitsStorage", path)
+                "FitsStorage", path, {})
 
     def map_badSourceHist(self, dataId):
         dataId = self._transformId(dataId)
@@ -528,7 +528,7 @@ class CfhtMapper(Mapper):
         return ButlerLocation(
                 "lsst.afw.image.DecoratedImageU",
                 "DecoratedImageU",
-                "FitsStorage", path)
+                "FitsStorage", path, {})
 
     def map_source(self, dataId):
         dataId = self._transformId(dataId)
@@ -536,7 +536,7 @@ class CfhtMapper(Mapper):
         return ButlerLocation(
                 "lsst.afw.detection.PersistableSourceVector",
                 "PersistableSourceVector",
-                "BoostStorage", path)
+                "BoostStorage", path, {"skyTileId": dataId['skyTile']})
 
     def map_badSource(self, dataId):
         dataId = self._transformId(dataId)
@@ -544,7 +544,7 @@ class CfhtMapper(Mapper):
         return ButlerLocation(
                 "lsst.afw.detection.PersistableSourceVector",
                 "PersistableSourceVector",
-                "BoostStorage", path)
+                "BoostStorage", path, {"skyTileId": dataId['skyTile']})
 
     def map_invalidSource(self, dataId):
         dataId = self._transformId(dataId)
@@ -552,7 +552,7 @@ class CfhtMapper(Mapper):
         return ButlerLocation(
                 "lsst.afw.detection.PersistableSourceVector",
                 "PersistableSourceVector",
-                "BoostStorage", path)
+                "BoostStorage", path, {"skyTileId": dataId['skyTile']})
 
     def map_object(self, dataId):
         dataId = self._transformId(dataId)
@@ -560,7 +560,7 @@ class CfhtMapper(Mapper):
         return ButlerLocation(
                 "lsst.ap.cluster.PersistableSourceClusterVector",
                 "PersistableSourceClusterVector",
-                "BoostStorage", path)
+                "BoostStorage", path, {"skyTileId": dataId['skyTile']})
 
     def map_badObject(self, dataId):
         dataId = self._transformId(dataId)
@@ -568,7 +568,7 @@ class CfhtMapper(Mapper):
         return ButlerLocation(
                 "lsst.ap.cluster.PersistableSourceClusterVector",
                 "PersistableSourceClusterVector",
-                "BoostStorage", path)
+                "BoostStorage", path, {"skyTileId": dataId['skyTile']})
 
 ###############################################################################
 
