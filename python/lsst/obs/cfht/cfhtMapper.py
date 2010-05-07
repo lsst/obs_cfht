@@ -59,8 +59,8 @@ class CfhtMapper(Mapper):
 
         self.cameraPolicyLocation = os.path.join(self.repositoryPath,
                 self.policy.getString('cameraDescription'))
-        self.cameraPolicy = cameraGeomUtils.getGeomPolicy(
-                self.cameraPolicyLocation)
+        cameraPolicy = cameraGeomUtils.getGeomPolicy(self.cameraPolicyLocation)
+        self.camera = cameraGeomUtils.makeCamera(cameraPolicy)
 
         self.defectRegistry = None
         if self.policy.exists('defectPath'):
@@ -70,7 +70,6 @@ class CfhtMapper(Mapper):
                     self.defectPath, "defectRegistry.sqlite3")
             self.defectRegistry = \
                     butlerUtils.Registry.create(defectRegistryLocation)
-        self.cameras = {}
 
         filterPolicy = pexPolicy.Policy.createPolicy(
                 os.path.join(self.repositoryPath,
@@ -208,15 +207,15 @@ class CfhtMapper(Mapper):
 
     def _setAmpDetector(self, item, dataId):
         ampId = self._extractAmpId(dataId)
-        camera = self._cameraWithDefects(dataId)
         detector = cameraGeomUtils.findAmp(
-                camera, afwCameraGeom.Id(ampId[0]), ampId[1], ampId[2])
+                self.camera, afwCameraGeom.Id(ampId[0]), ampId[1], ampId[2])
+        self._addDefects(dataId, amp=detector)
         item.setDetector(detector)
 
     def _setCcdDetector(self, item, dataId):
         ccdId = self._extractDetectorName(dataId)
-        camera = self._cameraWithDefects(dataId)
-        detector = cameraGeomUtils.findCcd(camera, afwCameraGeom.Id(ccdId))
+        detector = cameraGeomUtils.findCcd(self.camera, afwCameraGeom.Id(ccdId))
+        self._addDefects(dataId, ccd=detector)
         item.setDetector(detector)
 
     def _setFilter(self, item, dataId):
@@ -288,7 +287,7 @@ class CfhtMapper(Mapper):
             result['run'] = str(rows[0][0])
         return result
 
-    def _defectLookup(self, dataId):
+    def _defectLookup(self, dataId, ccdSerial):
         if self.defectRegistry is None:
             return None
 
@@ -299,28 +298,33 @@ class CfhtMapper(Mapper):
         assert len(rows) == 1
         taiObs = rows[0][0]
 
-        rows = self.defectRegistry.executeQuery(("path",), ("defect",), None,
+        rows = self.defectRegistry.executeQuery(("path",), ("defect",),
+                {"ccdSerial": "?"},
                 ("DATETIME(?)", "DATETIME(validStart)", "DATETIME(validEnd)"),
-                (taiObs,))
+                (ccdSerial, taiObs))
         if len(rows) == 0:
             return None
         assert len(rows) == 1
         return os.path.join(self.defectPath, str(rows[0][0]))
 
-    def _cameraWithDefects(self, dataId):
-        defectPolicy = self._defectLookup(dataId)
-        if defectPolicy is None:
-            if not self.cameras.has_key(""):
-                self.cameras[""] = \
-                        cameraGeomUtils.makeCamera(self.cameraPolicy)
-            return self.cameras[""]
-        if not self.cameras.has_key(defectPolicy):
-            cameraPolicy = pexPolicy.Policy(self.cameraPolicy, True)
-            cameraPolicy.set("Defects",
-                    pexPolicy.Policy.createPolicy(defectPolicy).get("Defects"))
-            self.cameras[defectPolicy] = \
-                    cameraGeomUtils.makeCamera(cameraPolicy)
-        return self.cameras[defectPolicy]
+    def _addDefects(self, dataId, amp=None, ccd=None):
+        if ccd is None:
+            ccd = afwCameraGeom.cast_Ccd(amp.getParent())
+        if len(ccd.getDefects()) > 0:
+            # Assume we have loaded them properly already
+            return
+        defectFits = self._defectLookup(dataId, ccd.getId().getSerial())
+        if defectFits is not None:
+            defectDict = cameraGeomUtils.makeDefectsFromFits(defectFits)
+            ccdDefects = None
+            for k in defectDict.keys():
+                if k == ccd.getId():
+                    ccdDefects = defectDict[k]
+                    break
+            if ccdDefects is None:
+                raise RuntimeError, "No defects for ccd %s in %s" % \
+                        (str(ccd.getId()), defectFits)
+            ccd.setDefects(ccdDefects)
 
 
 ###############################################################################
@@ -334,9 +338,6 @@ class CfhtMapper(Mapper):
     def std_camera(self, item, dataId):
         dataId = self._transformId(dataId)
         pol = cameraGeomUtils.getGeomPolicy(item)
-        defectPol = self._defectLookup(dataId)
-        if defectPol is not None:
-            pol.set("Defects", defectPol)
         return cameraGeomUtils.makeCamera(pol)
 
 ###############################################################################

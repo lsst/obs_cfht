@@ -1,0 +1,12 @@
+#Detrend                     Camera        Validity                 Detrend Image   No.
+#Image Name                  Run ID  Start Time  Stop Time   Filter Type    Version CCDs
+static.mask.0.36.00.fits.gz  N/A     2003-May-23 2003-Sep-17  none  mask    0       36
+2003B.mask.0.36.00.fits.gz   2003B.  2003-Sep-17 2003-Oct-05  none  mask    0       36
+static.mask.0.36.01.fits.gz  N/A     2003-Oct-05 2003-Oct-28  none  mask    1       36
+2003B.mask.0.36.02.fits.gz   2003B.  2003-Oct-28 2003-Nov-02  none  mask    2       36
+static.mask.0.36.02.fits.gz  N/A     2003-Nov-02 2003-Nov-28  none  mask    2       36
+2003B.mask.0.36.01.fits.gz   2003B.  2003-Nov-28 2004-Jan-31  none  mask    1       36
+static.mask.0.36.03.fits.gz  N/A     2004-Jan-31 2004-Aug-05  none  mask    3       36
+2004B.mask.0.36.00.fits.gz   2004B.  2004-Aug-05 2004-Aug-15  none  mask    0       36
+2004B.mask.0.36.01.fits.gz   2004B.  2004-Aug-15 2004-Aug-24  none  mask    1       36
+static.mask.0.36.04.fits.gz  N/A     2004-Aug-24 2008-Feb-17  none  mask    4       36
