@@ -56,7 +56,7 @@ class CfhtMapper(Mapper):
         self._setupRegistry(registry)
         self._setupCalibRegistry()
         self.keys = ["field", "visit", "ccd", "amp", "filter", "skyTile"]
-        self.keys.append(["filter", "expTime"])
+        self.keys += ["filter", "expTime"]
 
         self.cameraPolicyLocation = os.path.join(self.repositoryPath,
                 self.policy.getString('cameraDescription'))
@@ -164,7 +164,7 @@ class CfhtMapper(Mapper):
             raise RuntimeError, \
                     "Unable to find unique field for visit %d: %s" % \
                     (dataId['visit'], str(rows))
-        actualId['field'] = str(rows[0][0])
+        actualId['field'] = rows[0][0]
         return actualId
 
     def _needFilter(self, dataId):
@@ -183,7 +183,7 @@ class CfhtMapper(Mapper):
             raise RuntimeError, \
                     "Unable to find unique filter for visit %d: %s" % \
                     (dataId['visit'], str(rows))
-        actualId['filter'] = str(rows[0][0])
+        actualId['filter'] = rows[0][0]
         return actualId
 
     def _transformId(self, dataId):
@@ -234,7 +234,7 @@ class CfhtMapper(Mapper):
                 raise RuntimeError, \
                         "Unable to find unique filter for visit %d: %s" % \
                         (dataId['visit'], str(rows))
-            filterName = str(rows[0][0])
+            filterName = rows[0][0]
         filter = afwImage.Filter(filterName)
         item.setFilter(filter)
 
@@ -285,7 +285,7 @@ class CfhtMapper(Mapper):
                 raise RuntimeError, \
                         "Unable to find unique calibration for visit " + \
                         "%d (%s): %s" % (dataId['visit'], taiObs, str(rows))
-            result['run'] = str(rows[0][0])
+            result['run'] = rows[0][0]
         return result
 
     def _defectLookup(self, dataId, ccdSerial):
@@ -306,7 +306,7 @@ class CfhtMapper(Mapper):
         if len(rows) == 0:
             return None
         assert len(rows) == 1
-        return os.path.join(self.defectPath, str(rows[0][0]))
+        return os.path.join(self.defectPath, rows[0][0])
 
     def _addDefects(self, dataId, amp=None, ccd=None):
         if ccd is None:
