@@ -1,6 +1,6 @@
 Camera: { 
     name: "CFHT MegaCam 704382o.fits" 
-    serial: 1
+    serial: 1 
     nCol: 1 
     nRow: 1 
     Raft: { 
@@ -56,7 +56,7 @@ Raft: {
         serial: 834175 
         index: 0 3 
         offset: -114.399000 99.461250 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -64,7 +64,7 @@ Raft: {
         serial: 835234 
         index: 1 3 
         offset: -85.806000 99.474750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -72,7 +72,7 @@ Raft: {
         serial: 8352153 
         index: 2 3 
         offset: -57.240000 99.488250 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -80,7 +80,7 @@ Raft: {
         serial: 8261144 
         index: 3 3 
         offset: -28.687500 99.501750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -88,7 +88,7 @@ Raft: {
         serial: 8341174 
         index: 4 3 
         offset: -0.054000 99.501750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -96,7 +96,7 @@ Raft: {
         serial: 8351205 
         index: 5 3 
         offset: 28.431000 99.488250 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -104,7 +104,7 @@ Raft: {
         serial: 8351133 
         index: 6 3 
         offset: 57.078000 99.461250 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -112,7 +112,7 @@ Raft: {
         serial: 835163 
         index: 7 3 
         offset: 85.657500 99.434250 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -120,7 +120,7 @@ Raft: {
         serial: 8261133 
         index: 8 3 
         offset: 114.250500 99.447750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -128,7 +128,7 @@ Raft: {
         serial: 917213 
         index: 0 2 
         offset: -114.385500 31.515750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -136,7 +136,7 @@ Raft: {
         serial: 835244 
         index: 1 2 
         offset: -85.792500 31.502250 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -144,7 +144,7 @@ Raft: {
         serial: 8352155 
         index: 2 2 
         offset: -57.240000 31.488750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -152,7 +152,7 @@ Raft: {
         serial: 8351204 
         index: 3 2 
         offset: -28.660500 31.529250 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -160,7 +160,7 @@ Raft: {
         serial: 8351173 
         index: 4 2 
         offset: -0.081000 31.542750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -168,7 +168,7 @@ Raft: {
         serial: 8434135 
         index: 5 2 
         offset: 28.498500 31.488750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -176,7 +176,7 @@ Raft: {
         serial: 8341173 
         index: 6 2 
         offset: 57.091500 31.488750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -184,7 +184,7 @@ Raft: {
         serial: 8351114 
         index: 7 2 
         offset: 85.644000 31.542750 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
@@ -192,7 +192,7 @@ Raft: {
         serial: 7432193 
         index: 8 2 
         offset: 114.250500 31.394250 
-        nQuarter: 0 
+        nQuarter: 2 
         orientation: 0.000000 0.000000 0.000000 
     } 
     Ccd: { 
