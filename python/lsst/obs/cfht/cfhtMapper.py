@@ -183,7 +183,7 @@ class CfhtMapper(Mapper):
             raise RuntimeError, \
                     "Unable to find unique filter for visit %d: %s" % \
                     (dataId['visit'], str(rows))
-        actualId['filter'] = rows[0][0]
+        actualId['filter'] = str(rows[0][0])
         return actualId
 
     def _transformId(self, dataId):
@@ -234,7 +234,7 @@ class CfhtMapper(Mapper):
                 raise RuntimeError, \
                         "Unable to find unique filter for visit %d: %s" % \
                         (dataId['visit'], str(rows))
-            filterName = rows[0][0]
+            filterName = str(rows[0][0])
         filter = afwImage.Filter(filterName)
         item.setFilter(filter)
 
@@ -306,7 +306,7 @@ class CfhtMapper(Mapper):
         if len(rows) == 0:
             return None
         assert len(rows) == 1
-        return os.path.join(self.defectPath, rows[0][0])
+        return os.path.join(self.defectPath, str(rows[0][0]))
 
     def _addDefects(self, dataId, amp=None, ccd=None):
         if ccd is None:
