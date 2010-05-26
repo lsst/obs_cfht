@@ -11,12 +11,12 @@ Camera: {
     } 
 } 
 Amp: { 
-    height: 4612 
+    height: 4610 
     width: 1024 
     extended: 0 
-    preRows: 0 
+    preRows: 1 
     overclockH: 32 
-    overclockV: 32 
+    overclockV: 33 
 } 
 Ccd: { 
     pixelSize: 0.013500 
