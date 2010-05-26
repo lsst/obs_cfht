@@ -2,6 +2,7 @@ import os
 import re
 from lsst.daf.persistence import Mapper, ButlerLocation, LogicalLocation
 import lsst.daf.butlerUtils as butlerUtils
+import lsst.daf.base as dafBase
 import lsst.afw.image as afwImage
 import lsst.afw.cameraGeom as afwCameraGeom
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
