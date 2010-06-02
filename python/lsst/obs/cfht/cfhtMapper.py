@@ -47,7 +47,7 @@ class CfhtMapper(Mapper):
                     "Calibration root directory not found: %s" % (calibRoot,))
 
         for datasetType in ["raw", "bias", "flat", "fringe",
-            "postISR", "postISRCCD",
+            "postISR", "postISRCCD", "sdqaAmp", "sdqaCcd",
             "icSrc", "visitim", "psf", "calexp", "src",
             "sourceHist", "badSourceHist", "source", "badSource",
             "invalidSource", "object", "badObject"]:
@@ -477,6 +477,33 @@ class CfhtMapper(Mapper):
     def std_postISRCCD(self, item, dataId):
         dataId = self._transformId(dataId)
         return self._standardizeExposure(item, dataId)
+
+###############################################################################
+
+    def map_sdqaAmp(self, dataId):
+        dataId = self._transformId(dataId)
+        pathId = self._needFilter(dataId)
+        path = os.path.join(self.root, self.sdqaAmpTemplate % pathId)
+        ampExposureId = (dataId['visit'] << 7) + (dataId['ccd'] << 1) + \
+                dataId['amp']
+        return ButlerLocation(
+                "lsst.sdqa.PersistableSdqaRatingVector",
+                "PersistableSdqaRatingVector",
+                "BoostStorage", path,
+                {"ampExposureId": ampExposureId})
+
+###############################################################################
+
+    def map_sdqaCcd(self, dataId):
+        dataId = self._transformId(dataId)
+        pathId = self._needFilter(dataId)
+        path = os.path.join(self.root, self.sdqaCcdTemplate % pathId)
+        ccdExposureId = (dataId['visit'] << 6) + dataId['ccd']
+        return ButlerLocation(
+                "lsst.sdqa.PersistableSdqaRatingVector",
+                "PersistableSdqaRatingVector",
+                "BoostStorage", path,
+                {"ccdExposureId": ccdExposureId})
 
 ###############################################################################
 
