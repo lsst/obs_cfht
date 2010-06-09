@@ -20,8 +20,7 @@ class MetadataTestCase(unittest.TestCase):
 
     def testTiles(self):
         """Test sky tiles"""
-        tiles = self.butler.queryMetadata("raw", "skyTile", ("skyTile",))
-        tiles = [x[0] for x in tiles]
+        tiles = self.butler.queryMetadata("raw", "skyTile")
         tiles.sort()
         self.assertEqual(tiles, [
             99757, 99758, 99759, 100477, 100478, 100479, 181384, 181385,
@@ -48,7 +47,6 @@ class MetadataTestCase(unittest.TestCase):
     def testVisits(self):
         """Test visits"""
         visits = self.butler.queryMetadata("raw", "visit", ("visit",), {})
-        visits = [x[0] for x in visits]
         visits.sort()
         self.assertEqual(visits, [
             787650, 787731, 787784, 787796, 788033, 788052, 788455, 788548,
@@ -60,7 +58,7 @@ class MetadataTestCase(unittest.TestCase):
         """Test filters"""
         filter = self.butler.queryMetadata("raw", "visit", ("filter",),
                 visit=792170)
-        self.assertEqual(filter, [(u'i',)])
+        self.assertEqual(filter, ['i'])
 
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
