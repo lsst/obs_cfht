@@ -490,7 +490,7 @@ class CfhtMapper(Mapper):
                 "lsst.sdqa.PersistableSdqaRatingVector",
                 "PersistableSdqaRatingVector",
                 "BoostStorage", path,
-                {"ampExposureId": ampExposureId})
+                {"ampExposureId": ampExposureId, "sdqaRatingScope": "AMP"})
 
 ###############################################################################
 
@@ -503,7 +503,7 @@ class CfhtMapper(Mapper):
                 "lsst.sdqa.PersistableSdqaRatingVector",
                 "PersistableSdqaRatingVector",
                 "BoostStorage", path,
-                {"ccdExposureId": ccdExposureId})
+                {"ccdExposureId": ccdExposureId, "sdqaRatingScope": "CCD"})
 
 ###############################################################################
 
