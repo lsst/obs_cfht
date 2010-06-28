@@ -104,15 +104,25 @@ class CfhtMapper(Mapper):
         registryPath = registry
         if registryPath is None and self.policy.exists('registryPath'):
             registryPath = self.policy.getString('registryPath')
+            registryPath = LogicalLocation(registryPath).locString()
             if not os.path.exists(registryPath):
+                self.log.log(pexLog.Log.WARN,
+                        "Unable to locate registry at registryPath: %s" %
+                        (registryPath,))
                 registryPath = None
         if registryPath is None:
             registryPath = os.path.join(self.root, "registry.sqlite3")
             if not os.path.exists(registryPath):
+                self.log.log(pexLog.Log.WARN,
+                        "Unable to locate registry in root: %s" %
+                        (registryPath,))
                 registryPath = None
         if registryPath is None:
             registryPath = "registry.sqlite3"
             if not os.path.exists(registryPath):
+                self.log.log(pexLog.Log.WARN,
+                        "Unable to locate registry in current dir: %s" %
+                        (registryPath,))
                 registryPath = None
         if registryPath is not None:
             self.log.log(pexLog.Log.INFO,
@@ -120,22 +130,35 @@ class CfhtMapper(Mapper):
             self.registry = butlerUtils.Registry.create(registryPath)
         else:
             # TODO Try a FsRegistry(self.root) for raw (and all outputs?)
+            self.log.log(pexLog.Log.WARN,
+                    "No registry loaded; proceeding without one")
             self.registry = None
 
     def _setupCalibRegistry(self):
         calibRegistryPath = None
         if self.policy.exists('calibRegistryPath'):
             calibRegistryPath = self.policy.getString('calibRegistryPath')
+            calibRegistryPath = LogicalLocation(calibRegistryPath).locString()
             if not os.path.exists(calibRegistryPath):
+                self.log.log(pexLog.Log.WARN,
+                        ("Unable to locate calibRegistry at " +
+                        "calibRegistryPath: %s") %
+                        (calibRegistryPath,))
                 calibRegistryPath = None
         if calibRegistryPath is None:
             calibRegistryPath = os.path.join(self.calibRoot,
                     "calibRegistry.sqlite3")
             if not os.path.exists(calibRegistryPath):
+                self.log.log(pexLog.Log.WARN,
+                        "Unable to locate calibRegistry in calibRoot: %s" %
+                        (calibRegistryPath,))
                 calibRegistryPath = None
         if calibRegistryPath is None:
             calibRegistryPath = "calibRegistry.sqlite3"
             if not os.path.exists(calibRegistryPath):
+                self.log.log(pexLog.Log.WARN,
+                        "Unable to locate calibRegistry in current dir: %s" %
+                        (calibRegistryPath,))
                 calibRegistryPath = None
         if calibRegistryPath is not None:
             self.log.log(pexLog.Log.INFO,
@@ -148,6 +171,8 @@ class CfhtMapper(Mapper):
             #         self.keys.append(k)
         else:
             # TODO Try a FsRegistry(self.calibRoot) for all calibration types
+            self.log.log(pexLog.Log.WARN,
+                    "No calibration registry loaded; proceeding without one")
             self.calibRegistry = None
 
     def _needField(self, dataId):
