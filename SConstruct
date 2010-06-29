@@ -24,7 +24,7 @@ for d in (
     ".",
     # "doc",
     # "examples",
-    # "tests",
+    "tests",
 ):
     if d != ".":
         try:
