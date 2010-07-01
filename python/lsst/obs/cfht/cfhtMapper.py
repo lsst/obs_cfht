@@ -185,7 +185,7 @@ class CfhtMapper(Mapper):
                     str(dataId)
         if not hasattr(self, 'registry') or self.registry is None:
             raise RuntimeError, "No registry available to find field for visit"
-        rows = self.registry.executeQuery(("field",), ("raw",),
+        rows = self.registry.executeQuery(("field",), ("raw_visit",),
                 {'visit': "?"}, None, (dataId['visit'],))
         if len(rows) != 1:
             raise RuntimeError, \
@@ -204,7 +204,7 @@ class CfhtMapper(Mapper):
                     str(dataId)
         if not hasattr(self, 'registry') or self.registry is None:
             raise RuntimeError, "No registry available to find filter for visit"
-        rows = self.registry.executeQuery(("filter",), ("raw",),
+        rows = self.registry.executeQuery(("filter",), ("raw_visit",),
                 {'visit': "?"}, None, (dataId['visit'],))
         if len(rows) != 1:
             raise RuntimeError, \
@@ -255,7 +255,7 @@ class CfhtMapper(Mapper):
             if self.filterMap.has_key(filterName):
                 filterName = self.filterMap[filterName]
         if filterName is None:
-            rows = self.registry.executeQuery(("filter",), ("raw",),
+            rows = self.registry.executeQuery(("filter",), ("raw_visit",),
                     {'visit': "?"}, None, (dataId['visit'],))
             if len(rows) != 1:
                 raise RuntimeError, \
@@ -301,7 +301,7 @@ class CfhtMapper(Mapper):
         result = dataId.copy()
         if not hasattr(self, 'registry') or self.registry is None:
             raise RuntimeError, "No registry available to find filter for visit"
-        rows = self.registry.executeQuery(("taiObs","filter"), ("raw",),
+        rows = self.registry.executeQuery(("taiObs","filter"), ("raw_visit",),
                 {"visit": "?"}, None, (dataId['visit'],))
         if len(rows) != 1:
             raise RuntimeError, \
@@ -335,7 +335,7 @@ class CfhtMapper(Mapper):
         if self.defectRegistry is None:
             return None
 
-        rows = self.registry.executeQuery(("taiObs",), ("raw",),
+        rows = self.registry.executeQuery(("taiObs",), ("raw_visit",),
                 {"visit": "?"}, None, (dataId['visit'],))
         if len(rows) == 0:
             return None
