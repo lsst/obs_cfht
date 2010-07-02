@@ -18,6 +18,8 @@ conn.execute(cmd)
 cmd = "create table raw_skyTile (id integer, skyTile integer"
 cmd += ", unique(id, skyTile), foreign key(id) references raw(id))"
 conn.execute(cmd)
+conn.execute("""create table raw_visit (visit int, field text, filter text,
+        taiObs text, expTime double, unique(visit))""")
 conn.commit()
 
 root = sys.argv[1]
@@ -54,4 +56,6 @@ for fits in glob.glob(os.path.join(root,
                 (id, skyTileId))
 
 conn.commit()
+conn.execute("""insert into raw_visit
+        select distinct visit, field, filter, taiObs, expTime from raw""")
 conn.close()
