@@ -586,9 +586,7 @@ class CfhtMapper(Mapper):
         dataId = self._transformId(dataId)
         pathId = self._needFilter(dataId)
         path = os.path.join(self.root, self.psfTemplate % pathId)
-        return ButlerLocation(
-                "lsst.meas.algorithms.PSF", "PSF",
-                "BoostStorage", path, dataId)
+        return ButlerLocation("lsst.afw.detection.Psf", "Psf", "BoostStorage", path, dataId)
 
 ###############################################################################
 
