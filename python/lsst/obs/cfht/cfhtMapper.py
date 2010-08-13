@@ -110,6 +110,8 @@ class CfhtMapper(Mapper):
             "z.MP9801": "z"
          }
 
+        # Note that i2 is mapped to the same slot for DC3b as LSST y
+        # since CFHT does not have a y band.
         self.filterIdMap = {
                 'u': 0, 'g': 1, 'r': 2, 'i': 3, 'z': 4, 'y': 5, 'i2': 5}
 
