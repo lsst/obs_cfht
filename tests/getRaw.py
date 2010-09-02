@@ -34,7 +34,7 @@ class GetRawTestCase(unittest.TestCase):
 
     def setUp(self):
         self.bf = dafPersist.ButlerFactory(mapper=CfhtMapper(
-            root="./tests/data",calibRoot="./tests/data/calib"))
+            root="./tests/data"))
         self.butler = self.bf.create()
 
     def tearDown(self):

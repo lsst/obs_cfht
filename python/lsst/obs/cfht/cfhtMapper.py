@@ -78,7 +78,6 @@ class CfhtMapper(Mapper):
                 setattr(self, key, self.policy.getString(key))
 
         self._setupRegistry(registry)
-        self._setupCalibRegistry()
         self.keys = ["field", "visit", "ccd", "amp", "filter", "skyTile"]
         self.keys += ["filter", "expTime"]
 
@@ -334,7 +333,9 @@ class CfhtMapper(Mapper):
         taiObs, filter = rows[0]
 
         if not hasattr(self, 'calibRegistry') or self.calibRegistry is None:
-            raise RuntimeError, "No calibration data registry available"
+            self._setupCalibRegistry()
+            if self.calibRegistry is None:
+                raise RuntimeError, "No calibration data registry available"
         if datasetType in ("flat", "fringe"):
             rows = self.calibRegistry.executeQuery(("derivedRunId",),
                     (datasetType,), {"filter": "?"},
