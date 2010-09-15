@@ -1,0 +1,28 @@
+#<?cfg paf policy ?>
+
+cameraDescription: 	"megacam/description/Full_Megacam_geom.paf"
+defectPath: 		"megacam/description/defects"
+filterDescription: 	"megacam/description/MegacamFilters.paf"
+
+rawTemplate: 		"%(field)s/raw/v%(visit)d-f%(filter)s/s00/c%(ccd)02d-a%(amp)d.fits"
+biasTemplate: 		"bias/v%(run)s/c%(ccd)02d-a%(amp)d.fits"
+#darkTemplate: 		"dark/v%(run)s/c%(ccd)02d-a%(amp)d.fits"
+flatTemplate: 		"flat/v%(run)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+fringeTemplate: 	"fringe/v%(run)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+postISRTemplate: 	"postISR/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+postISRCCDTemplate: 	"postISRCCD/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
+sdqaAmpTemplate: 	"sdqaAmp/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.boost"
+sdqaCcdTemplate: 	"sdqaCcd/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
+visitimTemplate: 	"visitim/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
+icSrcTemplate: 		"icSrc/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
+psfTemplate: 		"psf/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
+calexpTemplate: 	"calexp/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
+srcTemplate: 		"src/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
+sourceHistTemplate: 	"results/st%(skyTile)d/sourceHist.fits"
+badSourceHistTemplate: 	"results/st%(skyTile)d/badSourceHist.fits"
+sourceTemplate: 	"results/st%(skyTile)d/source.boost"
+badSourceTemplate: 	"results/st%(skyTile)d/badSource.boost"
+invalidSourceTemplate: 	"results/st%(skyTile)d/invalidSource.boost"
+objectTemplate: 	"results/st%(skyTile)d/object.boost"
+badObjectTemplate: 	"results/st%(skyTile)d/badObject.boost"
+

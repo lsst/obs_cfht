@@ -26,6 +26,7 @@
 import unittest
 import lsst.utils.tests as utilsTests
 
+from lsst.pex.policy import Policy
 import lsst.daf.persistence as dafPersist
 from lsst.obs.cfht import CfhtMapper
 
@@ -33,8 +34,9 @@ class GetFlatTestCase(unittest.TestCase):
     """Testing butler flat image retrieval"""
 
     def setUp(self):
+        policy = Policy.createPolicy("./policy/CfhtMapper.paf")
         self.bf = dafPersist.ButlerFactory(mapper=CfhtMapper(
-            root="./tests/data",calibRoot="./tests/data/calib"))
+            policy=policy,root="./tests/data",calibRoot="./tests/data/calib"))
         self.butler = self.bf.create()
 
     def tearDown(self):
