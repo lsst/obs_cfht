@@ -5,10 +5,25 @@ defectPath: 		"megacam/description/defects"
 filterDescription: 	"megacam/description/MegacamFilters.paf"
 
 rawTemplate: 		"%(field)s/raw/v%(visit)d-f%(filter)s/s00/c%(ccd)02d-a%(amp)d.fits"
-biasTemplate: 		"bias/v%(run)s/c%(ccd)02d-a%(amp)d.fits"
-#darkTemplate: 		"dark/v%(run)s/c%(ccd)02d-a%(amp)d.fits"
-flatTemplate: 		"flat/v%(run)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
-fringeTemplate: 	"fringe/v%(run)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+
+bias: {
+	template: "bias/v%(runId)s/c%(ccd)02d-a%(amp)d.fits"
+	query: "SELECT * FROM bias WHERE DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+}
+dark: {
+	template: "dark/v%(runId)s/c%(ccd)02d-a%(amp)d.fits"
+	query: "SELECT * FROM dark WHERE DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+}
+flat: {
+	template: "flat/v%(runId)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+	query: "SELECT * FROM flat WHERE filter = '%(filter)s' AND DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+}
+fringe: {
+	template: "fringe/v%(runId)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+	query: "SELECT * FROM fringe WHERE filter = '%(filter)s' AND DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+}
+
+
 postISRTemplate: 	"postISR/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
 postISRCCDTemplate: 	"postISRCCD/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
 sdqaAmpTemplate: 	"sdqaAmp/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.boost"
