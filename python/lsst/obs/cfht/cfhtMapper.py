@@ -12,7 +12,7 @@
 # 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the LSST License Statement and 
@@ -22,45 +22,50 @@
 
 import os
 import re
-from lsst.daf.persistence import Mapper, ButlerLocation, LogicalLocation
-import lsst.daf.butlerUtils as butlerUtils
-import lsst.daf.base as dafBase
+import lsst.daf.persistence as dafPersist
 import lsst.afw.image as afwImage
-import lsst.afw.cameraGeom as afwCameraGeom
-import lsst.afw.cameraGeom.utils as cameraGeomUtils
-import lsst.afw.image.utils as imageUtils
-import lsst.pex.logging as pexLog
-import lsst.pex.policy as pexPolicy
 
-from lsst.obs.camera import CameraMapper
+class CfhtMapper(dafPersist.Mapper):
+	def __init__(self, root=".", registry=None, calibRoot=None):
+		dafPersist.Mapper.__init__(self, policy="CfhtMapper.paf", module="obs_cfht", policyDir="policy",
+								   root=root, registry=registry, calibRoot=calibRoot)
+		
+		self.keys = ["field", "visit", "ccd", "amp", "filter", "skyTile"]
+		self.filterMap = {
+			"u.MP9301": "u",
+			"g.MP9401": "g",
+			"r.MP9601": "r",
+			"i.MP9701": "i",
+			"i.MP9702": "i2",
+			"z.MP9801": "z"
+		}
 
-class CfhtMapper(CameraMapper):
-    def __init__(self, policy=None, root=".", registry=None, calibRoot=None):
-        CameraMapper.__init__(self, policy=policy, root=root, registry=registry, calibRoot=calibRoot)
+		# Note that i2 is mapped to the same slot for DC3b as LSST y
+		# since CFHT does not have a y band.
+		self.filterIdMap = {
+				'u': 0, 'g': 1, 'r': 2, 'i': 3, 'z': 4, 'y': 5, 'i2': 5}
 
-        self.filterMap = {
-            "u.MP9301": "u",
-            "g.MP9401": "g",
-            "r.MP9601": "r",
-            "i.MP9701": "i",
-            "i.MP9702": "i2",
-            "z.MP9801": "z"
-        }
+	def _transformId(self, dataId):
+		actualId = dataId.copy()
+		if actualId.has_key("ccdName"):
+			m = re.search(r'CFHT (\d+)', actualId['ccdName'])
+			actualId['ccd'] = int(m.group(1))
+		if actualId.has_key("ampName"):
+			m = re.search(r'ID(\d+)', actualId['ampName'])
+			actualId['amp'] = int(m.group(1))
+		return actualId
 
-        # Note that i2 is mapped to the same slot for DC3b as LSST y
-        # since CFHT does not have a y band.
-        self.filterIdMap = {
-                'u': 0, 'g': 1, 'r': 2, 'i': 3, 'z': 4, 'y': 5, 'i2': 5}
+	def _extractDetectorName(self, dataId):
+		return "CFHT %(ccd)d" % dataId
 
-    def _transformId(self, dataId):
-        actualId = dataId.copy()
-        if actualId.has_key("ccdName"):
-            m = re.search(r'CFHT (\d+)', actualId['ccdName'])
-            actualId['ccd'] = int(m.group(1))
-        if actualId.has_key("ampName"):
-            m = re.search(r'ID(\d+)', actualId['ampName'])
-            actualId['amp'] = int(m.group(1))
-        return actualId
-
-    def _extractDetectorName(self, dataId):
-        return "CFHT %(ccd)d" % dataId
+	def standardize_raw(self, mapping, item, dataId):
+		dataId = self._transformId(dataId)
+		exposure = afwImage.makeExposure(
+			afwImage.makeMaskedImage(item.getImage()))
+		md = item.getMetadata()
+		exposure.setMetadata(md)
+		exposure.setWcs(afwImage.makeWcs(md))
+		wcsMetadata = exposure.getWcs().getFitsMetadata()
+		for kw in wcsMetadata.paramNames():
+			md.remove(kw)
+		return self._standardize(mapping, exposure, dataId)

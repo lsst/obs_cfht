@@ -1,43 +1,167 @@
 #<?cfg paf policy ?>
 
-cameraDescription: 	"megacam/description/Full_Megacam_geom.paf"
-defectPath: 		"megacam/description/defects"
-filterDescription: 	"megacam/description/MegacamFilters.paf"
+camera: 	"../megacam/description/Full_Megacam_geom.paf"
+defects: 	"../megacam/description/defects"
+filters: 	"../megacam/description/MegacamFilters.paf"
 
-rawTemplate: 		"%(field)s/raw/v%(visit)d-f%(filter)s/s00/c%(ccd)02d-a%(amp)d.fits"
-
-bias: {
-	template: "bias/v%(runId)s/c%(ccd)02d-a%(amp)d.fits"
-	query: "SELECT * FROM bias WHERE DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+exposures: {
+	raw: {
+		template:	"%(field)s/raw/v%(visit)d-f%(filter)s/s00/c%(ccd)02d-a%(amp)d.fits"
+		python: 	"lsst.afw.image.DecoratedImageU"
+		cpp: 		"DecoratedImageU"
+		storage: 	"FitsStorage"
+		level:		"Amp"
+		tables:		"raw raw_visit raw_skyTile"
+		standardize:"standardize_raw"
+	}
+	postISR: {
+		template:	"postISR/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+		python:		"lsst.afw.image.ExposureF"
+		cpp:		"ExposureF"
+		storage:	"FitsStorage"
+		level:		"Amp"
+	}
+	postISRCCD: {
+		template:	"postISRCCD/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
+		python:		"lsst.afw.image.ExposureF"
+		cpp:		"ExposureF"
+		storage:	"FitsStorage"
+		level:		"Ccd"
+	}
+	sdqaAmp: {
+		template:  	"sdqaAmp/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.boost"
+		python:		"lsst.sdqa.PersistableSdqaRatingVector"
+		cpp:		"PersistableSdqaRatingVector"
+		storage:	"BoostStorage"
+		level:		"Amp"
+		map:		"map_sdqaAmp"
+	}
+	sdqaCcd: {
+		template:  	"sdqaCcd/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
+		python:		"lsst.sdqa.PersistableSdqaRatingVector"
+		cpp:		"PersistableSdqaRatingVector"
+		storage:	"BoostStorage"
+		level:		"Ccd"
+		map:		"map_sdqaCcd"
+	}
+	visitim: {
+		template:  	"visitim/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
+		python:		"lsst.afw.image.ExposureF"
+		cpp:		"ExposureF"
+		storage:	"FitsStorage"
+		level:		"Ccd"
+	}
+	icSrc: {
+		template:  	"icSrc/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
+		python:		"lsst.afw.detection.PersistableSourceVector"
+		cpp:		"PersistableSourceVector"
+		storage:	"BoostStorage"
+		level:		"Ccd"
+	}
+	psf: {
+		template:  	"psf/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
+		python:		"lsst.afw.detection.Psf"
+		cpp:		"Psf"
+		storage:	"BoostStorage"
+		level:		"Ccd"
+	}
+	calexp: {
+		template:  	"calexp/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
+		python:		"lsst.afw.image.ExposureF"
+		cpp:		"ExposureF"
+		storage:	"FitsStorage"
+		level:		"Ccd"
+	}
+	src: {
+		template:  	"src/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
+		python:		"lsst.afw.detection.PersistableSourceVector"
+		cpp:		"PersistableSourceVector"
+		storage:	"BoostStorage"
+		level:		"Ccd"
+		map:		"map_src"
+	}
+	sourceHist: {
+		template:  	"results/st%(skyTile)d/sourceHist.fits"
+		python:		"lsst.afw.image.DecoratedImageU"
+		cpp:		"DecoratedImageU"
+		storage:	"FitsStorage"
+		level:		"skyTile"
+	}
+	badSourceHist: {
+		template:  	"results/st%(skyTile)d/badSourceHist.fits"
+		python:		"lsst.afw.image.DecoratedImageU"
+		cpp:		"DecoratedImageU"
+		storage:	"FitsStorage"
+		level:		"skyTile"
+	}
+	source: {
+		template:  	"results/st%(skyTile)d/source.boost"
+		python:		"lsst.afw.detection.PersistableSourceVector"
+		cpp:		"PersistableSourceVector"
+		storage:	"BoostStorage"
+		level:		"skyTile"
+	}
+	badSource: {
+		template:  	"results/st%(skyTile)d/badSource.boost"
+		python:		"lsst.afw.detection.PersistableSourceVector"
+		cpp:		"PersistableSourceVector"
+		storage:	"BoostStorage"
+		level:		"skyTile"
+	}
+	invalidSource: {
+		template:  	"results/st%(skyTile)d/invalidSource.boost"
+		python:		"lsst.afw.detection.PersistableSourceVector"
+		cpp:		"PersistableSourceVector"
+		storage:	"BoostStorage"
+		level:		"skyTile"
+	}
+	object: {
+		template:  	"results/st%(skyTile)d/object.boost"
+		python:		"lsst.afw.detection.PersistableSourceClusterVector"
+		cpp:		"PersistableSourceClusterVector"
+		storage:	"BoostStorage"
+		level:		"skyTile"
+	}
+	badObject: {
+		template:  	"results/st%(skyTile)d/badObject.boost"
+		python:		"lsst.afw.detection.PersistableSourceClusterVector"
+		cpp:		"PersistableSourceClusterVector"
+		storage:	"BoostStorage"
+		level:		"skyTile"
+	}
 }
-dark: {
-	template: "dark/v%(runId)s/c%(ccd)02d-a%(amp)d.fits"
-	query: "SELECT * FROM dark WHERE DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
-}
-flat: {
-	template: "flat/v%(runId)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
-	query: "SELECT * FROM flat WHERE filter = '%(filter)s' AND DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
-}
-fringe: {
-	template: "fringe/v%(runId)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
-	query: "SELECT * FROM fringe WHERE filter = '%(filter)s' AND DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
-}
 
-
-postISRTemplate: 	"postISR/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
-postISRCCDTemplate: 	"postISRCCD/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
-sdqaAmpTemplate: 	"sdqaAmp/v%(visit)d-f%(filter)s/c%(ccd)02d-a%(amp)d.boost"
-sdqaCcdTemplate: 	"sdqaCcd/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
-visitimTemplate: 	"visitim/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
-icSrcTemplate: 		"icSrc/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
-psfTemplate: 		"psf/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
-calexpTemplate: 	"calexp/v%(visit)d-f%(filter)s/c%(ccd)02d.fits"
-srcTemplate: 		"src/v%(visit)d-f%(filter)s/c%(ccd)02d.boost"
-sourceHistTemplate: 	"results/st%(skyTile)d/sourceHist.fits"
-badSourceHistTemplate: 	"results/st%(skyTile)d/badSourceHist.fits"
-sourceTemplate: 	"results/st%(skyTile)d/source.boost"
-badSourceTemplate: 	"results/st%(skyTile)d/badSource.boost"
-invalidSourceTemplate: 	"results/st%(skyTile)d/invalidSource.boost"
-objectTemplate: 	"results/st%(skyTile)d/object.boost"
-badObjectTemplate: 	"results/st%(skyTile)d/badObject.boost"
-
+calibrations: {
+	bias: {
+		template:	"bias/v%(runId)s/c%(ccd)02d-a%(amp)d.fits"
+		query:		"SELECT * FROM bias WHERE DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+		python:		"lsst.afw.image.ExposureF"
+		cpp:		"ExposureF"
+		storage:	"FitsStorage"
+		level:		"Amp"
+	}
+	dark: {
+		template:	"dark/v%(runId)s/c%(ccd)02d-a%(amp)d.fits"
+		query:		"SELECT * FROM dark WHERE DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+		python:		"lsst.afw.image.ExposureF"
+		cpp:		"ExposureF"
+		storage:	"FitsStorage"
+		level:		"Amp"
+	}
+	flat: {
+		template:	"flat/v%(runId)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+		query:		"SELECT * FROM flat WHERE filter = '%(filter)s' AND DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+		python:		"lsst.afw.image.ExposureF"
+		cpp:		"ExposureF"
+		storage:	"FitsStorage"
+		level:		"Amp"
+	}
+	fringe: {
+		template:	"fringe/v%(runId)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+		query:		"SELECT * FROM fringe WHERE filter = '%(filter)s' AND DATE('%(taiObs)s') BETWEEN DATE(validStart) AND DATE(validEnd)"
+		python:		"lsst.afw.image.ExposureF"
+		cpp:		"ExposureF"
+		storage:	"FitsStorage"
+		level:		"Amp"
+	}
+}

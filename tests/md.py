@@ -34,9 +34,8 @@ class MetadataTestCase(unittest.TestCase):
     """Testing butler metadata retrieval"""
 
     def setUp(self):
-        policy = Policy.createPolicy("./policy/CfhtMapper.paf")
-        self.bf = dafPersist.ButlerFactory(mapper=CfhtMapper(
-            policy=policy,root="./tests/data",calibRoot="./tests/data/calib"))
+        self.bf = dafPersist.ButlerFactory(mapper=CfhtMapper(root="./tests/data",
+															 calibRoot="./tests/data/calib"))
         self.butler = self.bf.create()
 
     def tearDown(self):
