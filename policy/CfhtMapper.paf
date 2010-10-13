@@ -78,7 +78,6 @@ exposures: {
 		cpp:		"PersistableSourceVector"
 		storage:	"BoostStorage"
 		level:		"Ccd"
-		map:		"map_src"
 	}
 	sourceHist: {
 		template:  	"results/st%(skyTile)d/sourceHist.fits"
