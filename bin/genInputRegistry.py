@@ -80,4 +80,5 @@ for fits in glob.glob(os.path.join(root,
 conn.commit()
 conn.execute("""insert into raw_visit
         select distinct visit, field, filter, taiObs, expTime from raw""")
+conn.commit()
 conn.close()
