@@ -4,7 +4,7 @@ camera:        "../megacam/description/Full_Megacam_geom.paf"
 defects:    "../megacam/description/defects"
 filters:    "../megacam/description/MegacamFilters.paf"
 
-needCalibRegistry: false
+needCalibRegistry: true
 
 exposures: {
     raw: {
@@ -61,32 +61,78 @@ exposures: {
 
 calibrations: {
     bias: {
-        template:    "bias/v%(run)s/c%(ccd)02d-a%(amp)d.fits"
+        template:    "bias/v%(derivedRunId)s/c%(ccd)02d-a%(amp)d.fits"
         python:        "lsst.afw.image.ExposureF"
         persistable:        "ExposureF"
         storage:    "FitsStorage"
         level:        "Amp"
+        tables:       bias
+        reference:    "raw"
+        refCols:      "visit"
+        refCols:      "ccd"
+        refCols:      "amp"
+        columns:      "taiObs"
+        validRange:   true
+        obsTimeName:  "taiObs"
+        validStartName: "validStart"
+        validEndName: "validEnd"
+        filter:       false
     }
     dark: {
-        template:    "dark/v%(run)s/c%(ccd)02d-a%(amp)d.fits"
+        template:    "dark/v%(derivedRunId)s/c%(ccd)02d-a%(amp)d.fits"
         python:        "lsst.afw.image.ExposureF"
         persistable:        "ExposureF"
         storage:    "FitsStorage"
         level:        "Amp"
+        tables:       dark
+        reference:    "raw"
+        refCols:      "visit"
+        refCols:      "ccd"
+        refCols:      "amp"
+        columns:      "taiObs"
+        validRange:   true
+        obsTimeName:  "taiObs"
+        validStartName: "validStart"
+        validEndName: "validEnd"
+        filter:       false
     }
     flat: {
-        template:    "flat/v%(run)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+        template:    "flat/v%(derivedRunId)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
         python:        "lsst.afw.image.ExposureF"
         persistable:        "ExposureF"
         storage:    "FitsStorage"
         level:        "Amp"
+        tables:       flat
+        reference:    "raw"
+        refCols:      "visit"
+        refCols:      "ccd"
+        refCols:      "amp"
+        columns:      "filter"
+        columns:      "taiObs"
+        validRange:   true
+        obsTimeName:  "taiObs"
+        validStartName: "validStart"
+        validEndName: "validEnd"
+        filter:       true
     }
     fringe: {
-        template:    "fringe/v%(run)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
+        template:    "fringe/v%(derivedRunId)s-f%(filter)s/c%(ccd)02d-a%(amp)d.fits"
         python:        "lsst.afw.image.ExposureF"
         persistable:        "ExposureF"
         storage:    "FitsStorage"
         level:        "Amp"
+        tables:       fringe
+        reference:    "raw"
+        refCols:      "visit"
+        refCols:      "ccd"
+        refCols:      "amp"
+        columns:      "filter"
+        columns:      "taiObs"
+        validRange:   true
+        obsTimeName:  "taiObs"
+        validStartName: "validStart"
+        validEndName: "validEnd"
+        filter:       true
     }
 }
 
