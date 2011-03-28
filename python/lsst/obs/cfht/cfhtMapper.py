@@ -36,6 +36,18 @@ class CfhtMapper(CameraMapper):
         policy = pexPolicy.Policy(policyFile)
         super(CfhtMapper, self).__init__(policy, policyFile.getRepositoryPath(), **kwargs)
 
+        self.filterMap = {
+            "u.MP9301": "u",
+            "g.MP9401": "g",
+            "r.MP9601": "r",
+            "i.MP9701": "i",
+            "i.MP9702": "i2",
+            "z.MP9801": "z"
+         }
+
+        self.filterIdMap = {
+                'u': 0, 'g': 1, 'r': 2, 'i': 3, 'z': 4, 'y': 5, 'i2': 5}
+        
     def _transformId(self, dataId):
         actualId = dataId.copy()
         if actualId.has_key("ccdName"):
@@ -85,6 +97,7 @@ class CfhtMapper(CameraMapper):
         # Note that sources are identified by what is called an ampExposureId,
         # but in this case all we have is a CCD.
         ampExposureId = self._computeCcdExposureId(dataId)
+        pathId = self._transformId(dataId)
         filterId = self.filterIdMap[pathId['filter']]
         return {"ampExposureId": ampExposureId, "filterId": filterId}
 
