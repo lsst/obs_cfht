@@ -7,5 +7,6 @@ import glob
 #
 import lsst.tests
 
-tests = lsst.tests.Control(env, verbose = True)
+ignoreList = [ "getBias.py", "getFlat.py", "getRaw.py", "md.py" ]
+tests = lsst.tests.Control(env, ignoreList=ignoreList, verbose = True)
 tests.run("*.py")
