@@ -1,12 +1,3 @@
 # -*- python -*-
-Import("env")
-import glob
-
-#
-# Tests
-#
-import lsst.tests
-
-ignoreList = [ "getBias.py", "getFlat.py", "getRaw.py", "md.py" ]
-tests = lsst.tests.Control(env, ignoreList=ignoreList, verbose = True)
-tests.run("*.py")
+from lsst.sconsUtils import scripts
+scripts.BasicSConscript.tests()
