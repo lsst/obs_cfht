@@ -1,0 +1,249 @@
+#<?cfg paf policy ?>
+
+needCalibRegistry: true
+
+camera:     "../megacam/Full_Megacam_geom.paf"
+defects:    "../megacam/defects"
+defaultLevel: "Ccd"
+
+exposures: {
+    raw: {
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/%(exp)d%(state)s.fits.fz[ccd%(ccd)02d]"
+        python:      "lsst.afw.image.DecoratedImageF"
+        persistable: "DecoratedImageF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "raw"
+        columns:     "exp"
+        columns:     "state"
+        columns:     "ccd"
+    }
+    postISRCCD: {
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/postISRCCD-%(exp)d-%(ccd)02d.fits"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "raw"
+        columns:     "exp"
+        columns:     "ccd"
+    }
+    calexp: {
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(exp)d-%(ccd)02d.fits"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "raw"
+        columns:     "exp"
+        columns:     "ccd"
+    }
+    calexpBackground: {
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(exp)d-%(ccd)02d.fits"
+        python:      "lsst.afw.image.ImageF"
+        persistable: "ImageF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "raw"
+        columns:     "exp"
+        columns:     "ccd"
+    }
+
+    coaddTempExp: {
+        template:    "%(runId)s/temp/%(tract)d/COADDTEMP-%(patch)s.fits"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        tables:      "raw"
+        columns:     "exp"
+        columns:     "ccd"
+    }
+
+}
+
+calibrations: {
+    bias: {
+        template:    "%(runId)s.bias.%(filter)s.36.%(calibVersion)02d.fits.fz[ccd%(ccd)02d]"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "bias"
+        columns:     "date"
+        reference:   "raw"
+        refCols:     "exp"
+        refCols:     "ccd"
+        filter:      false
+        validRange:  true
+        validStartName: "validStart"
+        validEndName: "validEnd"
+        obsTimeName: "taiObs"
+    }
+    dark: {
+        template:    "%(runId)s.dark.%(filter)s.36.%(calibVersion)02d.fits.fz[ccd%(ccd)02d]"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "dark"
+        columns:     "date"
+        reference:   "raw"
+        refCols:     "exp"
+        refCols:     "ccd"
+        filter:      false
+        validRange:  true
+        validStartName: "validStart"
+        validEndName: "validEnd"
+        obsTimeName: "taiObs"
+    }
+    flat: {
+        template:    "%(runId)s.flat.%(filter)s.36.%(calibVersion)02d.fits.fz[ccd%(ccd)02d]"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "flat"
+        columns:     "date"
+        reference:   "raw"
+        refCols:     "exp"
+        refCols:     "ccd"
+        filter:      true
+        validRange:  true
+        validStartName: "validStart"
+        validEndName: "validEnd"
+        obsTimeName: "taiObs"
+    }
+}
+
+
+
+datasets: {
+    psf: {
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/PSF-%(exp)d-%(ccd)02d.boost"
+        python:        "lsst.afw.detection.Psf"
+        persistable:   "Psf"
+        storage:       "BoostStorage"
+        tables:        "raw"
+    }
+    apCorr: {
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/APC-%(exp)d-%(ccd)02d.pickle"
+        python:        "lsst.meas.algorithms.ApertureCorrection"
+        persistable:   "ApertureCorrection"
+        storage:       "PickleStorage"
+        tables:        "raw"
+    }
+    src: {
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/SRC-%(exp)d-%(ccd)02d.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
+    icMatch: {
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/ICMATCH-%(exp)d-%(ccd)02d.fits"
+        python:        "lsst.afw.table.BaseCatalog"
+        persistable:   "BaseCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
+    icSrc: {
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/ICSRC-%(exp)d-%(ccd)02d.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
+    log: {
+        template:      "%(runId)s/logs/%(object)s/%(date)s/%(filter)s/run.log"
+        python:        "str"
+        persistable:   "None"
+        storage:       "TextStorage"
+    }
+    logDir: {
+        template:      "%(runId)s/logs/%(object)s/%(date)s/%(filter)s/"
+        python:        "str"
+        persistable:   "None"
+        storage:       "None"
+    }
+
+    ccdExposureId: {
+        template:     "ignored"
+        # Provide something to import, although we actually return a long
+        python:       "lsst.daf.base.PropertySet"
+        persistable:  "ignored"
+        storage:      "ignored"
+        tables:       "raw"
+    }
+    ccdExposureId_bits: {
+        template:     "ignored"
+        # Provide something to import, although we actually return an int
+        python:       "lsst.daf.base.PropertySet"
+        persistable:  "ignored"
+        storage:      "ignored"
+        tables:       "raw"
+    }
+
+    stackExposureId: {
+        template:     "ignored"
+        # Provide something to import, although we actually return a long
+        python:       "lsst.daf.base.PropertySet"
+        persistable:  "ignored"
+        storage:      "ignored"
+        tables:       "raw"
+    }
+    stackExposureId_bits: {
+        template:     "ignored"
+        # Provide something to import, although we actually return an int
+        python:       "lsst.daf.base.PropertySet"
+        persistable:  "ignored"
+        storage:      "ignored"
+        tables:       "raw"
+    }
+
+    processCcd_config: {
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/CONFIG-processCcd-%(exp)d-%(ccd)02d.py"
+        python:        "lsst.pipe.tasks.processCcdLsstSim.ProcessCcdLsstSimConfig"
+        persistable:   "Config"
+        storage:       "ConfigStorage"
+        tables:        raw
+        tables:        raw_skyTile
+    }
+    processCcd_metadata: {
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(exp)d-%(ccd)02d.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:   "PropertySet"
+        storage:       "BoostStorage"
+        tables:        raw
+        tables:        raw_skyTile
+    }
+
+    deepCoadd: {
+        template:      "%(runId)s/deepCoadd/%(tract)d/%(patch)s.fits"
+        python:        "lsst.afw.image.ExposureF"
+        persistable:   "ExposureF"
+        storage:       "FitsStorage"
+        tables:        "raw"
+    }
+    deepCoadd_depth: {
+        template:      "%(runId)s/deepCoadd/%(tract)d/%(patch)s.depth.fits"
+        python:        "lsst.afw.image.ImageF"
+        persistable:   "ImageF"
+        storage:       "FitsStorage"
+        tables:        "raw"
+    }
+    deepCoadd_psf: {
+        template:      "%(runId)s/deepCoadd/%(tract)d/%(patch)s.boost"
+        python:        "lsst.afw.detection.Psf"
+        persistable:   "Psf"
+        storage:       "BoostStorage"
+        tables:        "raw"
+    }
+    deepCoadd_skyMap: {
+        template:      "%(runId)s/deepCoadd/skyMap.pickle"
+        python:        "lsst.skymap.BaseSkyMap"
+        persistable:   "ignored"
+        storage:       "PickleStorage"
+        tables:        "raw"
+    }
+
+}
