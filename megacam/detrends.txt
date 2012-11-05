@@ -1,0 +1,2 @@
+Detrends are available for download from http://limu.cfht.hawaii.edu/detrend/megacam/
+The "detrend.db" file contains a FITS table with a list of all detrend files used by Elixir.
