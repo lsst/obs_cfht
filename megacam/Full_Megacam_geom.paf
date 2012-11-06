@@ -1,5 +1,5 @@
 Camera: {
-    name: "CFHT MegaCam 704382o.fits"
+    name: "CFHT MegaCam"
     serial: 1
     nCol: 1
     nRow: 1
@@ -11,39 +11,34 @@ Camera: {
     }
 }
 Amp: {
-    height: 4610
-    width: 1024
-    extended: 0
-    preRows: 1
-    overclockH: 32
-    overclockV: 33
+    ptype: "default"
+    datasec: 32 0 1055 4612
+    biassec: 0 0 31 4612
+    ewidth: 1056
+    eheight: 4644
 }
 Ccd: {
-    pixelSize: 0.013500
+    ptype: "default"
+    pixelSize: 13.5 # In microns
     nCol: 2
     nRow: 1
     Amp: {
-        index: 0 0
-        readoutCorner: LRC
-    }
-    Amp: {
-        index: 1 0
-        readoutCorner: LLC
-    }
-}
-CcdDiskLayout: {
-    HduPerAmp: true
-    Amp: {
-        serial: 0
-        flipLR: false
-        flipTB: false
+        serial: 1
+        ptype: "default"
+        flipLR: true
+        nQuarter: 2
         hdu: 0
+        diskCoordSys: "sensor"
+        index: 0 0
     }
     Amp: {
         serial: 1
-        flipLR: false
-        flipTB: false
+        ptype: "default"
+        flipLR: true
+        nQuarter: 2
         hdu: 0
+        diskCoordSys: "sensor"
+        index: 1 0
     }
 }
 Raft: {
@@ -52,289 +47,325 @@ Raft: {
     name: "R:0,0"
     serial: -1
     Ccd: {
-        name: "CFHT 0"
+        name: "ccd00"
         serial: 834175
+        ptype: "default"
         index: 0 3
         offset: -114.399000 99.461250
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 1"
+        name: "ccd01"
         serial: 835234
         index: 1 3
+        ptype: "default"
         offset: -85.806000 99.474750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 2"
+        name: "ccd02"
         serial: 8352153
         index: 2 3
+        ptype: "default"
         offset: -57.240000 99.488250
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 3"
+        name: "ccd03"
         serial: 8261144
         index: 3 3
+        ptype: "default"
         offset: -28.687500 99.501750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 4"
+        name: "ccd04"
         serial: 8341174
         index: 4 3
+        ptype: "default"
         offset: -0.054000 99.501750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 5"
+        name: "ccd05"
         serial: 8351205
         index: 5 3
+        ptype: "default"
         offset: 28.431000 99.488250
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 6"
+        name: "ccd06"
         serial: 8351133
         index: 6 3
+        ptype: "default"
         offset: 57.078000 99.461250
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 7"
+        name: "ccd07"
         serial: 835163
         index: 7 3
+        ptype: "default"
         offset: 85.657500 99.434250
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 8"
+        name: "ccd08"
         serial: 8261133
         index: 8 3
+        ptype: "default"
         offset: 114.250500 99.447750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 9"
+        name: "ccd09"
         serial: 917213
         index: 0 2
+        ptype: "default"
         offset: -114.385500 31.515750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 10"
+        name: "ccd10"
         serial: 835244
         index: 1 2
+        ptype: "default"
         offset: -85.792500 31.502250
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 11"
+        name: "ccd11"
         serial: 8352155
         index: 2 2
+        ptype: "default"
         offset: -57.240000 31.488750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 12"
+        name: "ccd12"
         serial: 8351204
         index: 3 2
+        ptype: "default"
         offset: -28.660500 31.529250
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 13"
+        name: "ccd13"
         serial: 8351173
         index: 4 2
+        ptype: "default"
         offset: -0.081000 31.542750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 14"
+        name: "ccd14"
         serial: 8434135
         index: 5 2
+        ptype: "default"
         offset: 28.498500 31.488750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 15"
+        name: "ccd15"
         serial: 8341173
         index: 6 2
+        ptype: "default"
         offset: 57.091500 31.488750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 16"
+        name: "ccd16"
         serial: 8351114
         index: 7 2
+        ptype: "default"
         offset: 85.644000 31.542750
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 17"
+        name: "ccd17"
         serial: 7432193
         index: 8 2
+        ptype: "default"
         offset: 114.250500 31.394250
         nQuarter: 2
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 18"
+        name: "ccd18"
         serial: 917243
         index: 0 1
+        ptype: "default"
         offset: -114.385500 -31.475250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 19"
+        name: "ccd19"
         serial: 8341165
         index: 1 1
+        ptype: "default"
         offset: -85.806000 -31.448250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 20"
+        name: "ccd20"
         serial: 8352134
         index: 2 1
+        ptype: "default"
         offset: -57.240000 -31.461750
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 21"
+        name: "ccd21"
         serial: 8374175
         index: 3 1
+        ptype: "default"
         offset: -28.647000 -31.448250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 22"
+        name: "ccd22"
         serial: 8351115
         index: 4 1
+        ptype: "default"
         offset: -0.081000 -31.461750
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 23"
+        name: "ccd23"
         serial: 835164
         index: 5 1
+        ptype: "default"
         offset: 28.566000 -31.421250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 24"
+        name: "ccd24"
         serial: 8351185
         index: 6 1
+        ptype: "default"
         offset: 57.078000 -31.434750
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 25"
+        name: "ccd25"
         serial: 8352185
         index: 7 1
+        ptype: "default"
         offset: 85.671000 -31.380750
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 26"
+        name: "ccd26"
         serial: 835173
         index: 8 1
+        ptype: "default"
         offset: 114.196500 -31.475250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 27"
+        name: "ccd27"
         serial: 8261165
         index: 0 0
+        ptype: "default"
         offset: -114.291000 -99.501750
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 28"
+        name: "ccd28"
         serial: 743233
         index: 1 0
+        ptype: "default"
         offset: -85.819500 -99.353250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 29"
+        name: "ccd29"
         serial: 8351164
         index: 2 0
+        ptype: "default"
         offset: -57.213000 -99.366750
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 30"
+        name: "ccd30"
         serial: 8261195
         index: 3 0
+        ptype: "default"
         offset: -28.606500 -99.434250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 31"
+        name: "ccd31"
         serial: 835183
         index: 4 0
+        ptype: "default"
         offset: -0.054000 -99.407250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 32"
+        name: "ccd32"
         serial: 8352104
         index: 5 0
+        ptype: "default"
         offset: 28.525500 -99.420750
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 33"
+        name: "ccd33"
         serial: 8352154
         index: 6 0
+        ptype: "default"
         offset: 57.118500 -99.366750
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 34"
+        name: "ccd34"
         serial: 826173
         index: 7 0
+        ptype: "default"
         offset: 85.684500 -99.380250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
     }
     Ccd: {
-        name: "CFHT 35"
+        name: "ccd35"
         serial: 8261143
         index: 8 0
+        ptype: "default"
         offset: 114.169500 -99.515250
         nQuarter: 0
         orientation: 0.000000 0.000000 0.000000
@@ -345,8 +376,9 @@ Electronic: {
         name: "R:0,0"
         serial: -1
         Ccd: {
-            name: "CFHT 0"
+            name: "ccd00"
             serial: 834175
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.540
@@ -361,8 +393,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 1"
+            name: "ccd01"
             serial: 835234
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.600
@@ -377,8 +410,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 2"
+            name: "ccd02"
             serial: 8352153
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.570
@@ -393,8 +427,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 3"
+            name: "ccd03"
             serial: 8261144
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.580
@@ -409,8 +444,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 4"
+            name: "ccd04"
             serial: 8341174
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.520
@@ -425,8 +461,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 5"
+            name: "ccd05"
             serial: 8351205
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.620
@@ -441,8 +478,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 6"
+            name: "ccd06"
             serial: 8351133
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.540
@@ -457,8 +495,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 7"
+            name: "ccd07"
             serial: 835163
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.530
@@ -473,8 +512,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 8"
+            name: "ccd08"
             serial: 8261133
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.770
@@ -489,8 +529,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 9"
+            name: "ccd09"
             serial: 917213
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.610
@@ -505,8 +546,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 10"
+            name: "ccd10"
             serial: 835244
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.580
@@ -521,8 +563,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 11"
+            name: "ccd11"
             serial: 8352155
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.630
@@ -537,8 +580,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 12"
+            name: "ccd12"
             serial: 8351204
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.660
@@ -553,8 +597,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 13"
+            name: "ccd13"
             serial: 8351173
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.660
@@ -569,8 +614,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 14"
+            name: "ccd14"
             serial: 8434135
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.620
@@ -585,8 +631,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 15"
+            name: "ccd15"
             serial: 8341173
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.490
@@ -601,8 +648,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 16"
+            name: "ccd16"
             serial: 8351114
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.640
@@ -617,8 +665,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 17"
+            name: "ccd17"
             serial: 7432193
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.880
@@ -633,8 +682,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 18"
+            name: "ccd18"
             serial: 917243
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.640
@@ -649,8 +699,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 19"
+            name: "ccd19"
             serial: 8341165
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.570
@@ -665,8 +716,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 20"
+            name: "ccd20"
             serial: 8352134
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.660
@@ -681,8 +733,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 21"
+            name: "ccd21"
             serial: 8374175
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.540
@@ -697,8 +750,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 22"
+            name: "ccd22"
             serial: 8351115
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.640
@@ -713,8 +767,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 23"
+            name: "ccd23"
             serial: 835164
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.560
@@ -729,8 +784,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 24"
+            name: "ccd24"
             serial: 8351185
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.620
@@ -745,8 +801,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 25"
+            name: "ccd25"
             serial: 8352185
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.620
@@ -761,8 +818,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 26"
+            name: "ccd26"
             serial: 835173
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.590
@@ -777,8 +835,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 27"
+            name: "ccd27"
             serial: 8261165
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.670
@@ -793,8 +852,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 28"
+            name: "ccd28"
             serial: 743233
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.630
@@ -809,8 +869,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 29"
+            name: "ccd29"
             serial: 8351164
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.810
@@ -825,8 +886,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 30"
+            name: "ccd30"
             serial: 8261195
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.620
@@ -841,8 +903,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 31"
+            name: "ccd31"
             serial: 835183
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.650
@@ -857,8 +920,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 32"
+            name: "ccd32"
             serial: 8352104
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.620
@@ -873,8 +937,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 33"
+            name: "ccd33"
             serial: 8352154
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.550
@@ -889,8 +954,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 34"
+            name: "ccd34"
             serial: 826173
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.640
@@ -905,8 +971,9 @@ Electronic: {
             }
         }
         Ccd: {
-            name: "CFHT 35"
+            name: "ccd35"
             serial: 8261143
+            ptype: "default"
             Amp: {
                 index: 0 0
                 gain: 1.620

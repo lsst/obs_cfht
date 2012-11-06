@@ -20,4 +20,4 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 from .version import *
-from cfhtMapper import *
+from megacamMapper import *

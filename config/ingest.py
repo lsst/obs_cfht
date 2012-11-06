@@ -16,9 +16,11 @@ root.register.columns = {'runId':    'text',
                          'object':   'text',
                          'exp':      'int',
                          'ccd':      'int',
+                         'state':    'text',
                          'filter':   'text',
                          'date':     'text',
                          'taiObs':   'text',
                          'expTime':  'double',
                          }
-root.register.unique = ['visit', 'ccd',]
+root.register.unique = ['exp', 'ccd', 'state']
+root.register.visit = ['exp', 'state', 'date', 'filter']

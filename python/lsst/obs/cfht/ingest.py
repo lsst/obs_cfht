@@ -25,13 +25,11 @@ from lsst.pipe.tasks.ingest import ParseTask
 
 class MegacamParseTask(ParseTask):
     def translate_ccd(self, md):
-        if not md.exists("EXTNAME"):
-            raise RuntimeError("No EXTNAME in header")
-        extname = md.get("EXTNAME").strip()
-        if extname[0:3] != "ccd":
-            raise RuntimeError("Unrecognised EXTNAME: %s" % extname)
-        ccd = int(extname[4:])
-        return ccd
+        try:
+            return self.getExtension(md)
+        except:
+            # Dummy value, intended for PHU (need something to get filename)
+            return 99
 
     def translate_taiObs(self, md):
         # Field name is "taiObs" but we're giving it UTC; shouldn't matter so long as we're consistent
