@@ -68,7 +68,7 @@ class MegacamMapper(CameraMapper):
         return self._computeCcdExposureId(dataId)
 
     def bypass_ccdExposureId_bits(self, datasetType, pythonType, location, dataId):
-        return 64
+        return 32
 
     def _computeStackExposureId(self, dataId):
         """Compute the 64-bit (long) identifier for a Stack exposure.
