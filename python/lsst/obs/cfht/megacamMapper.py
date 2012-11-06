@@ -39,6 +39,11 @@ class MegacamMapper(CameraMapper):
         policy = pexPolicy.Policy(policyFile)
         super(MegacamMapper, self).__init__(policy, policyFile.getRepositoryPath(), **kwargs)
 
+        # Mapper doesn't know about 'ccd' (it comes from the registry)
+        for mapping in self.exposures.values():
+            if 'exp' in mapping.keyDict:
+                mapping.keyDict['ccd'] = int
+
         afwImageUtils.defineFilter('u', lambdaEff=350, alias="u.MP9301")
         afwImageUtils.defineFilter('g', lambdaEff=450, alias="g.MP9401")
         afwImageUtils.defineFilter('r', lambdaEff=600, alias="r.MP9601")
