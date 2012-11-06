@@ -41,6 +41,7 @@ try:
 except NameError:
     display = False
 
+frame = 0
 
 class GetRawTestCase(unittest.TestCase):
     """Testing butler raw image retrieval"""
@@ -71,25 +72,28 @@ class GetRawTestCase(unittest.TestCase):
         if checkFilter:
             self.assertEqual(exp.getFilter().getFilterProperty().getName(), self.filter)
 
+        if display and ccd % 18 == 0:
+            global frame
+            frame += 1
+            ccd = cameraGeom.cast_Ccd(exp.getDetector())
+            for amp in ccd:
+                amp = cameraGeom.cast_Amp(amp)
+                print ccd.getId(), amp.getId(), amp.getDataSec().toString(), \
+                      amp.getBiasSec().toString(), amp.getElectronicParams().getGain()
+            cameraGeomUtils.showCcd(ccd, ccdImage=exp, frame=frame)
+
+
     def testRaw(self):
         """Test retrieval of raw image"""
-        frame = 0
         if display:
+            global frame
+            frame += 1
             cameraGeomUtils.showCamera(self.butler.mapper.camera, frame=frame)
 
         for ccd in range(36):
             raw = self.butler.get("raw", self.dataId, ccd=ccd, immediate=True)
 
             self.assertExposure(raw, ccd)
-
-            if display:
-                frame += 1
-                ccd = cameraGeom.cast_Ccd(raw.getDetector())
-                for amp in ccd:
-                    amp = cameraGeom.cast_Amp(amp)
-                    print ccd.getId(), amp.getId(), amp.getDataSec().toString(), \
-                          amp.getBiasSec().toString(), amp.getElectronicParams().getGain()
-                cameraGeomUtils.showCcd(ccd, ccdImage=raw, frame=frame)
 
     def getDetrend(self, detrend):
         """Test retrieval of detrend image"""
