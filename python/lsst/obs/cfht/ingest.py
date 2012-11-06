@@ -23,13 +23,28 @@
 import re
 from lsst.pipe.tasks.ingest import ParseTask
 
+filters = {'u.MP9301': 'u',
+           'g.MP9401': 'g',
+           'r.MP9601': 'r',
+           'i.MP9701': 'i',
+           'i.MP9702': 'i2',
+           'z.MP9801': 'z',
+           }
+
 class MegacamParseTask(ParseTask):
     def translate_ccd(self, md):
         try:
-            return self.getExtension(md)
+            extname = self.getExtension(md)
+            return int(extname[3:]) # chop off "ccd"
         except:
             # Dummy value, intended for PHU (need something to get filename)
             return 99
+
+    def translate_filter(self, md):
+        filtName = md.get("FILTER").strip()
+        if not filtName in filters:
+            return "UNKNOWN"
+        return filters[filtName]
 
     def translate_taiObs(self, md):
         # Field name is "taiObs" but we're giving it UTC; shouldn't matter so long as we're consistent
@@ -41,6 +56,8 @@ class MegacamParseTask(ParseTask):
         if not match:
             raise RuntimeError("Unable to parse filename: %s" % filename)
         phuInfo['state'] = match.group('state')
-        for info in infoList:
+        phuInfo['extension'] = 0
+        for num, info in enumerate(infoList):
             info['state'] = match.group('state')
+            info['extension'] = num + 1
         return phuInfo, infoList

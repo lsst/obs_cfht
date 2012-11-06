@@ -39,14 +39,15 @@ class MegacamMapper(CameraMapper):
         policy = pexPolicy.Policy(policyFile)
         super(MegacamMapper, self).__init__(policy, policyFile.getRepositoryPath(), **kwargs)
 
-        afwImageUtils.defineFilter('u', lambdaEff=350)
-        afwImageUtils.defineFilter('g', lambdaEff=450)
-        afwImageUtils.defineFilter('r', lambdaEff=600)
-        afwImageUtils.defineFilter('i', lambdaEff=750)
-        afwImageUtils.defineFilter('z', lambdaEff=900)
+        afwImageUtils.defineFilter('u', lambdaEff=350, alias="u.MP9301")
+        afwImageUtils.defineFilter('g', lambdaEff=450, alias="g.MP9401")
+        afwImageUtils.defineFilter('r', lambdaEff=600, alias="r.MP9601")
+        afwImageUtils.defineFilter('i', lambdaEff=750, alias="i.MP9701")
+        afwImageUtils.defineFilter('i2', lambdaEff=750, alias="i.MP9702")
+        afwImageUtils.defineFilter('z', lambdaEff=900, alias="z.MP9801")
 
     def _extractDetectorName(self, dataId):
-        return dataId['ccd']
+        return "ccd%02d" % dataId['ccd']
 
     def _defectLookup(self, dataId, ccdSerial):
         """Find the defects for a given CCD.
@@ -62,16 +63,15 @@ class MegacamMapper(CameraMapper):
         @param dataId (dict) Data identifier with visit, ccd
         """
         pathId = self._transformId(dataId)
-        visit = pathId['visit']
-        ccd = pathId['ccd']
-        side = pathId['side']
-        return 0 # XXX FIXME
+        exp = long(pathId['exp'])
+        ccd = long(pathId['ccd'])
+        return exp * 36 + ccd
 
     def bypass_ccdExposureId(self, datasetType, pythonType, location, dataId):
         return self._computeCcdExposureId(dataId)
 
     def bypass_ccdExposureId_bits(self, datasetType, pythonType, location, dataId):
-        return 32 # not really, but this leaves plenty of space for sources
+        return 64
 
     def _computeStackExposureId(self, dataId):
         """Compute the 64-bit (long) identifier for a Stack exposure.
@@ -87,3 +87,22 @@ class MegacamMapper(CameraMapper):
     def bypass_stackExposureId_bits(self, datasetType, pythonType, location, dataId):
         return 32 # not really, but this leaves plenty of space for sources
 
+    def std_bias(self, image, dataId):
+        exp = exposureFromImage(image)
+        return self._standardizeExposure(self.calibrations['bias'], exp, dataId, filter=False, trimmed=False)
+
+    def std_dark(self, image, dataId):
+        exp = exposureFromImage(image)
+        return self._standardizeExposure(self.calibrations['dark'], exp, dataId, filter=False, trimmed=False)
+
+    def std_flat(self, image, dataId):
+        md = image.getMetadata()
+
+        def removeKeyword(md, key):
+            if md.exists(key):
+                md.remove(key)
+        removeKeyword(md, 'RADECSYS') # Irrelevant, and use of "GAPPT" breaks wcslib
+
+        exp = exposureFromImage(image)
+
+        return self._standardizeExposure(self.calibrations['flat'], exp, dataId, filter=True, trimmed=False)

@@ -23,7 +23,7 @@ Ccd: {
     nCol: 2
     nRow: 1
     Amp: {
-        serial: 1
+        serial: 0
         ptype: "default"
         flipLR: true
         nQuarter: 2
