@@ -8,44 +8,44 @@ defaultLevel: "Ccd"
 
 exposures: {
     raw: {
-        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/%(exp)d%(state)1s.fits.fz[%(extension)d]"
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/%(visit)d%(state)1s.fits.fz[%(extension)d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"
         level:       "Ccd"
         tables:      "raw"
-        columns:     "exp"
+        columns:     "visit"
         columns:     "state"
         columns:     "ccd"
     }
     postISRCCD: {
-        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/postISRCCD-%(exp)d-%(ccd)02d.fits"
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/postISRCCD-%(visit)d-%(ccd)02d.fits"
         python:      "lsst.afw.image.ExposureF"
         persistable: "ExposureF"
         storage:     "FitsStorage"
         level:       "Ccd"
         tables:      "raw"
-        columns:     "exp"
+        columns:     "visit"
         columns:     "ccd"
     }
     calexp: {
-        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(exp)d-%(ccd)02d.fits"
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(visit)d-%(ccd)02d.fits"
         python:      "lsst.afw.image.ExposureF"
         persistable: "ExposureF"
         storage:     "FitsStorage"
         level:       "Ccd"
         tables:      "raw"
-        columns:     "exp"
+        columns:     "visit"
         columns:     "ccd"
     }
     calexpBackground: {
-        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(exp)d-%(ccd)02d.fits"
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(visit)d-%(ccd)02d.fits"
         python:      "lsst.afw.image.ImageF"
         persistable: "ImageF"
         storage:     "FitsStorage"
         level:       "Ccd"
         tables:      "raw"
-        columns:     "exp"
+        columns:     "visit"
         columns:     "ccd"
     }
 
@@ -55,7 +55,7 @@ exposures: {
         persistable: "ExposureF"
         storage:     "FitsStorage"
         tables:      "raw"
-        columns:     "exp"
+        columns:     "visit"
         columns:     "ccd"
     }
 
@@ -71,7 +71,7 @@ calibrations: {
         tables:      "bias"
         columns:     "taiObs"
         reference:   "raw"
-        refCols:     "exp"
+        refCols:     "visit"
         refCols:     "ccd"
         refCols:     "taiObs"
         filter:      false
@@ -89,7 +89,7 @@ calibrations: {
         tables:      "dark"
         columns:     "taiObs"
         reference:   "raw"
-        refCols:     "exp"
+        refCols:     "visit"
         refCols:     "ccd"
         refCols:     "taiObs"
         filter:      false
@@ -108,7 +108,7 @@ calibrations: {
         columns:     "filter"
         columns:     "taiObs"
         reference:   "raw"
-        refCols:     "exp"
+        refCols:     "visit"
         refCols:     "ccd"
         refCols:     "filter"
         refCols:     "taiObs"
@@ -124,35 +124,35 @@ calibrations: {
 
 datasets: {
     psf: {
-        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/PSF-%(exp)d-%(ccd)02d.boost"
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/PSF-%(visit)d-%(ccd)02d.boost"
         python:        "lsst.afw.detection.Psf"
         persistable:   "Psf"
         storage:       "BoostStorage"
         tables:        "raw"
     }
     apCorr: {
-        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/APC-%(exp)d-%(ccd)02d.pickle"
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/APC-%(visit)d-%(ccd)02d.pickle"
         python:        "lsst.meas.algorithms.ApertureCorrection"
         persistable:   "ApertureCorrection"
         storage:       "PickleStorage"
         tables:        "raw"
     }
     src: {
-        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/SRC-%(exp)d-%(ccd)02d.fits"
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/SRC-%(visit)d-%(ccd)02d.fits"
         python:        "lsst.afw.table.SourceCatalog"
         persistable:   "SourceCatalog"
         storage:       "FitsCatalogStorage"
         tables:        "raw"
     }
     icMatch: {
-        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/ICMATCH-%(exp)d-%(ccd)02d.fits"
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/ICMATCH-%(visit)d-%(ccd)02d.fits"
         python:        "lsst.afw.table.BaseCatalog"
         persistable:   "BaseCatalog"
         storage:       "FitsCatalogStorage"
         tables:        "raw"
     }
     icSrc: {
-        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/ICSRC-%(exp)d-%(ccd)02d.fits"
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/ICSRC-%(visit)d-%(ccd)02d.fits"
         python:        "lsst.afw.table.SourceCatalog"
         persistable:   "SourceCatalog"
         storage:       "FitsCatalogStorage"
@@ -206,7 +206,7 @@ datasets: {
     }
 
     processCcd_config: {
-        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/CONFIG-processCcd-%(exp)d-%(ccd)02d.py"
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/CONFIG-processCcd-%(visit)d-%(ccd)02d.py"
         python:        "lsst.pipe.tasks.processCcdLsstSim.ProcessCcdLsstSimConfig"
         persistable:   "Config"
         storage:       "ConfigStorage"
@@ -214,7 +214,7 @@ datasets: {
         tables:        raw_skyTile
     }
     processCcd_metadata: {
-        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(exp)d-%(ccd)02d.boost"
+        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(visit)d-%(ccd)02d.boost"
         python:        "lsst.daf.base.PropertySet"
         persistable:   "PropertySet"
         storage:       "BoostStorage"

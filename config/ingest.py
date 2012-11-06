@@ -3,7 +3,7 @@ root.parse.retarget(MegacamParseTask)
 root.parse.hdu = 1 # PHU
 root.parse.translation = {'runId': 'RUNID',
                           'object': 'OBJECT',
-                          'exp': 'EXPNUM',
+                          'visit': 'EXPNUM',
                           'date': 'DATE-OBS',
                           'expTime': 'EXPTIME',
                           }
@@ -14,7 +14,7 @@ root.parse.translators = {'taiObs': 'translate_taiObs',
 root.parse.extnames = ["ccd%02d" % ccd for ccd in range(36)]
 root.register.columns = {'runId':     'text',
                          'object':    'text',
-                         'exp':       'int',
+                         'visit':     'int',
                          'ccd':       'int',
                          'extension': 'int',
                          'state':     'text',
@@ -23,5 +23,5 @@ root.register.columns = {'runId':     'text',
                          'taiObs':    'text',
                          'expTime':   'double',
                          }
-root.register.unique = ['exp', 'ccd']
-root.register.visit = ['exp', 'state', 'date', 'filter']
+root.register.unique = ['visit', 'ccd']
+root.register.visit = ['visit', 'state', 'taiObs', 'date', 'filter']

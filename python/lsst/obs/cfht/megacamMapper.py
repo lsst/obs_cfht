@@ -41,7 +41,7 @@ class MegacamMapper(CameraMapper):
 
         # Mapper doesn't know about 'ccd' (it comes from the registry)
         for mapping in self.exposures.values():
-            if 'exp' in mapping.keyDict:
+            if 'visit' in mapping.keyDict:
                 mapping.keyDict['ccd'] = int
 
         afwImageUtils.defineFilter('u', lambdaEff=350, alias="u.MP9301")
@@ -54,23 +54,15 @@ class MegacamMapper(CameraMapper):
     def _extractDetectorName(self, dataId):
         return "ccd%02d" % dataId['ccd']
 
-    def _defectLookup(self, dataId, ccdSerial):
-        """Find the defects for a given CCD.
-        @param dataId (dict) Dataset identifier
-        @param ccdSerial (string) CCD serial number
-        @return (string) path to the defects file or None if not available
-        """
-        return None # XXX FIXME
-
     def _computeCcdExposureId(self, dataId):
         """Compute the 64-bit (long) identifier for a CCD exposure.
 
         @param dataId (dict) Data identifier with visit, ccd
         """
         pathId = self._transformId(dataId)
-        exp = long(pathId['exp'])
+        visit = long(pathId['visit'])
         ccd = long(pathId['ccd'])
-        return exp * 36 + ccd
+        return visit * 36 + ccd
 
     def bypass_ccdExposureId(self, datasetType, pythonType, location, dataId):
         return self._computeCcdExposureId(dataId)

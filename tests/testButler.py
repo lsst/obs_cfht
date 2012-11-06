@@ -52,7 +52,7 @@ class GetRawTestCase(unittest.TestCase):
         self.butler = dafPersist.Butler(root=os.path.join(self.datadir, "DATA"),
                                         calibRoot=os.path.join(self.datadir, "CALIB"))
         self.size = (2112, 4644)
-        self.dataId = {'exp': 1038843}
+        self.dataId = {'visit': 1038843}
         self.filter = "i2"
 
     def tearDown(self):
