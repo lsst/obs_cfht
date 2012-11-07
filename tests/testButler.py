@@ -23,6 +23,7 @@
 #
 
 import os
+import sys
 
 import unittest
 import lsst.utils.tests as utilsTests
@@ -125,4 +126,6 @@ def run(shouldExit = False):
     utilsTests.run(suite(), shouldExit)
 
 if __name__ == "__main__":
+    if "--display" in sys.argv:
+        display = True
     run(True)
