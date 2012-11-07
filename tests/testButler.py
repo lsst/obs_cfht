@@ -109,6 +109,9 @@ class GetRawTestCase(unittest.TestCase):
     def testBias(self):
         self.getDetrend("bias")
 
+    def testFringe(self):
+        self.getDetrend("fringe")
+
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 def suite():

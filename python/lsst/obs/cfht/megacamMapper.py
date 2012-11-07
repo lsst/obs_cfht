@@ -84,22 +84,26 @@ class MegacamMapper(CameraMapper):
     def bypass_stackExposureId_bits(self, datasetType, pythonType, location, dataId):
         return 32 # not really, but this leaves plenty of space for sources
 
-    def std_bias(self, image, dataId):
+    def _standardizeDetrend(self, detrend, image, dataId, filter=False):
+        md = image.getMetadata()
+        removeKeyword(md, 'RADECSYS') # Irrelevant, and use of "GAPPT" breaks wcslib
         exp = exposureFromImage(image)
-        return self._standardizeExposure(self.calibrations['bias'], exp, dataId, filter=False, trimmed=False)
+        return self._standardizeExposure(self.calibrations[detrend], exp, dataId, filter=filter, trimmed=False)
+
+    def std_bias(self, image, dataId):
+        return self._standardizeDetrend("bias", image, dataId, filter=False)
 
     def std_dark(self, image, dataId):
-        exp = exposureFromImage(image)
-        return self._standardizeExposure(self.calibrations['dark'], exp, dataId, filter=False, trimmed=False)
+        return self._standardizeDetrend("dark", image, dataId, filter=False)
 
     def std_flat(self, image, dataId):
-        md = image.getMetadata()
+        return self._standardizeDetrend("flat", image, dataId, filter=True)
 
-        def removeKeyword(md, key):
-            if md.exists(key):
-                md.remove(key)
-        removeKeyword(md, 'RADECSYS') # Irrelevant, and use of "GAPPT" breaks wcslib
+    def std_fringe(self, image, dataId):
+        return self._standardizeDetrend("fringe", image, dataId, filter=True)
 
-        exp = exposureFromImage(image)
 
-        return self._standardizeExposure(self.calibrations['flat'], exp, dataId, filter=True, trimmed=False)
+def removeKeyword(md, key):
+    """Remove a keyword from a header without raising an exception if it doesn't exist"""
+    if md.exists(key):
+        md.remove(key)
