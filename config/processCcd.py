@@ -12,5 +12,7 @@ root.isr.assembleCcd.doRenorm = False
 root.isr.assembleCcd.setGain = False
 root.isr.fringe.filters = ['i', 'i2', 'z']
 root.isr.fringe.pedestal = True
+root.isr.fringe.small = 1
+root.isr.fringe.large = 50
 
 root.calibrate.repair.cosmicray.nCrPixelMax = 100000
