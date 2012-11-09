@@ -1,6 +1,3 @@
-from lsst.obs.cfht.isr import MegacamIsrTask
-root.isr.retarget(MegacamIsrTask)
-
 root.isr.doBias = True
 root.isr.doDark = False
 root.isr.doFlat = True
@@ -14,5 +11,6 @@ root.isr.fringe.filters = ['i', 'i2', 'z']
 root.isr.fringe.pedestal = True
 root.isr.fringe.small = 1
 root.isr.fringe.large = 50
+root.isr.doAssembleDetrends = True
 
 root.calibrate.repair.cosmicray.nCrPixelMax = 100000
