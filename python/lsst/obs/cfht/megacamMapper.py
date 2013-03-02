@@ -39,7 +39,9 @@ class MegacamMapper(CameraMapper):
         policy = pexPolicy.Policy(policyFile)
         super(MegacamMapper, self).__init__(policy, policyFile.getRepositoryPath(), **kwargs)
 
-        # Mapper doesn't know about 'ccd' (it comes from the registry)
+        # The "ccd" provided by the user is translated through the registry into an extension name for the "raw"
+        # template.  The template therefore doesn't include "ccd", so we need to ensure it's explicitly included
+        # so the ArgumentParser can recognise and accept it.
         for mapping in self.exposures.values():
             if 'visit' in mapping.keyDict:
                 mapping.keyDict['ccd'] = int
@@ -65,9 +67,11 @@ class MegacamMapper(CameraMapper):
         return visit * 36 + ccd
 
     def bypass_ccdExposureId(self, datasetType, pythonType, location, dataId):
+        """Hook to retrieve identifier for CCD"""
         return self._computeCcdExposureId(dataId)
 
     def bypass_ccdExposureId_bits(self, datasetType, pythonType, location, dataId):
+        """Hook to retrieve number of bits in identifier for CCD"""
         return 32
 
     def _computeStackExposureId(self, dataId):
@@ -79,12 +83,15 @@ class MegacamMapper(CameraMapper):
         return (long(dataId["stack"]) * nPatches + long(dataId["patch"]))
 
     def bypass_stackExposureId(self, datasetType, pythonType, location, dataId):
+        """Hook to retrieve identifier for stack/coadd"""
         return self._computeStackExposureId(dataId)
 
     def bypass_stackExposureId_bits(self, datasetType, pythonType, location, dataId):
+        """Hook to retrieve number of bits in identifier for stack/coadd"""
         return 32 # not really, but this leaves plenty of space for sources
 
     def _standardizeDetrend(self, detrend, image, dataId, filter=False):
+        """Hack up detrend images to remove troublesome keyword"""
         md = image.getMetadata()
         removeKeyword(md, 'RADECSYS') # Irrelevant, and use of "GAPPT" breaks wcslib
         exp = exposureFromImage(image)
