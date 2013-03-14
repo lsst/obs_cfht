@@ -40,9 +40,9 @@ exposures: {
     }
     calexpBackground: {
         template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(visit)d-%(ccd)02d.fits"
-        python:      "lsst.afw.image.ImageF"
-        persistable: "ImageF"
-        storage:     "FitsStorage"
+        python:        "lsst.afw.math.BackgroundList"
+        persistable:   "PurePythonClass"
+        storage:       "FitsCatalogStorage"
         level:       "Ccd"
         tables:      "raw"
         columns:     "visit"
