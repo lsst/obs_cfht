@@ -226,8 +226,8 @@ datasets: {
     }
 
     processCcd_config: {
-        template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/CONFIG-processCcd-%(visit)d-%(ccd)02d.py"
-        python:        "lsst.pipe.tasks.processCcdLsstSim.ProcessCcdLsstSimConfig"
+        template:      "config/processCcd.py"
+        python:        "lsst.pipe.tasks.processCcd.ProcessCcdConfig"
         persistable:   "Config"
         storage:       "ConfigStorage"
         tables:        raw
