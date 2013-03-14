@@ -164,6 +164,13 @@ datasets: {
         storage:       "FitsCatalogStorage"
         tables:        "raw"
     }
+    src_schema: {
+        template:      "schema/src.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
     icMatch: {
         template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/ICMATCH-%(visit)d-%(ccd)02d.fits"
         python:        "lsst.afw.table.BaseCatalog"
@@ -173,6 +180,13 @@ datasets: {
     }
     icSrc: {
         template:      "%(runId)s/%(object)s/%(date)s/%(filter)s/ICSRC-%(visit)d-%(ccd)02d.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
+    icSrc_schema: {
+        template:      "schema/icSrc.fits"
         python:        "lsst.afw.table.SourceCatalog"
         persistable:   "SourceCatalog"
         storage:       "FitsCatalogStorage"
