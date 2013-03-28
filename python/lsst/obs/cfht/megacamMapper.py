@@ -56,6 +56,13 @@ class MegacamMapper(CameraMapper):
     def _extractDetectorName(self, dataId):
         return "ccd%02d" % dataId['ccd']
 
+    #  the dataid is a visit number and a ccdId = ccd.getId().getSerial()
+    def _getDataId(self, visit, ccdId, filter=None):
+        dataId = {"visit": visit, "ccd": ccdId}
+        if not filter == None:
+            dataId["filter"] = filter;
+        return dataId
+
     def _computeCcdExposureId(self, dataId):
         """Compute the 64-bit (long) identifier for a CCD exposure.
 
