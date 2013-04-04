@@ -58,6 +58,27 @@ exposures: {
         columns:     "visit"
         columns:     "ccd"
     }
+    wcs: {
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(visit)d-%(ccd)02d.wcs.fits"
+        python:        "lsst.afw.image.ExposureI"
+        persistable:        "ExposureI"
+        storage:    "FitsStorage"
+        level:        "Ccd"
+        tables:        "raw"
+        tables:        "raw_visit"
+        tables:        "raw_skyTile"
+    }
+
+    fcr: {
+        template:    "%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(visit)d-%(ccd)02d.fcr.fits"
+        python:        "lsst.afw.image.ExposureI"
+        persistable:        "ExposureI"
+        storage:    "FitsStorage"
+        level:        "Ccd"
+        tables:        "raw"
+        tables:        "raw_visit"
+        tables:        "raw_skyTile"
+    }
 
 }
 
