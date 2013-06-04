@@ -53,6 +53,21 @@ class MegacamMapper(CameraMapper):
         afwImageUtils.defineFilter('i2', lambdaEff=750, alias="i.MP9702")
         afwImageUtils.defineFilter('z', lambdaEff=900, alias="z.MP9801")
 
+        # Ensure each dataset type of interest knows about the full range of keys available from the registry
+        keys = {'runId': str,
+                'object': str,
+                'visit': int,
+                'ccd': int,
+                'extension': int,
+                'state': str,
+                'filter': str,
+                'date': str,
+                'taiObs': str,
+                'expTime': float,
+                }
+        for name in ("raw", "calexp", "postISRCCD", "src"):
+            self.mappings[name].keyDict.update(keys)
+
     def _extractDetectorName(self, dataId):
         return "ccd%02d" % dataId['ccd']
 
