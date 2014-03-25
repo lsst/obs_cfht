@@ -1,6 +1,5 @@
 setupRequired(daf_persistence)
 setupRequired(daf_butlerUtils)
-setupRequired(pysqlite)
 
 envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
 envAppend(DYLD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)

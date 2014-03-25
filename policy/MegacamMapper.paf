@@ -2,7 +2,7 @@
 
 needCalibRegistry: true
 
-camera:     "../megacam/Full_Megacam_geom.paf"
+camera:     "../megacam/camera/"
 defects:    "../megacam/defects"
 defaultLevel: "Ccd"
 

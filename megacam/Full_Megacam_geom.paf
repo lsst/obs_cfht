@@ -19,7 +19,7 @@ Amp: {
 }
 Amp: {
     ptype: "bottom"
-    datasec: 32 0 1055 4612
+    datasec: 32 0 1055 4611
     biassec: 0 0 31 4612
     ewidth: 1056
     eheight: 4644
@@ -27,6 +27,7 @@ Amp: {
 Ccd: {
     ptype: "top"
     pixelSize: 13.5 # In microns
+    offsetUnit: 'mm'
     nCol: 2
     nRow: 1
     Amp: {
@@ -51,6 +52,7 @@ Ccd: {
 Ccd: {
     ptype: "bottom"
     pixelSize: 13.5 # In microns
+    offsetUnit: 'mm'
     nCol: 2
     nRow: 1
     Amp: {
