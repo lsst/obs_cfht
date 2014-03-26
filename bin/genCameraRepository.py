@@ -12,7 +12,7 @@ import os
 import copy
 
 PIXELSIZE = 0.0135 #mm/pix
-def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=False, shortNameMethod=lambda x: x):
+def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=False, ccdToUse=None, shortNameMethod=lambda x: x):
     #This is all fragile as the CameraGeomDictionary.paf will go away.
     policyFile = pexPolicy.DefaultPolicyFile("afw", "CameraGeomDictionary.paf", "policy")
     defPolicy = pexPolicy.Policy.createPolicy(policyFile, policyFile.getRepositoryPath(), True)
@@ -22,7 +22,6 @@ def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=Fa
     geomPolicy.mergeDefaults(defPolicy.getDictionary())
     ampParams = makeAmpParams(geomPolicy)
     ccdParams = makeCcdParams(geomPolicy, ampParams)
-    ccdToUse = None
     ccdInfoDict = parseCcds(geomPolicy, ccdParams, ccdToUse)
     camConfig = parseCamera(geomPolicy)
     camConfig.detectorList = dict([(i, ccdInfo) for i, ccdInfo in enumerate(ccdInfoDict['ccdInfo'])])
@@ -105,7 +104,7 @@ def makeCcdParams(policy, ampParms):
         ysize = 0
         for amp in ccd.getArray('Amp'):
             # on disk the data are all in the same orientation
-            ampType = 'bottom'
+            ampType = amp.get('ptype')
             parms = copy.copy(ampParms[ampType])
             xsize += parms['datasec'][2] - parms['datasec'][0] + 1
             #I think the megacam chips only have a single row of amps
@@ -264,5 +263,5 @@ if __name__ == "__main__":
         help="remove and re-create the output directory if it exists")
     args = parser.parse_args()
    
-    camera = makeCameraFromPolicy(args.LayoutPolicy, writeRepo=True, outputDir=args.OutputDir, doClobber=args.clobber, 
+    camera = makeCameraFromPolicy(args.LayoutPolicy, writeRepo=True, outputDir=args.OutputDir, ccdToUse='bottom', doClobber=args.clobber, 
         shortNameMethod=MegacamMapper.getShortCcdName)

@@ -23,7 +23,7 @@
 import glob
 import os
 import re
-import sqlite as sqlite3
+import sqlite3
 import sys
 
 if os.path.exists("defectRegistry.sqlite3"):
@@ -31,7 +31,7 @@ if os.path.exists("defectRegistry.sqlite3"):
 conn = sqlite3.connect("defectRegistry.sqlite3")
 
 cmd = "create table defect (id integer primary key autoincrement"
-cmd += ", path text, version int, ccdSerial int"
+cmd += ", maskname text, path text, version int, ccdSerial int"
 cmd += ", validStart text, validEnd text)"
 conn.execute(cmd)
 conn.commit()
@@ -65,7 +65,7 @@ for line in f:
     m = months.index(m) + 1
     stop = "%s-%02d-%s" % (y, m, d)
 
-    cmd = "INSERT INTO defect VALUES (NULL, ?, ?, ?, ?, ?)"
+    cmd = "INSERT INTO defect VALUES (NULL, ?, ?, ?, ?, ?, ?)"
     pathwords = path.split(".")
     if pathwords[0] == "static":
         path = ".".join(pathwords[:5])
@@ -78,7 +78,7 @@ for line in f:
             print >>sys.stderr, "Unrecognized file: %s" % (f,)
             continue
         print f
-        conn.execute(cmd, (f, version, int(m.group(1)), start, stop))
+        conn.execute(cmd, (".".join(pathwords[:5]), f, version, int(m.group(1)), start, stop))
 
     conn.commit()
 

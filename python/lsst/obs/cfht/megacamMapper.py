@@ -23,9 +23,11 @@
 
 import os
 import pwd
+import pyfits
 
 import lsst.daf.base as dafBase
 import lsst.afw.geom as afwGeom
+import lsst.afw.cameraGeom as cameraGeom
 import lsst.afw.coord as afwCoord
 import lsst.afw.image as afwImage
 import lsst.afw.image.utils as afwImageUtils
@@ -67,6 +69,40 @@ class MegacamMapper(CameraMapper):
                 }
         for name in ("raw", "calexp", "postISRCCD", "src"):
             self.mappings[name].keyDict.update(keys)
+
+    def bypass_defects(self, datasetType, pythonType, butlerLocation, dataId):
+        """Return a defect based on the butler location returned by map_defects
+
+        @param[in] butlerLocation: a ButlerLocation with locationList = path to defects FITS file
+        @param[in] dataId: the usual data ID; "ccd" must be set
+
+        Note: the name "bypass_XXX" means the butler makes no attempt to convert the ButlerLocation
+        into an object, which is what we want for now, since that conversion is a bit tricky.
+        """
+        (ccdKey, ccdSerial) = self._getCcdKeyVal(dataId)
+        defectsFitsPath = butlerLocation.locationList[0]
+        with pyfits.open(defectsFitsPath) as hduList:
+            for hdu in hduList[1:]:
+                if str(hdu.header["SERIAL"]) != ccdSerial:
+                    continue
+
+                defectList = []
+                for data in hdu.data:
+                    bbox = afwGeom.Box2I(
+                        afwGeom.Point2I(int(data['x0']), int(data['y0'])),
+                        afwGeom.Extent2I(int(data['width']), int(data['height'])),
+                    )
+                    ccd = self.camera[self._extractDetectorName(dataId)]
+                    dims = ccd.getBBox().getDimensions()
+                    bbox = cameraGeom.rotateBBoxBy90(bbox, ccd.getOrientation().getNQuarter(), dims)
+                    defectList.append(afwImage.DefectBase(bbox))
+                return defectList
+
+        raise RuntimeError("No defects for ccdSerial %s in %s" % (ccdSerial, defectsFitsPath))
+
+    def _getCcdKeyVal(self, dataId):
+        ccdName = self._extractDetectorName(dataId)
+        return ("ccdSerial", self.camera[ccdName].getSerial())
 
     def _extractDetectorName(self, dataId):
         return "ccd%02d" % dataId['ccd']

@@ -34,7 +34,7 @@ filters = {'u.MP9301': 'u',
 class MegacamParseTask(ParseTask):
     def translate_ccd(self, md):
         try:
-            extname = self.getExtension(md)
+            extname = self.getExtensionName(md)
             return int(extname[3:]) # chop off "ccd"
         except:
             # Dummy value, intended for PHU (need something to get filename)
