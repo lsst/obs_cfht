@@ -21,22 +21,21 @@
 #
 
 
-import os
-import pwd
 import pyfits
 
-import lsst.daf.base as dafBase
 import lsst.afw.geom as afwGeom
 import lsst.afw.cameraGeom as cameraGeom
-import lsst.afw.coord as afwCoord
 import lsst.afw.image as afwImage
 import lsst.afw.image.utils as afwImageUtils
 
 from lsst.daf.butlerUtils import CameraMapper, exposureFromImage
 import lsst.pex.policy as pexPolicy
 
+# Solely to get boost serialization registrations for Measurement subclasses
+import lsst.meas.algorithms
+
 class MegacamMapper(CameraMapper):
-    def __init__(self, outputRoot=None, **kwargs):
+    def __init__(self, **kwargs):
         policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.paf", "policy")
         policy = pexPolicy.Policy(policyFile)
         super(MegacamMapper, self).__init__(policy, policyFile.getRepositoryPath(), **kwargs)
