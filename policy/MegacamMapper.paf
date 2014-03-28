@@ -300,8 +300,7 @@ datasets: {
         python:        "lsst.daf.base.PropertySet"
         persistable:   "PropertySet"
         storage:       "BoostStorage"
-        tables:        raw
-        tables:        raw_skyTile
+        tables:        "raw"
     }
 
     deepCoadd: {
