@@ -1,3 +1,6 @@
+import os
+root.load(os.path.join(os.environ['OBS_CFHT_DIR'], 'config', 'colorterms.py'))
+
 root.isr.doBias = True
 root.isr.doDark = False
 root.isr.doFlat = True
