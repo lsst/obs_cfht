@@ -49,7 +49,7 @@ class GetRawTestCase(unittest.TestCase):
 
     def setUp(self):
         self.datadir = os.getenv("TESTDATA_CFHT_DIR")
-        assert self.datadir, "testdata_megacam is not setup"
+        assert self.datadir, "testdata_cfht is not setup"
         self.butler = dafPersist.Butler(root=os.path.join(self.datadir, "DATA"),
                                         calibRoot=os.path.join(self.datadir, "CALIB"))
         self.size = (2112, 4644)
@@ -107,6 +107,7 @@ class GetRawTestCase(unittest.TestCase):
         self.getDetrend("flat")
 
     def testBias(self):
+        import pdb;pdb.set_trace()
         self.getDetrend("bias")
 
     def testFringe(self):

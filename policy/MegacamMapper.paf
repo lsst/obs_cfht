@@ -63,7 +63,7 @@ exposures: {
 
 calibrations: {
     bias: {
-        template:    "bias/%(path)s[ccd%(ccd)02d]"
+        template:    "%(path)s[ccd%(ccd)02d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"
@@ -81,7 +81,7 @@ calibrations: {
         obsTimeName: "taiObs"
     }
     dark: {
-        template:    "dark/%(path)s[ccd%(ccd)02d]"
+        template:    "%(path)s[ccd%(ccd)02d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"
@@ -99,7 +99,7 @@ calibrations: {
         obsTimeName: "taiObs"
     }
     flat: {
-        template:    "flat/%(path)s[ccd%(ccd)02d]"
+        template:    "%(path)s[ccd%(ccd)02d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"
@@ -119,7 +119,7 @@ calibrations: {
         obsTimeName: "taiObs"
     }
     fringe: {
-        template:    "fringe/%(path)s[ccd%(ccd)02d]"
+        template:    "%(path)s[ccd%(ccd)02d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"

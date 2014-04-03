@@ -13,6 +13,16 @@ import copy
 
 PIXELSIZE = 0.0135 #mm/pix
 def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=False, ccdToUse=None, shortNameMethod=lambda x: x):
+    """
+    Make a Camera from a paf file
+    @param filename: name of policy file to read
+    @param writeRepo: write out repository files?
+    @param outputDir: output directory to write files into
+    @param doClobber: clobber any files existing in the repository?
+    @param ccdToUse: Type of ccd to use, otherwise use ccd specified in the paf
+    @param shortNameMethod: Method to compactify ccd names into names easily used in paths
+    @return Camera object
+    """
     #This is all fragile as the CameraGeomDictionary.paf will go away.
     policyFile = pexPolicy.DefaultPolicyFile("afw", "CameraGeomDictionary.paf", "policy")
     defPolicy = pexPolicy.Policy.createPolicy(policyFile, policyFile.getRepositoryPath(), True)
@@ -59,6 +69,11 @@ def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=Fa
     return makeCameraFromCatalogs(camConfig, ccdInfoDict['ampInfo'])
 
 def parseCamera(policy):
+    """
+    Make a CameraConfig from a policy
+    @param policy: Policy object to parse
+    @return CameraConfig parsed from the policy
+    """
     camPolicy = policy.get('Camera')
     camConfig = CameraConfig()
     camConfig.name = camPolicy.get('name')
@@ -81,6 +96,11 @@ def parseCamera(policy):
     return camConfig
 
 def makeAmpParams(policy):
+    """
+    Construct Amp level information from the Policy
+    @param policy: Policy object to parse
+    @return a dictionary of dictionaries of amp parameters keyed by amp type and param name
+    """
     retParams = {}
     for amp in policy.getArray('Amp'):
         retParams[amp.get('ptype')] = {}
@@ -91,6 +111,12 @@ def makeAmpParams(policy):
     return retParams
 
 def makeCcdParams(policy, ampParms):
+    """
+    Construct CCD level information from the Policy
+    @param policy: Policy to parse
+    @param ampParms: Dictionary of dictionaries of amp parameters returned by makeAmpParams
+    @return a dictionary of dictionaries of CCD parameters keyed by CCD type and param name
+    """
     retParams = {}
     for ccd in policy.getArray('Ccd'):
         ptype = ccd.get('ptype')
@@ -120,6 +146,11 @@ def makeCcdParams(policy, ampParms):
     return retParams
 
 def makeEparams(policy): 
+    """
+    Construct electronic parameters for each amp in the mosaic.
+    @param policy: Policy object to parse
+    @return dictionary of arrays of dictionaries of electronic parameters keyed by CCD name and parameter name
+    """
     rafts = policy.getArray('Electronic.Raft')
     if len(rafts) > 1:
         raise ValueError("These cameras should only have one raft")
@@ -202,6 +233,14 @@ def addAmp(ampCatalog, amp, eparams):
     record.setRawPrescanBBox(pscanSec)
 
 def parseCcds(policy, ccdParams, ccdToUse=None):
+    """
+    Make DetectorConfigs for each CCD in the mosaic
+    @param policy: Poicy object to parse
+    @param ccdParams: CCD level parameters returned by makeCcdParams
+    @param ccdToUse: Type of CCD to use to construct the config, use Policy value if None
+    @return a dictionary containing a list of DetectorConfigs and a dictionary of AmpInfoTable objects 
+    keyed on CCD name
+    """
     specialChipMap = {}
     eParams = makeEparams(policy)
     ampInfoDict ={}
