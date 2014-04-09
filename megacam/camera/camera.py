@@ -1,3 +1,5 @@
+#!!!!This file is auto generated.----Do not edit!!!!
+#!!!!Edit input file and regenerate with $OBS_CFHT_DIR/bin/genCameraRepository.py
 import lsst.afw.cameraGeom.cameraConfig
 assert type(root)==lsst.afw.cameraGeom.cameraConfig.CameraConfig, 'config is of type %s.%s instead of lsst.afw.cameraGeom.cameraConfig.CameraConfig' % (type(root).__module__, type(root).__name__)
 root.plateScale=5.93

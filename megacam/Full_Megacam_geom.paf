@@ -1,3 +1,6 @@
+# This file is the input to genCameraRepository.py
+# If changes to the camera model are needed, make
+# them here.  Do not edit camera.py in the repository.
 Camera: {
     name: "CFHT MegaCam"
     serial: 1
