@@ -48,16 +48,19 @@ class GetRawTestCase(unittest.TestCase):
     """Testing butler raw image retrieval"""
 
     def setUp(self):
-        self.datadir = os.getenv("TESTDATA_CFHT_DIR")
-        assert self.datadir, "testdata_cfht is not setup"
-        self.butler = dafPersist.Butler(root=os.path.join(self.datadir, "DATA"),
-                                        calibRoot=os.path.join(self.datadir, "CALIB"))
-        self.size = (2112, 4644)
-        self.dataId = {'visit': 1038843}
-        self.filter = "i2"
-
+        datadir = self.getTestDataDir()
+        if datadir:
+            self.butler = dafPersist.Butler(root=os.path.join(datadir, "DATA"),
+                                            calibRoot=os.path.join(datadir, "CALIB"))
+            self.size = (2112, 4644)
+            self.dataId = {'visit': 1038843}
+            self.filter = "i2"
+            self.runTests = True
+        else:
+            self.runTests = False
     def tearDown(self):
-        del self.butler
+        if self.runTests:
+            del self.butler
 
     def assertExposure(self, exp, ccd, checkFilter=True):
         print "dataId: ", self.dataId
@@ -83,9 +86,18 @@ class GetRawTestCase(unittest.TestCase):
                       amp.getBiasSec().toString(), amp.getElectronicParams().getGain()
             cameraGeomUtils.showCcd(ccd, ccdImage=exp, frame=frame)
 
+    def getTestDataDir(self):
+        datadir = os.getenv("TESTDATA_CFHT_DIR")
+        if datadir:
+            return datadir
+        else:
+            print >> sys.stderr, "Skipping test as testdata_cfht is not setup"
+
 
     def testRaw(self):
         """Test retrieval of raw image"""
+        if not self.runTests:
+            return
         if display:
             global frame
             frame += 1
@@ -98,18 +110,26 @@ class GetRawTestCase(unittest.TestCase):
 
     def getDetrend(self, detrend):
         """Test retrieval of detrend image"""
+        if not self.runTests:
+            return
         for ccd in range(36):
             flat = self.butler.get(detrend, self.dataId, ccd=ccd)
 
             self.assertExposure(flat, ccd, checkFilter=False)
 
     def testFlat(self):
+        if not self.runTests:
+            return
         self.getDetrend("flat")
 
     def testBias(self):
+        if not self.runTests:
+            return
         self.getDetrend("bias")
 
     def testFringe(self):
+        if not self.runTests:
+            return
         self.getDetrend("fringe")
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
