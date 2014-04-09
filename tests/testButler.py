@@ -107,7 +107,6 @@ class GetRawTestCase(unittest.TestCase):
         self.getDetrend("flat")
 
     def testBias(self):
-        import pdb;pdb.set_trace()
         self.getDetrend("bias")
 
     def testFringe(self):

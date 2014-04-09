@@ -23,7 +23,7 @@
 
 import os
 import re
-import sqlite as sqlite3
+import sqlite3
 import sys
 import pyfits
 import argparse
@@ -42,6 +42,7 @@ schema['label'] = 'text'
 schema['validStart'] = 'text'
 schema['validEnd'] = 'text'
 schema['registered'] = 'text'
+schema['extension'] = 'int'
 
 # Key to image types
 imageTypes = {2: 'dark',
@@ -112,10 +113,11 @@ def parseDetrendDatabase(tableName, create=False):
             " WHERE FILTER = ? AND validStart = ? AND validEnd = ? AND version <= ?"
         values = [filterName, validStart, validEnd, version]
         cur.execute(cmd, values)
-
-        cmd = "INSERT OR IGNORE INTO " + imageType + " VALUES (NULL, " + ",".join("?" * len(schema)) + ")"
-        values = [path, ccdNum, version, expTime, filterName, label, validStart, validEnd, registered]
-        conn.execute(cmd, values)
+ 
+        for i in range(36):
+            cmd = "INSERT OR IGNORE INTO " + imageType + " VALUES (NULL, " + ",".join("?" * len(schema)) + ")"
+            values = [path, ccdNum, version, expTime, filterName, label, validStart, validEnd, registered, i+1]
+            conn.execute(cmd, values)
     fits.close()
     conn.commit()
     conn.close()

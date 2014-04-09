@@ -63,17 +63,19 @@ exposures: {
 
 calibrations: {
     bias: {
-        template:    "%(path)s[ccd%(ccd)02d]"
+        template:    "%(path)s[%(extension)d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"
         level:       "Ccd"
         tables:      "bias"
         columns:     "taiObs"
+        columns:     "extension"
         reference:   "raw"
         refCols:     "visit"
         refCols:     "ccd"
         refCols:     "taiObs"
+        refCols:     "extension"
         filter:      false
         validRange:  true
         validStartName: "validStart"
@@ -81,7 +83,7 @@ calibrations: {
         obsTimeName: "taiObs"
     }
     dark: {
-        template:    "%(path)s[ccd%(ccd)02d]"
+        template:    "%(path)s[%(extension)d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"
@@ -92,6 +94,7 @@ calibrations: {
         refCols:     "visit"
         refCols:     "ccd"
         refCols:     "taiObs"
+        refCols:     "extension"
         filter:      false
         validRange:  true
         validStartName: "validStart"
@@ -99,7 +102,7 @@ calibrations: {
         obsTimeName: "taiObs"
     }
     flat: {
-        template:    "%(path)s[ccd%(ccd)02d]"
+        template:    "%(path)s[%(extension)d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"
@@ -107,11 +110,13 @@ calibrations: {
         tables:      "flat"
         columns:     "filter"
         columns:     "taiObs"
+        columns:     "extension"
         reference:   "raw"
         refCols:     "visit"
         refCols:     "ccd"
         refCols:     "filter"
         refCols:     "taiObs"
+        refCols:     "extension"
         filter:      true
         validRange:  true
         validStartName: "validStart"
@@ -119,7 +124,7 @@ calibrations: {
         obsTimeName: "taiObs"
     }
     fringe: {
-        template:    "%(path)s[ccd%(ccd)02d]"
+        template:    "%(path)s[%(extension)d]"
         python:      "lsst.afw.image.DecoratedImageF"
         persistable: "DecoratedImageF"
         storage:     "FitsStorage"
@@ -127,11 +132,13 @@ calibrations: {
         tables:      "fringe"
         columns:     "filter"
         columns:     "taiObs"
+        columns:     "extension"
         reference:   "raw"
         refCols:     "visit"
         refCols:     "ccd"
         refCols:     "filter"
         refCols:     "taiObs"
+        refCols:     "extension"
         filter:      true
         validRange:  true
         validStartName: "validStart"
