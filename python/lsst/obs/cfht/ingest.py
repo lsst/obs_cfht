@@ -48,7 +48,11 @@ class MegacamParseTask(ParseTask):
 
     def translate_taiObs(self, md):
         # Field name is "taiObs" but we're giving it UTC; shouldn't matter so long as we're consistent
-        return "%sT%s" % (md.get("DATE-OBS").strip(), md.get("UTC-OBS").strip())
+        (yr, month, day) = (md.get("DATE-OBS").strip()).split("-")
+        (hr, min, sec) = (md.get("UTC-OBS").strip()).split(":")
+        (sec1, sec2) = sec.split('.')
+        return "%04d-%02d-%02dT%02d:%02d:%02d.%02d"%(int(yr), int(month), int(day),
+                                                     int(hr), int(min), int(sec1), int(sec2))
 
     def getInfo(self, filename):
         phuInfo, infoList = super(MegacamParseTask, self).getInfo(filename)
