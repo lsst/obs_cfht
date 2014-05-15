@@ -59,7 +59,7 @@ class MegacamParseTask(ParseTask):
         filter = md.get("FILTER").strip().split('.')[0]
         if filter == "i" or filter == "z" :
             maskName = maskName+"_enlarged"
-        maskFile = maskName+"/"+ccd[1:6]+".fits"
+        maskFile = maskName+".nn/"+ccd[1:6]+".fits"
         return maskFile
         
     def getInfo(self, filename):
