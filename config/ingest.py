@@ -10,6 +10,7 @@ root.parse.translation = {'runId': 'RUNID',
 root.parse.translators = {'taiObs': 'translate_taiObs',
                           'ccd': 'translate_ccd',
                           'filter': 'translate_filter',
+                          'defects': 'translate_defects',
                           }
 root.parse.extnames = ["ccd%02d" % ccd for ccd in range(36)]
 root.register.columns = {'runId':     'text',
@@ -22,6 +23,7 @@ root.register.columns = {'runId':     'text',
                          'date':      'text',
                          'taiObs':    'text',
                          'expTime':   'double',
+                         'defects':   'text',
                          }
 root.register.unique = ['visit', 'ccd']
 root.register.visit = ['visit', 'state', 'taiObs', 'date', 'filter']
