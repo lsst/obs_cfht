@@ -93,9 +93,6 @@ class MegacamMapper(CameraMapper):
                         afwGeom.Point2I(int(data['x0']), int(data['y0'])),
                         afwGeom.Extent2I(int(data['width']), int(data['height'])),
                     )
-                    ccd = self.camera[self._extractDetectorName(dataId)]
-                    dims = ccd.getBBox().getDimensions()
-                    bbox = cameraGeom.rotateBBoxBy90(bbox, ccd.getOrientation().getNQuarter(), dims)
                     defectList.append(afwImage.DefectBase(bbox))
                 return defectList
 
