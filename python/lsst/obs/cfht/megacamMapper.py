@@ -66,7 +66,6 @@ class MegacamMapper(CameraMapper):
                 'date': str,
                 'taiObs': str,
                 'expTime': float,
-                'defects': str,
                 }
         for name in ("raw", "calexp", "postISRCCD", "src"):
             self.mappings[name].keyDict.update(keys)

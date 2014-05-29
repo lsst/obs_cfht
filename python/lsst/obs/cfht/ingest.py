@@ -73,5 +73,3 @@ class MegacamParseTask(ParseTask):
             info['state'] = match.group('state')
             info['extension'] = num + 1
         return phuInfo, infoList
-    
-

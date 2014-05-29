@@ -80,16 +80,21 @@ def parseCamera(policy):
     camPolicy = policy.get('Camera')
     camConfig = CameraConfig()
     camConfig.name = camPolicy.get('name')
-    # Using pixel scale 0.08arcsec/pixel from:
-    # http://hopper.si.edu/wiki/mmti/MMTI/Megacam/ObsManual
-    camConfig.plateScale = 5.93 #arcsec/mm
+    # Using pixel scale 0.185 arcsec/pixel from:
+    # http://arxiv.org/pdf/0908.3808v1.pdf
+    camConfig.plateScale = 13.70 #arcsec/mm
+
+    # Radial distortion correction polynomial coeff.
+    conv_1 = 14805.4
+    conv_2 = 13619.3
+    conv_3 = 426637.0
     
     tConfig = afwGeom.TransformConfig()
     tConfig.transform.name = 'inverted'
     radialClass = afwGeom.xyTransformRegistry['radial']
     tConfig.transform.active.transform.retarget(radialClass)
-    conv = 1./afwGeom.arcsecToRad(camConfig.plateScale)
-    coeffs = [0., conv]
+
+    coeffs = [0., conv_1, conv_2, conv_3]
     tConfig.transform.active.transform.coeffs = coeffs
 
     tmc = afwGeom.TransformMapConfig()

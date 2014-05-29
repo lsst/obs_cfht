@@ -2,7 +2,7 @@
 #!!!!Edit input file and regenerate with $OBS_CFHT_DIR/bin/genCameraRepository.py
 import lsst.afw.cameraGeom.cameraConfig
 assert type(root)==lsst.afw.cameraGeom.cameraConfig.CameraConfig, 'config is of type %s.%s instead of lsst.afw.cameraGeom.cameraConfig.CameraConfig' % (type(root).__module__, type(root).__name__)
-root.plateScale=5.93
+root.plateScale=13.7
 root.transformDict.nativeSys='FocalPlane'
 root.transformDict.transforms={}
 root.transformDict.transforms['Pupil']=lsst.afw.geom.transformConfig.TransformConfig()
@@ -12,7 +12,7 @@ root.transformDict.transforms['Pupil'].transform['affine'].linear=[1.0, 0.0, 0.0
 root.transformDict.transforms['Pupil'].transform['radial'].coeffs=None
 import lsst.afw.geom.xyTransformFactory
 root.transformDict.transforms['Pupil'].transform['inverted'].transform.retarget(target=lsst.afw.geom.xyTransformFactory.makeRadialXYTransform, ConfigClass=lsst.afw.geom.xyTransformFactory.RadialXYTransformConfig)
-root.transformDict.transforms['Pupil'].transform['inverted'].transform.coeffs=[0.0, 34783.27255431642]
+root.transformDict.transforms['Pupil'].transform['inverted'].transform.coeffs=[0.0, 14805.4, 13619.3, 426637.0]
 root.transformDict.transforms['Pupil'].transform.name='inverted'
 root.detectorList={}
 root.detectorList[0]=lsst.afw.cameraGeom.cameraConfig.DetectorConfig()
