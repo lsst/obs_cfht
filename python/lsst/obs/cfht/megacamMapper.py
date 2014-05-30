@@ -109,7 +109,6 @@ class MegacamMapper(CameraMapper):
                 [("visit", "?"),("ccd", "?")], None, (dataId['visit'], dataId['ccd']))
         if len(rows) == 0:
             return None
-        assert len(rows) == 1
         
         if len(rows) == 1:
             return os.path.join(self.defectPath, rows[0][0])
