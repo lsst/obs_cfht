@@ -20,6 +20,7 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 
+import os
 
 import pyfits
 
@@ -91,13 +92,29 @@ class MegacamMapper(CameraMapper):
                         afwGeom.Point2I(int(data['x0']), int(data['y0'])),
                         afwGeom.Extent2I(int(data['width']), int(data['height'])),
                     )
-                    ccd = self.camera[self._extractDetectorName(dataId)]
-                    dims = ccd.getBBox().getDimensions()
-                    bbox = cameraGeom.rotateBBoxBy90(bbox, ccd.getOrientation().getNQuarter(), dims)
                     defectList.append(afwImage.DefectBase(bbox))
                 return defectList
 
         raise RuntimeError("No defects for ccdSerial %s in %s" % (ccdSerial, defectsFitsPath))
+    
+    def _defectLookup(self, dataId):
+        """Find the defects for a given CCD.
+        @param dataId (dict) Dataset identifier
+        @return (string) path to the defects file or None if not available"""
+
+        if self.registry is None:
+            raise RuntimeError, "No registry for defect lookup"
+
+        rows = self.registry.executeQuery(("defects",), ("raw",),
+                [("visit", "?"),("ccd", "?")], None, (dataId['visit'], dataId['ccd']))
+        if len(rows) == 0:
+            return None
+        
+        if len(rows) == 1:
+            return os.path.join(self.defectPath, rows[0][0])
+        else:
+            raise RuntimeError("Querying for defects (%s) returns %d files: %s" %
+                               (dataId['id'], len(rows), ", ".join([_[0] for _ in rows])))
 
     def _getCcdKeyVal(self, dataId):
         ccdName = self._extractDetectorName(dataId)
