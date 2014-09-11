@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import numpy
-from lsst.pex.exceptions import LsstCppException, LengthError
+#from lsst.pex.exceptions import LsstCppException, LengthError
 import lsst.pex.config as pexConfig
 import lsst.daf.base as dafBase
 import lsst.pipe.base as pipeBase
