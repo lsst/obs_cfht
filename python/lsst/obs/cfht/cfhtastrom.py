@@ -27,28 +27,25 @@ class CfhtAstrometry(measAstrom.Astrometry) :
     def _solve(self, sources, wcs, imageSize, pixelScale, radecCenter,
                searchRadius, parity, filterName=None, xy0=None):
         solver = self._getSolver()
-        
-        print "**** In CfhtAstrometry::_solve ", radecCenter.getLongitude().asDegrees(), radecCenter.getLatitude().asDegrees()
-        
+
         x0,y0 = 0,0
         if xy0 is not None:
             x0,y0 = xy0
 
         # select sources with valid x,y, flux
         xybb = afwGeom.Box2D()
-#        badStarPixelFlags = ["flags.pixel.edge", "flags.pixel.interpolated.center", "flags.pixel.saturated.center"]
         # Make sure that we are not using cosmic rays as valid sources
         badStarPixelFlags = ["flags.pixel.cr.center"]
         goodsources = afwTable.SourceCatalog(sources.table)
         badkeys = [goodsources.getSchema().find(name).key for name in badStarPixelFlags]
-            
+        
         for s in sources:
-            if np.isfinite(s.getX()) and np.isfinite(s.getY()) and np.isfinite(s.getPsfFlux()) and self._isGoodSource(s, badkeys):
+            if np.isfinite(s.getX()) and np.isfinite(s.getY()) and np.isfinite(s.getPsfFlux()) and self._isGoodSource(s, badkeys) :
                 goodsources.append(s)
                 xybb.include(afwGeom.Point2D(s.getX() - x0, s.getY() - y0))
-                centroid = s.getCentroid()
-
-        print "number of selected sources for astrometry : ", len(goodsources)
+            
+        print "*** CfhtAstrometry - Number of selected sources for astrometry : ", len(goodsources)
+    
         if len(goodsources) < len(sources):
             self.log.logdebug('Keeping %i of %i sources with finite X,Y positions and PSF flux' %
                               (len(goodsources), len(sources)))
@@ -60,12 +57,14 @@ class CfhtAstrometry(measAstrom.Astrometry) :
         solver.setMaxStars(self.config.maxStars)
         solver.setImageSize(*imageSize)
         solver.setMatchThreshold(self.config.matchThreshold)
+        raDecRadius = None
         if radecCenter is not None:
-            ra = radecCenter.getLongitude().asDegrees()
-            dec = radecCenter.getLatitude().asDegrees()
-            solver.setRaDecRadius(ra, dec, searchRadius.asDegrees())
+            raDecRadius = (radecCenter.getLongitude().asDegrees(),
+                        radecCenter.getLatitude().asDegrees(),
+                        searchRadius.asDegrees())
+            solver.setRaDecRadius(*raDecRadius)
             self.log.logdebug('Searching for match around RA,Dec = (%g, %g) with radius %g deg' %
-                              (ra, dec, searchRadius.asDegrees()))
+                              raDecRadius)
 
         if pixelScale is not None:
             dscale = self.config.pixelScaleUncertainty
@@ -80,20 +79,39 @@ class CfhtAstrometry(measAstrom.Astrometry) :
             solver.setParity(parity)
             self.log.logdebug('Searching for match with parity = ' + str(parity))
 
-        solver.addIndices(self.inds)
-        active = solver.getActiveIndexFiles()
-        self.log.logdebug('Searching for match in %i of %i index files: [ ' %
-                          (len(active), len(self.inds)) +
-                          ', '.join(ind.indexname for ind in active) + ' ]')
+        # Find and load index files within RA,Dec range and scale range.
+        if raDecRadius is not None:
+            multiInds = self._getMIndexesWithinRange(*raDecRadius)
+        else:
+            multiInds = self.multiInds
+        qlo,qhi = solver.getQuadSizeLow(), solver.getQuadSizeHigh()
+        ntotal = sum([len(mi) for mi in self.multiInds])
 
-        cpulimit = self.config.maxCpuTime
+        toload_multiInds = set()
+        toload_inds = []
+        for mi in multiInds:
+            for i in range(len(mi)):
+                ind = mi[i]
+                if not ind.overlapsScaleRange(qlo, qhi):
+                    continue
+                toload_multiInds.add(mi)
+                toload_inds.append(ind)
 
-        solver.run(cpulimit)
+        with CfhtAstrometry._LoadedMIndexes(toload_multiInds):
+            solver.addIndices(toload_inds)
+            self.memusage('Index files loaded: ')
+
+            cpulimit = self.config.maxCpuTime
+            solver.run(cpulimit)
+
+            self.memusage('Solving finished: ')
+
+        self.memusage('Index files unloaded: ')
+
         if solver.didSolve():
             self.log.logdebug('Solved!')
             wcs = solver.getWcs()
             self.log.logdebug('WCS: %s' % wcs.getFitsMetadata().toString())
-#            print wcs.getFitsMetadata().toString()
 
             if x0 != 0 or y0 != 0:
                 wcs.shiftReferencePixel(x0, y0)
@@ -116,6 +134,7 @@ class CfhtAstrometry(measAstrom.Astrometry) :
         qa = solver.getSolveStats()
         self.log.logdebug('qa: %s' % qa.toString())
         return wcs, qa
+
         
     def _isGoodSource(self, candsource, keys):
         for k in keys:
