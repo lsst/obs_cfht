@@ -4,7 +4,26 @@ needCalibRegistry: true
 
 camera:     "../megacam/camera/"
 defects:    "../megacam/defects"
+
+skytiles: {
+    resolutionPix: 700    # Resolution for skytiles: 700 --> 500 arcsec sides
+    paddingArcsec: 10.0   # Overlap between skytiles
+}
+
+levels: {
+    # Keys that are NOT relevant for a particular level
+    skyTile: "visit" "ccd"
+    tract: "patch"
+    visit: "ccd"
+    sensor: "none"
+}
 defaultLevel: "Ccd"
+defaultSubLevels: {
+    # Default sublevel for dataRef.subItems()
+    skyTile: "Ccd"
+    visit: "Ccd"
+    sensor: "none"
+}
 
 exposures: {
     raw: {
@@ -57,6 +76,15 @@ exposures: {
         tables:      "raw"
         columns:     "visit"
         columns:     "ccd"
+    }
+    
+    coaddTempExp: {
+        template:    "coaddTemp/%(filter)s/%(tract)d/TEMP-%(visit)07d-%(ccd)03d-%(patch)s.fits"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Skytile"
+        tables:      raw
     }
 
 }
@@ -332,11 +360,24 @@ datasets: {
         tables:        "raw"
     }
     deepCoadd_skyMap: {
-        template:      "skymap/%(runId)s/deepCoadd/skyMap.pickle"
+        template:      "skymap/deepCoadd/skyMap.pickle"
         python:        "lsst.skymap.BaseSkyMap"
         persistable:   "ignored"
         storage:       "PickleStorage"
         tables:        "raw"
     }
+    deep_makeSkyMap_config: {
+        template:      "config/deep_makeSkyMap.py"
+        python:        "lsst.pipe.tasks.makeSkyMap.MakeSkyMapTask.ConfigClass"
+        persistable:   "Config"
+        storage:       "ConfigStorage"
+        tables:        raw
+    }
+    deep_makeSkyMap_metadata: {
+        template:      "metadata/deep_makeSkyMap.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:   "PropertySet"
+        storage:       "BoostStorage"
+        tables:        raw
 
 }

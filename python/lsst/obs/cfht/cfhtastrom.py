@@ -132,6 +132,7 @@ class CfhtAstrometry(measAstrom.Astrometry) :
                               (ra.asDegrees(), dec.asDegrees(), searchRadius.asDegrees(), len(refs)))
 
         qa = solver.getSolveStats()
+        print qa.toString()
         self.log.logdebug('qa: %s' % qa.toString())
         return wcs, qa
 

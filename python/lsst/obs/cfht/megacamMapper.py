@@ -67,7 +67,7 @@ class MegacamMapper(CameraMapper):
                 'taiObs': str,
                 'expTime': float,
                 }
-        for name in ("raw", "calexp", "postISRCCD", "src"):
+        for name in ("raw", "calexp", "postISRCCD", "src", "coaddTempExp"):
             self.mappings[name].keyDict.update(keys)
 
     def bypass_defects(self, datasetType, pythonType, butlerLocation, dataId):
@@ -97,6 +97,8 @@ class MegacamMapper(CameraMapper):
 
         raise RuntimeError("No defects for ccdSerial %s in %s" % (ccdSerial, defectsFitsPath))
     
+
+
     def _defectLookup(self, dataId):
         """Find the defects for a given CCD.
         @param dataId (dict) Dataset identifier
