@@ -1,8 +1,7 @@
 import lsst.pex.policy as pexPolicy
 import lsst.afw.table as afwTable
 import lsst.afw.geom as afwGeom
-import lsst.afw.cameraGeom as cameraGeom
-from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, PUPIL, PIXELS, CameraConfig, DetectorConfig,\
+from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, PUPIL, CameraConfig, DetectorConfig,\
                                 makeCameraFromCatalogs
 from lsst.obs.cfht import MegacamMapper
 
@@ -10,6 +9,7 @@ import argparse
 import eups
 import os
 import copy
+import shutil
 
 PIXELSIZE = 0.0135 #mm/pix
 def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=False, ccdToUse=None, shortNameMethod=lambda x: x):
@@ -276,7 +276,7 @@ def parseCcds(policy, ccdParams, ccdToUse=None):
         if detConfig.name in specialChipMap:
             detConfig.detectorType = specialChipMap[detConfig.name]
         else:
-            detConfig.detectorType = cameraGeom.SCIENCE
+            detConfig.detectorType = SCIENCE
         detConfig.pixelSize_x = ccdParam['pixelSize']
         detConfig.pixelSize_y = ccdParam['pixelSize']
         detConfig.refpos_x = (ccdParam['xsize'] - 1)/2.
