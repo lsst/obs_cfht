@@ -223,7 +223,7 @@ def addAmp(ampCatalog, amp, eparams):
     dataSec.shift(shiftp)
     voscanSec.shift(shiftp)
     pscanSec.shift(shiftp)
-   
+
 
     record.setBBox(bbox)
     record.setRawXYOffset(afwGeom.ExtentI(0,0))
@@ -313,6 +313,6 @@ if __name__ == "__main__":
     parser.add_argument("--clobber", action="store_true", dest="clobber", default=False,
         help="remove and re-create the output directory if it exists")
     args = parser.parse_args()
-   
+
     camera = makeCameraFromPolicy(args.LayoutPolicy, writeRepo=True, outputDir=args.OutputDir, ccdToUse='bottom', doClobber=args.clobber, 
         shortNameMethod=MegacamMapper.getShortCcdName)
