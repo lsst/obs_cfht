@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse, re, sys
 import lsst.obs.cfht as obs_cfht
 import lsst.afw.cameraGeom.utils as cameraGeomUtils

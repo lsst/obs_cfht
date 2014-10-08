@@ -224,7 +224,6 @@ def addAmp(ampCatalog, amp, eparams):
     voscanSec.shift(shiftp)
     pscanSec.shift(shiftp)
 
-
     record.setBBox(bbox)
     record.setRawXYOffset(afwGeom.ExtentI(0,0))
     record.setName("%i,%i"%(eparams['index'][0], eparams['index'][1]))
