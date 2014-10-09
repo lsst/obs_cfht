@@ -202,9 +202,8 @@ def addAmp(ampCatalog, amp, eparams):
     else:
         voscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, dataSec.getMax().getY()+1),
                                   afwGeom.Extent2I(dataSec.getDimensions().getX(), voverscan))
-    if not pscan:
-        pscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, 0),
-                                 afwGeom.Extent2I(dataSec.getDimensions().getX(), pscan))
+    pscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, 0),
+                             afwGeom.Extent2I(dataSec.getDimensions().getX(), pscan))
 
     if amp['flipX']:
         #No need to flip bbox or allPixels since they
