@@ -34,3 +34,6 @@ root.calibrate.astrometry.retarget(CfhtAstrometryTask)
 
 from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
 root.calibrate.retarget(CfhtCalibrateTask)
+
+from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
+root.isr.retarget(CfhtIsrTask)
