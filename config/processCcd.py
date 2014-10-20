@@ -16,7 +16,6 @@ root.isr.fringe.small = 1
 root.isr.fringe.large = 50
 root.isr.doAssembleDetrends = True
 
-root.calibrate.repair.cosmicray.nCrPixelMax = 1000000
 root.calibrate.repair.doCosmicRay=True
 root.calibrate.repair.cosmicray.cond3_fac=2.5
 root.calibrate.repair.cosmicray.cond3_fac2=0.4
@@ -32,8 +31,12 @@ root.calibrate.measurePsf.starSelector.name = "objectSize"
 from lsst.obs.cfht.astrometry import CfhtAstrometryTask
 root.calibrate.astrometry.retarget(CfhtAstrometryTask)
 
+root.calibrate.astrometry.solver.filterMap = { 'i2': 'i',
+                                                   }
+
 from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
 root.calibrate.retarget(CfhtCalibrateTask)
 
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
 root.isr.retarget(CfhtIsrTask)
+

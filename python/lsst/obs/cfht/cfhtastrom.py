@@ -82,7 +82,6 @@ class CfhtAstrometry(measAstrom.Astrometry) :
         else:
             multiInds = self.multiInds
         qlo,qhi = solver.getQuadSizeLow(), solver.getQuadSizeHigh()
-        ntotal = sum([len(mi) for mi in self.multiInds])
 
         toload_multiInds = set()
         toload_inds = []
@@ -138,28 +137,3 @@ class CfhtAstrometry(measAstrom.Astrometry) :
             if candsource.get(k):
                 return False
         return True
-        
-    def _getImageParams(self, wcs, exposure, filterName=None, imageSize=None,
-                        x0=None, y0=None):
-        if exposure is not None:
-            ex0,ey0 = exposure.getX0(), exposure.getY0()
-            if x0 is None:
-                x0 = ex0
-            if y0 is None:
-                y0 = ey0
-            self._debug('Got exposure x0,y0 = %i,%i' % (ex0,ey0))
-            if filterName is None:
-                filterName = exposure.getFilter().getName()
-                self._debug('Setting filterName = "%s" from exposure metadata' % str(filterName))
-#               Temporary fix to deal with i2 filter instead of i
-                if filterName == "i2" :
-                    filterName = "i"
-                    print "filterName set to i, instead of i2"
-            if imageSize is None:
-                imageSize = (exposure.getWidth(), exposure.getHeight())
-                self._debug('Setting image size = (%i, %i) from exposure metadata' % (imageSize))
-        if x0 is None:
-            x0 = 0
-        if y0 is None:
-            y0 = 0
-        return filterName, imageSize, x0, y0

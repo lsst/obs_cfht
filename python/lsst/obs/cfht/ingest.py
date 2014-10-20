@@ -57,7 +57,7 @@ class MegacamParseTask(ParseTask):
         maskName = md.get("IMRED_MK").strip()
         maskName, ccd = maskName.split(".fits")
         filter = md.get("FILTER").strip().split('.')[0]
-        if filter == "i" or filter == "z" :
+        if filter == "i" or filter == "i2" or filter == "z" :
             maskName = maskName+"_enlarged"
         maskFile = maskName+".nn/"+ccd[1:6]+".fits"
         return maskFile

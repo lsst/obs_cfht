@@ -1,4 +1,5 @@
 from lsst.obs.cfht.ingest import MegacamParseTask
+
 root.parse.retarget(MegacamParseTask)
 root.parse.hdu = 1 # PHU
 root.parse.translation = {'runId': 'RUNID',
