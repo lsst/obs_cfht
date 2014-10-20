@@ -65,7 +65,6 @@ class MegacamMapper(CameraMapper):
                 'extension': int,
                 'state': str,
                 'filter': str,
-                'defects': str,
                 'date': str,
                 'taiObs': str,
                 'expTime': float,
