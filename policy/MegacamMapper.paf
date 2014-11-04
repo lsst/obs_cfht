@@ -68,7 +68,7 @@ exposures: {
     }
 
     deepCoadd_tempExp: {
-        template:    "deepCoadd/%(filter)s/%(tract)d/%(patch)stempExp/%(visit)d-%(filter)s.fits[compress]"
+        template:    "deepCoadd/%(filter)s/%(tract)d/%(patch)stempExp/%(visit)d-%(filter)s.fits"
         python:      "lsst.afw.image.ExposureF"
         persistable: "ExposureF"
         storage:     "FitsStorage"
