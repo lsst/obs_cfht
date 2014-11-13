@@ -58,7 +58,6 @@ class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
         # Make both tables from the same detRet, since detRet can only be run once
         table1 = afwTable.SourceTable.make(self.schema1, idFactory)
         table1.setMetadata(self.algMetadata)
-        table1.setVersion(self.tableVersion)
         detRet = self.detection.makeSourceCatalog(table1, exposure)
         sources1 = detRet.sources
 
@@ -113,7 +112,6 @@ class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
             # the schemaMapper will copy the footprints and ids, which is all we need.
             table2 = afwTable.SourceTable.make(self.schema, idFactory)
             table2.setMetadata(self.algMetadata)
-            table2.setVersion(self.tableVersion)
             sources = afwTable.SourceCatalog(table2)
             # transfer to a second table
             sources.extend(sources1, self.schemaMapper)
