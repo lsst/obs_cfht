@@ -28,9 +28,6 @@ root.calibrate.initialPsf.fwhm=1.0
 
 root.calibrate.measurePsf.starSelector.name = "objectSize"
 
-from lsst.obs.cfht.astrometry import CfhtAstrometryTask
-root.calibrate.astrometry.retarget(CfhtAstrometryTask)
-
 root.calibrate.astrometry.solver.filterMap = { 'i2': 'i',
                                                    }
 
