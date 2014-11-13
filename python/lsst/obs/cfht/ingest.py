@@ -61,6 +61,18 @@ class MegacamParseTask(ParseTask):
             maskName = maskName+"_enlarged"
         maskFile = maskName+".nn/"+ccd[1:6]+".fits"
         return maskFile
+
+    @staticmethod
+    def getExtensionName(md):
+        """ Get the name of an extension.
+        @param md: PropertySet like one obtained from afwImage.readMetadata)
+        @return Name of the extension if it exists.  None otherwise.
+        """
+        try:
+            ext = md.get("EXTNAME")
+            return ext
+        except lsst.pex.exceptions.Exception:
+            return None
         
     def getInfo(self, filename):
         phuInfo, infoList = super(MegacamParseTask, self).getInfo(filename)
@@ -72,4 +84,5 @@ class MegacamParseTask(ParseTask):
         for num, info in enumerate(infoList):
             info['state'] = match.group('state')
             info['extension'] = num + 1
+            info['defects'] = '2003A.mask.0.36.02_enlarged.nn/%s.fits'%('ccd%02d'%(num))
         return phuInfo, infoList
