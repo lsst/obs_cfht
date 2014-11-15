@@ -225,7 +225,13 @@ def addAmp(ampCatalog, amp, eparams):
 
     record.setBBox(bbox)
     record.setRawXYOffset(afwGeom.ExtentI(0,0))
-    record.setName("%i,%i"%(eparams['index'][0], eparams['index'][1]))
+    #Set amplifier names according to the CFHT convention (A, B)
+    if eparams['index'][0] == 0 and eparams['index'][1] == 0 :
+        record.setName("A")
+    elif eparams['index'][0] == 1 and eparams['index'][1] == 0 :
+        record.setName("B")
+    else :
+        raise ValueError("Unexpected index parameter %i, %i"%(eparams['index'][0], eparams['index'][1]))
     record.setReadoutCorner(afwTable.LR if amp['flipX'] else afwTable.LL)    
     record.setGain(eparams['gain'])
     record.setReadNoise(eparams['readNoise'])

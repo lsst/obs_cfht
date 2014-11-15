@@ -44,16 +44,18 @@ class MegacamMapper(CameraMapper):
         # The "ccd" provided by the user is translated through the registry into an extension name for the "raw"
         # template.  The template therefore doesn't include "ccd", so we need to ensure it's explicitly included
         # so the ArgumentParser can recognise and accept it.
-        for mapping in self.exposures.values():
-            if 'visit' in mapping.keyDict:
-                mapping.keyDict['ccd'] = int
+        
+        self.exposures['raw'].keyDict['ccd'] = int
 
-        afwImageUtils.defineFilter('u', lambdaEff=350, alias="u.MP9301")
-        afwImageUtils.defineFilter('g', lambdaEff=450, alias="g.MP9401")
-        afwImageUtils.defineFilter('r', lambdaEff=600, alias="r.MP9601")
-        afwImageUtils.defineFilter('i', lambdaEff=750, alias="i.MP9701")
+        afwImageUtils.defineFilter('u',  lambdaEff=350, alias="u.MP9301")
+        afwImageUtils.defineFilter('g',  lambdaEff=450, alias="g.MP9401")
+        afwImageUtils.defineFilter('r',  lambdaEff=600, alias="r.MP9601")
+        afwImageUtils.defineFilter('i',  lambdaEff=750, alias="i.MP9701")
         afwImageUtils.defineFilter('i2', lambdaEff=750, alias="i.MP9702")
-        afwImageUtils.defineFilter('z', lambdaEff=900, alias="z.MP9801")
+        afwImageUtils.defineFilter('z',  lambdaEff=900, alias="z.MP9801")
+
+        # define filters?
+        self.filterIdMap = dict(u=0, g=1, r=2, i=3, z=4, i2=5)
 
         # Ensure each dataset type of interest knows about the full range of keys available from the registry
         keys = {'runId': str,
@@ -67,7 +69,7 @@ class MegacamMapper(CameraMapper):
                 'taiObs': str,
                 'expTime': float,
                 }
-        for name in ("raw", "calexp", "postISRCCD", "src"):
+        for name in ("raw", "calexp", "postISRCCD", "src", "icSrc", "icMatch"):
             self.mappings[name].keyDict.update(keys)
 
     def bypass_defects(self, datasetType, pythonType, butlerLocation, dataId):
@@ -97,6 +99,8 @@ class MegacamMapper(CameraMapper):
 
         raise RuntimeError("No defects for ccdSerial %s in %s" % (ccdSerial, defectsFitsPath))
     
+
+
     def _defectLookup(self, dataId):
         """Find the defects for a given CCD.
         @param dataId (dict) Dataset identifier
@@ -140,6 +144,35 @@ class MegacamMapper(CameraMapper):
     def bypass_ccdExposureId_bits(self, datasetType, pythonType, location, dataId):
         """Hook to retrieve number of bits in identifier for CCD"""
         return 32
+        
+    def _computeCoaddExposureId(self, dataId, singleFilter):
+        """Compute the 64-bit (long) identifier for a coadd.
+
+        @param dataId (dict)       Data identifier with tract and patch.
+        @param singleFilter (bool) True means the desired ID is for a single- 
+                                   filter coadd, in which case dataId
+                                   must contain filter.
+        """
+        tract = long(dataId['tract'])
+        if tract < 0 or tract >= 128:
+            raise RuntimeError('tract not in range [0,128)')
+        patchX, patchY = map(int, dataId['patch'].split(','))
+        for p in (patchX, patchY):
+            if p < 0 or p >= 2**13:
+                raise RuntimeError('patch component not in range [0, 8192)')
+        id = (tract * 2**13 + patchX) * 2**13 + patchY
+        if singleFilter:
+            return id * 8 + self.filterIdMap[dataId['filter']]
+        return id
+
+    def bypass_CoaddExposureId_bits(self, datasetType, pythonType, location, dataId):
+        return 1 + 7 + 13*2 + 3
+        
+    def bypass_CoaddExposureId(self, datasetType, pythonType, location, dataId):
+            return self._computeCoaddExposureId(dataId, True)
+            
+    bypass_deepCoaddId = bypass_CoaddExposureId
+    bypass_deepCoaddId_bits = bypass_CoaddExposureId_bits
 
     def _computeStackExposureId(self, dataId):
         """Compute the 64-bit (long) identifier for a Stack exposure.
