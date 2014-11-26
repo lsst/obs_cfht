@@ -75,6 +75,26 @@ exposures: {
         level:       "Skytile"
         tables:      "raw"
     }
+       
+    deep_processCoadd: {
+        template:      "processCoadd/%(filter)s/%(tract)d/%(patch)s.fits"
+        python:        "lsst.afw.image.ExposureF"
+        persistable:   "ExposureF"
+        storage:       "FitsStorage"
+        level:         "Skytile"
+        tables:        "raw"
+    }
+    
+    deepCoadd_calexp: {
+        template:    "calexp/%(filter)s/%(tract)d/%(patch)s.fits"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "raw"
+        columns:     "visit"
+        columns:     "ccd"
+    }
     
 }
 
@@ -301,7 +321,22 @@ datasets: {
         storage:      "ignored"
         tables:       "raw"
     }
-
+    deepCoaddId_bits: {
+        template:     "ignored"
+        # Provide something to import, although we actually return an int
+        python:       "lsst.daf.base.PropertySet"
+        persistable:  "ignored"
+        storage:      "ignored"
+        tables:       "raw"
+    }
+    deepCoaddId: {
+        template:     "ignored"
+        # Provide something to import, although we actually return an int
+        python:       "lsst.daf.base.PropertySet"
+        persistable:  "ignored"
+        storage:      "ignored"
+        tables:       "raw"
+    }
     stackExposureId: {
         template:     "ignored"
         # Provide something to import, although we actually return a long
@@ -395,5 +430,72 @@ datasets: {
         tables:        raw
         tables:        raw_skyTile
     }
-
+    deep_processCoadd_config: {
+        template:      "config/deep_processCoadd.py"
+        python:        "lsst.pipe.tasks.processCoadd.ProcessCoaddConfig"
+        persistable:      "Config"
+        storage:    "ConfigStorage"
+        tables:        raw
+        tables:        raw_skyTile
+    }
+    deepCoadd_icSrc: {
+        template:      "icSrc/%(filter)s/%(tract)d/%(patch)s.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
+    deepCoadd_icSrc_schema: {
+        template:      "schema/icSrc.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        raw
+        tables:        raw_skyTile
+    }
+    deepCoadd_icMatch: {
+        template:      "icMatch/%(filter)s/%(tract)d/%(patch)s.fits"
+        python:        "lsst.afw.table.BaseCatalog"
+        persistable:   "BaseCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
+    deepCoadd_src_schema: {
+        template:      "schema/src.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:        "SourceCatalog"
+        storage:    "FitsCatalogStorage"
+        tables:        raw
+        tables:        raw_skyTile
+    }
+    deep_processCoadd_metadata: {
+        template:      "deep_processCoadd_metadata/%(filter)s/%(tract)d/%(patch)s.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:        "PropertySet"
+        storage:    "BoostStorage"
+        tables:        raw
+        tables:        raw_skyTile
+    }
+    deepCoadd_calexpBackground: {
+        template:      "calexp/%(filter)s/%(tract)d/%(patch)s.fits"
+        python:        "lsst.afw.math.BackgroundList"
+        persistable:   "PurePythonClass"
+        storage:       "FitsCatalogStorage"
+        tables:        raw
+        tables:        raw_skyTile
+    }
+    deepCoadd_srcMatch: {
+        template:      "srcMatch/%(filter)s/%(tract)d/%(patch)s.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
+    deepCoadd_src: {
+        template:      "src/%(filter)s/%(tract)d/%(patch)s.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+    }
 }
