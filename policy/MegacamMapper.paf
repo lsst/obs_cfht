@@ -486,8 +486,8 @@ datasets: {
     }
     deepCoadd_srcMatch: {
         template:      "srcMatch/%(filter)s/%(tract)d/%(patch)s.fits"
-        python:        "lsst.afw.table.SourceCatalog"
-        persistable:   "SourceCatalog"
+        python:        "lsst.afw.table.BaseCatalog"
+        persistable:   "BaseCatalog"
         storage:       "FitsCatalogStorage"
         tables:        "raw"
     }
