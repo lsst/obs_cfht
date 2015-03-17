@@ -4,6 +4,7 @@ import lsst.afw.cameraGeom as cameraGeom
 import lsst.pex.config as pexConfig
 import lsst.pipe.base as pipeBase
 import lsst.ip.isr as ipIsr
+import numpy as np
 
 class CfhtIsrTask(ipIsr.IsrTask) :
     def run(self, sensorRef):
@@ -28,9 +29,20 @@ class CfhtIsrTask(ipIsr.IsrTask) :
         ccdExposure = self.convertIntToFloat(ccdExposure)
         metadata = ccdExposure.getMetadata()
         
-        flag = 1
+        # Detect saturation
+        # Saturation values recorded in the fits hader is not reliable, try to estimate it from the pixel vales
+        image = ccdExposure.getMaskedImage().getImage()
+        imageArray = image.getArray()
+        max = np.max(imageArray)
+        if max > 60000.0 :
+            hist, bin_edges = np.histogram(imageArray.ravel(),bins=100,range=(60000.0,max+1.0))
+            saturate = int(0.95*bin_edges[np.argmax(hist)])
+        else :
+            saturate = metadata.get("SATURATE")
+        self.log.info("Saturation set to %d" % saturate)
+        
         for amp in ccd:
-            amp.setSaturation(metadata.get("SATURATE"))
+            amp.setSaturation(saturate)
             if amp.getName() == "A":
                 amp.setGain(metadata.get("GAINA"))
                 amp.setReadNoise(metadata.get("RDNOISEA"))
