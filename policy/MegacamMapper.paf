@@ -498,4 +498,32 @@ datasets: {
         storage:       "FitsCatalogStorage"
         tables:        "raw"
     }
+    forced_src: {
+        template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/FORCEDSRC-%(visit)d-%(ccd)02d.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "ignored"
+        storage:       "FitsCatalogStorage"
+        tables:        raw
+        tables:        raw_visit
+    }
+    forced_src_schema: {
+        template:      "schema/forced_src.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "ignored"
+        storage:       "FitsCatalogStorage"
+    }
+    forcedPhot_config: {
+        template:      "config/forcedPhotCcd.py"
+        python:        "lsst.pipe.tasks.forcedPhotCcd.ForcedPhotCcdConfig"
+        persistable:   "Config"
+        storage:       "ConfigStorage"
+    }
+    forcedPhot_metadata: {
+        template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/forcedPhotCcd_metadata/%(visit)d-%(ccd)02d.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:   "PropertySet"
+        storage:       "BoostStorage"
+        tables:        raw
+        tables:        raw_visit
+    }
 }
