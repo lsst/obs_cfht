@@ -1,6 +1,12 @@
 import os
 root.load(os.path.join(os.environ['OBS_CFHT_DIR'], 'config', 'colorterms.py'))
 
+from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
+root.calibrate.retarget(CfhtCalibrateTask)
+
+from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
+root.isr.retarget(CfhtIsrTask)
+
 root.isr.doBias = False
 root.isr.doDark = False
 root.isr.doFlat = False
@@ -35,9 +41,4 @@ except :
     root.calibrate.astrometry.solver.filterMap = { 'i2': 'i',
                                                    }
                                                    
-from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
-root.calibrate.retarget(CfhtCalibrateTask)
-
-from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
-root.isr.retarget(CfhtIsrTask)
 

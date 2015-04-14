@@ -43,12 +43,14 @@ class CfhtIsrTask(IsrTask) :
         
         # Detect saturation
         # Saturation values recorded in the fits hader is not reliable, try to estimate it from the pixel vales
+        # Find the peak location in the high end part the pixel values' histogram and set the saturation level at 
+        # safe * (peak location) where safe is a configurable parameter (typically 0.95)
         image = ccdExposure.getMaskedImage().getImage()
         imageArray = image.getArray()
         maxValue = np.max(imageArray)
         if maxValue > 60000.0 :
             hist, bin_edges = np.histogram(imageArray.ravel(),bins=100,range=(60000.0,maxValue+1.0))
-            saturate = int(0.95*bin_edges[np.argmax(hist)])
+            saturate = int(self.config.safe*bin_edges[np.argmax(hist)])
         else :
             saturate = metadata.get("SATURATE")
         self.log.info("Saturation set to %d" % saturate)
