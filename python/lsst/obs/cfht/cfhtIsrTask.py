@@ -3,9 +3,22 @@ import lsst.meas.algorithms as measAlg
 import lsst.afw.cameraGeom as cameraGeom
 import lsst.pex.config as pexConfig
 import lsst.pipe.base as pipeBase
-import lsst.ip.isr as ipIsr
+from lsst.ip.isr import IsrTask
+import numpy as np
 
-class CfhtIsrTask(ipIsr.IsrTask) :
+class CfhtIsrTaskConfig(IsrTask.ConfigClass) :
+    safe = pexConfig.Field(
+        dtype = float,
+        doc = "Safety margin for CFHT sensors gain determination",
+        default = 0.95,
+    )
+    
+    def setDefaults(self):
+        IsrTask.ConfigClass.setDefaults(self)
+
+class CfhtIsrTask(IsrTask) :
+    ConfigClass = CfhtIsrTaskConfig
+    
     def run(self, sensorRef):
         """Perform instrument signature removal on an exposure
         
@@ -28,9 +41,22 @@ class CfhtIsrTask(ipIsr.IsrTask) :
         ccdExposure = self.convertIntToFloat(ccdExposure)
         metadata = ccdExposure.getMetadata()
         
-        flag = 1
+        # Detect saturation
+        # Saturation values recorded in the fits hader is not reliable, try to estimate it from the pixel vales
+        # Find the peak location in the high end part the pixel values' histogram and set the saturation level at 
+        # safe * (peak location) where safe is a configurable parameter (typically 0.95)
+        image = ccdExposure.getMaskedImage().getImage()
+        imageArray = image.getArray()
+        maxValue = np.max(imageArray)
+        if maxValue > 60000.0 :
+            hist, bin_edges = np.histogram(imageArray.ravel(),bins=100,range=(60000.0,maxValue+1.0))
+            saturate = int(self.config.safe*bin_edges[np.argmax(hist)])
+        else :
+            saturate = metadata.get("SATURATE")
+        self.log.info("Saturation set to %d" % saturate)
+        
         for amp in ccd:
-            amp.setSaturation(metadata.get("SATURATE"))
+            amp.setSaturation(saturate)
             if amp.getName() == "A":
                 amp.setGain(metadata.get("GAINA"))
                 amp.setReadNoise(metadata.get("RDNOISEA"))

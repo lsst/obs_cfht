@@ -1,6 +1,12 @@
 import os
 root.load(os.path.join(os.environ['OBS_CFHT_DIR'], 'config', 'colorterms.py'))
 
+from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
+root.calibrate.retarget(CfhtCalibrateTask)
+
+from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
+root.isr.retarget(CfhtIsrTask)
+
 root.isr.doBias = False
 root.isr.doDark = False
 root.isr.doFlat = False
@@ -28,12 +34,11 @@ root.calibrate.initialPsf.fwhm=1.0
 
 root.calibrate.measurePsf.starSelector.name = "objectSize"
 
-root.calibrate.astrometry.solver.filterMap = { 'i2': 'i',
+try :
+    root.calibrate.astrometry.refObjLoader.filterMap = { 'i2': 'i',
                                                    }
-
-from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
-root.calibrate.retarget(CfhtCalibrateTask)
-
-from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
-root.isr.retarget(CfhtIsrTask)
+except :
+    root.calibrate.astrometry.solver.filterMap = { 'i2': 'i',
+                                                   }
+                                                   
 
