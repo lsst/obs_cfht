@@ -1,8 +1,4 @@
-import lsst.afw.image as afwImage
-import lsst.meas.algorithms as measAlg
-import lsst.afw.cameraGeom as cameraGeom
 import lsst.pex.config as pexConfig
-import lsst.pipe.base as pipeBase
 from lsst.ip.isr import IsrTask
 import numpy as np
 
@@ -19,7 +15,7 @@ class CfhtIsrTaskConfig(IsrTask.ConfigClass) :
 class CfhtIsrTask(IsrTask) :
     ConfigClass = CfhtIsrTaskConfig
     
-    def run(self, sensorRef):
+    def run(self, ccdExposure, bias=None, dark=None,  flat=None, defects=None, fringes=None):
         """Perform instrument signature removal on an exposure
         
         Steps include:
@@ -28,24 +24,25 @@ class CfhtIsrTask(IsrTask) :
         - Interpolate over defects, saturated pixels and all NaNs
         - Persist the ISR-corrected exposure as "postISRCCD" if config.doWrite is True
 
-        @param sensorRef daf.persistence.butlerSubset.ButlerDataRef of the data to be processed
+        @param[in] ccdExposure  -- lsst.afw.image.exposure of detector data
+        @param[in] bias -- exposure of bias frame
+        @param[in] dark -- exposure of dark frame
+        @param[in] flat -- exposure of flatfield
+        @param[in] defects -- list of detects
+        @param[in] fringes -- exposure of fringe frame or list of fringe exposure
+
         @return a pipeBase.Struct with fields:
         - exposure: the exposure after application of ISR
         """
-        self.log.log(self.log.INFO, "Performing ISR on sensor %s" % (sensorRef.dataId))
-        ccdExposure = sensorRef.get('raw')
         ccd = ccdExposure.getDetector()
-        
-        ccdNum = sensorRef.dataId['ccd']
-    
-        ccdExposure = self.convertIntToFloat(ccdExposure)
-        metadata = ccdExposure.getMetadata()
+        floatExposure = self.convertIntToFloat(ccdExposure)
+        metadata = floatExposure.getMetadata()
         
         # Detect saturation
         # Saturation values recorded in the fits hader is not reliable, try to estimate it from the pixel vales
         # Find the peak location in the high end part the pixel values' histogram and set the saturation level at 
         # safe * (peak location) where safe is a configurable parameter (typically 0.95)
-        image = ccdExposure.getMaskedImage().getImage()
+        image = floatExposure.getMaskedImage().getImage()
         imageArray = image.getArray()
         maxValue = np.max(imageArray)
         if maxValue > 60000.0 :
@@ -65,48 +62,12 @@ class CfhtIsrTask(IsrTask) :
                 amp.setReadNoise(metadata.get("RDNOISEB"))
             else :
                 raise ValueError("Unexpected amplifier name : %s"%(amp.getName()))
-            
-            self.saturationDetection(ccdExposure, amp)
-            self.overscanCorrection(ccdExposure, amp)
-        
-        ccdExposure = self.assembleCcd.assembleCcd(ccdExposure)
-        ccd = ccdExposure.getDetector()
 
-        if self.config.doBias:
-            self.biasCorrection(ccdExposure, sensorRef)
-        
-        if self.config.doDark:
-            self.darkCorrection(ccdExposure, sensorRef)
-        
-        for amp in ccd:
-            ampExposure = ccdExposure.Factory(ccdExposure, amp.getBBox(), afwImage.PARENT)
-            self.updateVariance(ampExposure, amp)
-
-        if self.config.doFringe and not self.config.fringeAfterFlat:
-            self.fringe.run(ccdExposure, sensorRef,
-                            assembler=self.assembleCcd if self.config.doAssembleDetrends else None)
-        
-        if self.config.doFlat:
-            self.flatCorrection(ccdExposure, sensorRef)
-
-        defects = sensorRef.get('defects')
-        self.maskAndInterpDefect(ccdExposure, defects)
-        
-        self.saturationInterpolation(ccdExposure)
-        
-        self.maskAndInterpNan(ccdExposure)
-
-        if self.config.doFringe and self.config.fringeAfterFlat:
-            self.fringe.run(ccdExposure, sensorRef,
-                            assembler=self.assembleCcd if self.config.doAssembleDetrends else None)
-        
-        ccdExposure.getCalib().setFluxMag0(self.config.fluxMag0T1 * ccdExposure.getCalib().getExptime())
-
-        if self.config.doWrite:
-            sensorRef.put(ccdExposure, "postISRCCD")
-        
-        self.display("postISRCCD", ccdExposure)
-
-        return pipeBase.Struct(
-            exposure = ccdExposure,
+        return IsrTask.run(self, 
+            ccdExposure = ccdExposure,
+            bias = bias,
+            dark = dark,
+            flat = flat,
+            defects = defects,
+            fringes = fringes,
         )
