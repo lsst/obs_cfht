@@ -5,10 +5,12 @@ import lsst.pex.config as pexConfig
 import lsst.afw.detection as afwDet
 import lsst.afw.math as afwMath
 import lsst.afw.table as afwTable
+import lsst.afw.coord as afwCoord
+import lsst.afw.geom as afwGeom
 import lsst.meas.algorithms as measAlg
 import lsst.pipe.base as pipeBase
-
 import lsst.pipe.tasks.calibrate as ptcalibrate
+from lsst.afw.image import fluxFromABMag, fluxErrFromABMagErr
 
 import numpy as np
 import matplotlib
@@ -127,9 +129,10 @@ class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
             matches, matchMeta = None, None
 
         if self.config.doPhotoCal:
-            assert(matches is not None)
+            matchPhot = self.doPhotocalMatch(sources).match
+            assert(matchPhot is not None)
             try:
-                photocalRet = self.photocal.run(exposure, matches)
+                photocalRet = self.photocal.run(exposure, matchPhot)
             except Exception, e:
                 raise
                 self.log.warn("Failed to determine photometric zero-point: %s" % e)
@@ -163,4 +166,47 @@ class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
             matches = matches,
             matchMeta = matchMeta,
             photocal = photocalRet,
+        )
+
+    def doPhotocalMatch(self, sources) :
+        # Read external catalog for photometry calibration and load it info an afw table
+        # Then match it with the sources from the current exposure and return the matched catalog
+        
+        file_cat = "../Catalogs/CFHTLS_D3_stars_mag_r_20.cat"
+        with open(file_cat, 'r') as f:
+            lines = f.readlines()
+            
+        schema  = afwTable.SourceTable.makeMinimalSchema()
+        filters='ugriz'
+
+        for f in filters :
+            schema.addField(f + "_flux", type="F", doc="Flux" + f)
+            schema.addField(f + "_fluxSigma", type="F", doc="Error on flux" + f)
+        schema.addField("photometric", type="Flag", doc="Photometric quality flag")
+        
+        catalog = afwTable.SimpleCatalog(schema)
+        for i in range(2,len(lines)) :
+            l = lines[i].split()
+            record = catalog.addNew()
+            coord = afwCoord.Coord(afwGeom.Point2D(np.float64(l[9]),np.float64(l[10])))
+            record.set("coord",coord)
+            for cnts,f in enumerate(filters) :
+                # Need to convert magnitude to flux in order to be compatible with the rest
+                record.set(f + "_flux", fluxFromABMag(float(l[11+2*cnts])))
+                record.set(f + "_fluxSigma", fluxErrFromABMagErr(float(l[12+2*cnts]),float(l[11+2*cnts])))
+ #           if int(l[21]) == 0 and int(l[22]) == 1 :
+            record.set("photometric", True)
+#            else :
+#                record.set("photometric", False)
+
+        # Make a deep copy in order to have everything contiguous in memory
+        ref = catalog.copy(deep=True)
+        self.log.info("Photometric reference catalog has been loaded with %d CFHT reference objects"%(len(lines)-2))
+        
+        # Match sources and photmetric reference catalog
+        match = afwTable.matchRaDec(ref, sources, 1.0 * afwGeom.arcseconds)
+        self.log.info("Found %d matches in photometric reference catalog"%(len(match)))
+        
+        return pipeBase.Struct(
+            match = match,
         )
