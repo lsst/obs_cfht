@@ -20,7 +20,7 @@ root.isr.fringe.filters = ['i', 'i2', 'z']
 root.isr.fringe.pedestal = True
 root.isr.fringe.small = 1
 root.isr.fringe.large = 50
-root.isr.doAssembleDetrends = True
+root.isr.doAssembleIsrExposures = True
 
 root.calibrate.repair.doCosmicRay=True
 root.calibrate.repair.cosmicray.cond3_fac=2.5
