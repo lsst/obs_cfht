@@ -58,11 +58,15 @@ class CfhtIsrTask(IsrTask) :
         for amp in ccd:
             amp.setSaturation(saturate)
             if amp.getName() == "A":
-                amp.setGain(metadata.get("GAINA"))
-                amp.setReadNoise(metadata.get("RDNOISEA"))
+                gain = metadata.get("GAINA")
+                amp.setGain(gain)
+                # We have to devide the noise which is in the fits header by the gain as the 
+                # stack is expecting the noise in ADU
+                amp.setReadNoise(metadata.get("RDNOISEA")/gain)
             elif amp.getName() == "B":
-                amp.setGain(metadata.get("GAINB"))
-                amp.setReadNoise(metadata.get("RDNOISEB"))
+                gain = metadata.get("GAINB")
+                amp.setGain(gain)
+                amp.setReadNoise(metadata.get("RDNOISEB")/gain)
             else :
                 raise ValueError("Unexpected amplifier name : %s"%(amp.getName()))
             
