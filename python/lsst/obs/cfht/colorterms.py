@@ -1,4 +1,4 @@
-from lsst.meas.photocal.colorterms import Colorterm
+from lsst.pipe.tasks.colorterms import Colorterm
 
 colortermsData = dict(
     # e2v chips
