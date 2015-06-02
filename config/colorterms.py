@@ -1,9 +1,9 @@
 """Set color terms for MegaCam"""
 
-from lsst.pipe.tasks.colorterms import Colorterm, ColortermDictConfig
+from lsst.pipe.tasks.colorterms import Colorterm, ColortermDict
 
-root.library = {
-    "e2v": ColortermDictConfig(dict={
+root.data = {
+    "e2v": ColortermDict(data={
         "u": Colorterm(primary="u", secondary="g", c0=0.0, c1=-0.241),
         "g": Colorterm(primary="g", secondary="r", c0=0.0, c1=-0.153),
         "r": Colorterm(primary="r", secondary="g", c0=0.0, c1= 0.024),
