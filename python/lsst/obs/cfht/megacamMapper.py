@@ -36,6 +36,8 @@ import lsst.pex.policy as pexPolicy
 import lsst.meas.algorithms
 
 class MegacamMapper(CameraMapper):
+    packageName = "obs_cfht"
+
     def __init__(self, **kwargs):
         policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.paf", "policy")
         policy = pexPolicy.Policy(policyFile)

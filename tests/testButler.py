@@ -132,6 +132,9 @@ class GetRawTestCase(unittest.TestCase):
             return
         self.getDetrend("fringe")
 
+    def testPackageName(self):
+        self.assertEqual(self.butler.mapper.packageName, "obs_cfht")
+
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 def suite():
