@@ -25,7 +25,6 @@ import os
 import pyfits
 
 import lsst.afw.geom as afwGeom
-import lsst.afw.cameraGeom as cameraGeom
 import lsst.afw.image as afwImage
 import lsst.afw.image.utils as afwImageUtils
 

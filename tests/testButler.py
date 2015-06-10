@@ -27,16 +27,10 @@ import sys
 
 import unittest
 import lsst.utils.tests as utilsTests
-
-from lsst.pex.policy import Policy
 import lsst.daf.persistence as dafPersist
-from lsst.obs.cfht import MegacamMapper
-
-import lsst.afw.display.ds9 as ds9
-import lsst.afw.display.utils as displayUtils
-
 import lsst.afw.cameraGeom as cameraGeom
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
+
 try:
     type(display)
 except NameError:
@@ -58,6 +52,7 @@ class GetRawTestCase(unittest.TestCase):
             self.runTests = True
         else:
             self.runTests = False
+
     def tearDown(self):
         if self.runTests:
             del self.butler
@@ -69,7 +64,7 @@ class GetRawTestCase(unittest.TestCase):
         print "height: ", exp.getHeight()
         print "detector name: ", exp.getDetector().getName()
         print "filter name: ", exp.getFilter().getFilterProperty().getName()
-        
+
         self.assertEqual(exp.getWidth(), self.size[0])
         self.assertEqual(exp.getHeight(), self.size[1])
         self.assertEqual(exp.getDetector().getName(), "ccd%02d" % ccd)
@@ -92,7 +87,6 @@ class GetRawTestCase(unittest.TestCase):
             return datadir
         else:
             print >> sys.stderr, "Skipping test as testdata_cfht is not setup"
-
 
     def testRaw(self):
         """Test retrieval of raw image"""
