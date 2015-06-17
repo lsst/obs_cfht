@@ -25,7 +25,6 @@ import os
 import pyfits
 
 import lsst.afw.geom as afwGeom
-import lsst.afw.cameraGeom as cameraGeom
 import lsst.afw.image as afwImage
 import lsst.afw.image.utils as afwImageUtils
 
@@ -36,6 +35,8 @@ import lsst.pex.policy as pexPolicy
 import lsst.meas.algorithms
 
 class MegacamMapper(CameraMapper):
+    packageName = "obs_cfht"
+
     def __init__(self, **kwargs):
         policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.paf", "policy")
         policy = pexPolicy.Policy(policyFile)

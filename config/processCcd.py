@@ -1,5 +1,9 @@
-import os
-root.load(os.path.join(os.environ['OBS_CFHT_DIR'], 'config', 'colorterms.py'))
+import os.path
+
+from lsst.utils import getPackageDir
+
+cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
+root.calibrate.photocal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
 
 from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
 root.calibrate.retarget(CfhtCalibrateTask)
