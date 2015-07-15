@@ -1,21 +1,14 @@
 import math
 
-import lsst.daf.base as dafBase
-import lsst.pex.config as pexConfig
-import lsst.afw.detection as afwDet
 import lsst.afw.math as afwMath
 import lsst.afw.table as afwTable
 import lsst.meas.algorithms as measAlg
 import lsst.pipe.base as pipeBase
 
-import lsst.pipe.tasks.calibrate as ptcalibrate
+import lsst.pipe.tasks.calibrate
 
-import numpy as np
-import matplotlib
-import matplotlib.pylab as plt
-
-class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
-	
+class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
+    @pipeBase.timeMethod
     def run(self, exposure, defects=None, idFactory=None):
         """!Run the calibration task on an exposure
 
@@ -79,13 +72,11 @@ class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
  #               matches = None
             matches = None
             psfRet = self.measurePsf.run(exposure, sources1, matches=matches)
-            cellSet = psfRet.cellSet
             psf = psfRet.psf
         elif exposure.hasPsf():
             psf = exposure.getPsf()
-            cellSet = None
         else:
-            psf, cellSet = None, None
+            psf = None
 
         # Wash, rinse, repeat with proper PSF
 
@@ -107,17 +98,14 @@ class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
 
             self.display('PSF_background', exposure=exposure)
 
-        if self.config.doAstrometry or self.config.doPhotoCal:
-            # make a second table with which to do the second measurement
-            # the schemaMapper will copy the footprints and ids, which is all we need.
-            table2 = afwTable.SourceTable.make(self.schema, idFactory)
-            table2.setMetadata(self.algMetadata)
-            sources = afwTable.SourceCatalog(table2)
-            # transfer to a second table
-            sources.extend(sources1, self.schemaMapper)
-            self.measurement.run(exposure, sources)
-        else:
-            sources = sources1
+        # make a second table with which to do the second measurement
+        # the schemaMapper will copy the footprints and ids, which is all we need.
+        table2 = afwTable.SourceTable.make(self.schema, idFactory)
+        table2.setMetadata(self.algMetadata)
+        sources = afwTable.SourceCatalog(table2)
+        # transfer to a second table -- note that the slots do not have to be reset here
+        # as long as measurement.run follows immediately
+        sources.extend(sources1, self.schemaMapper)
 
         if self.config.doAstrometry:
             astromRet = self.astrometry.run(exposure, sources)
@@ -131,7 +119,6 @@ class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
             try:
                 photocalRet = self.photocal.run(exposure, matches)
             except Exception, e:
-                raise
                 self.log.warn("Failed to determine photometric zero-point: %s" % e)
                 photocalRet = None
                 self.metadata.set('MAGZERO', float("NaN"))
@@ -154,7 +141,7 @@ class CfhtCalibrateTask(ptcalibrate.CalibrateTask) :
         else:
             photocalRet = None
         self.display('calibrate', exposure=exposure, sources=sources, matches=matches)
-        
+
         return pipeBase.Struct(
             exposure = exposure,
             backgrounds = backgrounds,
