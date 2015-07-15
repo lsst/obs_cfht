@@ -107,6 +107,20 @@ class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
         # as long as measurement.run follows immediately
         sources.extend(sources1, self.schemaMapper)
 
+        if self.config.doMeasureApCorr:
+            # Run measurement through all flux measurements (all have the same execution order),
+            # then apply aperture corrections, then run the rest of the measurements
+            apCorrOrder = lsst.meas.base.BasePlugin.APCORR_ORDER
+            self.measurement.run(exposure, sources, endOrder=apCorrOrder)
+            apCorrMap = self.measureApCorr.run(bbox=exposure.getBBox(), catalog=sources).apCorrMap
+            exposure.getInfo().setApCorrMap(apCorrMap)
+            if self.config.doApplyApCorr:
+                self.applyApCorr.run(catalog=sources, apCorrMap=apCorrMap)
+            self.measurement.run(exposure, sources, beginOrder=apCorrOrder)
+        else:
+            apCorrMap = None
+            self.measurement.run(exposure, sources)
+
         if self.config.doAstrometry:
             astromRet = self.astrometry.run(exposure, sources)
             matches = astromRet.matches
