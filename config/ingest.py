@@ -1,20 +1,20 @@
 from lsst.obs.cfht.ingest import MegacamParseTask
 
-root.parse.retarget(MegacamParseTask)
-root.parse.hdu = 1 # PHU
-root.parse.translation = {'runId': 'RUNID',
+config.parse.retarget(MegacamParseTask)
+config.parse.hdu = 1 # PHU
+config.parse.translation = {'runId': 'RUNID',
                           'object': 'OBJECT',
                           'visit': 'EXPNUM',
                           'date': 'DATE-OBS',
                           'expTime': 'EXPTIME',
                           }
-root.parse.translators = {'taiObs': 'translate_taiObs',
+config.parse.translators = {'taiObs': 'translate_taiObs',
                           'ccd': 'translate_ccd',
                           'filter': 'translate_filter',
                           'defects': 'translate_defects',
                           }
-root.parse.extnames = ["ccd%02d" % ccd for ccd in range(36)]
-root.register.columns = {'runId':     'text',
+config.parse.extnames = ["ccd%02d" % ccd for ccd in range(36)]
+config.register.columns = {'runId':     'text',
                          'object':    'text',
                          'visit':     'int',
                          'ccd':       'int',
@@ -26,5 +26,5 @@ root.register.columns = {'runId':     'text',
                          'expTime':   'double',
                          'defects':   'text',
                          }
-root.register.unique = ['visit', 'ccd']
-root.register.visit = ['visit', 'state', 'taiObs', 'date', 'filter']
+config.register.unique = ['visit', 'ccd']
+config.register.visit = ['visit', 'state', 'taiObs', 'date', 'filter']

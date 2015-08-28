@@ -3,46 +3,46 @@ import os.path
 from lsst.utils import getPackageDir
 
 cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
-root.calibrate.photocal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
+config.calibrate.photocal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
 
 from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
-root.calibrate.retarget(CfhtCalibrateTask)
+config.calibrate.retarget(CfhtCalibrateTask)
 
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
-root.isr.retarget(CfhtIsrTask)
+config.isr.retarget(CfhtIsrTask)
 
-root.isr.doBias = False
-root.isr.doDark = False
-root.isr.doFlat = False
-root.isr.doFringe = False
-root.isr.fringeAfterFlat = False
-root.isr.doWrite = False
-root.isr.setGainAssembledCcd = True
-root.isr.assembleCcd.doRenorm = False
-root.isr.assembleCcd.setGain = False
-root.isr.fringe.filters = ['i', 'i2', 'z']
-root.isr.fringe.pedestal = True
-root.isr.fringe.small = 1
-root.isr.fringe.large = 50
-root.isr.doAssembleIsrExposures = True
+config.isr.doBias = False
+config.isr.doDark = False
+config.isr.doFlat = False
+config.isr.doFringe = False
+config.isr.fringeAfterFlat = False
+config.isr.doWrite = False
+config.isr.setGainAssembledCcd = True
+config.isr.assembleCcd.doRenorm = False
+config.isr.assembleCcd.setGain = False
+config.isr.fringe.filters = ['i', 'i2', 'z']
+config.isr.fringe.pedestal = True
+config.isr.fringe.small = 1
+config.isr.fringe.large = 50
+config.isr.doAssembleIsrExposures = True
 
-root.calibrate.repair.doCosmicRay=True
-root.calibrate.repair.cosmicray.cond3_fac=2.5
-root.calibrate.repair.cosmicray.cond3_fac2=0.4
-root.calibrate.repair.cosmicray.niteration=3
-root.calibrate.repair.cosmicray.nCrPixelMax=100000
-root.calibrate.repair.cosmicray.minSigma=6.0
-root.calibrate.repair.cosmicray.min_DN=150.0
+config.calibrate.repair.doCosmicRay=True
+config.calibrate.repair.cosmicray.cond3_fac=2.5
+config.calibrate.repair.cosmicray.cond3_fac2=0.4
+config.calibrate.repair.cosmicray.niteration=3
+config.calibrate.repair.cosmicray.nCrPixelMax=100000
+config.calibrate.repair.cosmicray.minSigma=6.0
+config.calibrate.repair.cosmicray.min_DN=150.0
 
-root.calibrate.initialPsf.fwhm=1.0
+config.calibrate.initialPsf.fwhm=1.0
 
-root.calibrate.measurePsf.starSelector.name = "objectSize"
+config.calibrate.measurePsf.starSelector.name = "objectSize"
 
 try :
-    root.calibrate.astrometry.refObjLoader.filterMap = { 'i2': 'i',
+    config.calibrate.astrometry.refObjLoader.filterMap = { 'i2': 'i',
                                                    }
 except :
-    root.calibrate.astrometry.solver.filterMap = { 'i2': 'i',
+    config.calibrate.astrometry.solver.filterMap = { 'i2': 'i',
                                                    }
                                                    
 
