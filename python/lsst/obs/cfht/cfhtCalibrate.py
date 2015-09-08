@@ -2,6 +2,7 @@ import math
 
 import lsst.afw.math as afwMath
 import lsst.afw.table as afwTable
+from lsst.meas.base import BasePlugin
 import lsst.meas.algorithms as measAlg
 import lsst.pipe.base as pipeBase
 
@@ -42,19 +43,18 @@ class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
         keepCRs = True                  # At least until we know the PSF
         self.repair.run(exposure, defects=defects, keepCRs=keepCRs)
         self.display('repair', exposure=exposure)
+
         if self.config.doBackground:
             with self.timer("background"):
                 bg, exposure = measAlg.estimateBackground(exposure, self.config.background, subtract=True)
                 backgrounds.append(bg)
             self.display('background', exposure=exposure)
 
-        # Make both tables from the same detRet, since detRet can only be run once
+        # Make both tables from the same detRet, since detection can only be run once
         table1 = afwTable.SourceTable.make(self.schema1, idFactory)
         table1.setMetadata(self.algMetadata)
         detRet = self.detection.makeSourceCatalog(table1, exposure)
         sources1 = detRet.sources
-
-
         if detRet.fpSets.background:
             backgrounds.append(detRet.fpSets.background)
 
@@ -110,15 +110,11 @@ class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
         if self.config.doMeasureApCorr:
             # Run measurement through all flux measurements (all have the same execution order),
             # then apply aperture corrections, then run the rest of the measurements
-            apCorrOrder = lsst.meas.base.BasePlugin.APCORR_ORDER
-            self.measurement.run(exposure, sources, endOrder=apCorrOrder)
+            self.measurement.run(exposure, sources, endOrder=BasePlugin.APCORR_ORDER)
             apCorrMap = self.measureApCorr.run(bbox=exposure.getBBox(), catalog=sources).apCorrMap
             exposure.getInfo().setApCorrMap(apCorrMap)
-            if self.config.doApplyApCorr:
-                self.applyApCorr.run(catalog=sources, apCorrMap=apCorrMap)
-            self.measurement.run(exposure, sources, beginOrder=apCorrOrder)
+            self.measurement.run(exposure, sources, beginOrder=BasePlugin.APCORR_ORDER)
         else:
-            apCorrMap = None
             self.measurement.run(exposure, sources)
 
         if self.config.doAstrometry:
