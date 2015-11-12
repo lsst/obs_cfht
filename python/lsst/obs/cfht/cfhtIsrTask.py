@@ -56,10 +56,20 @@ class CfhtIsrTask(IsrTask) :
             amp.setSaturation(saturate)
             if amp.getName() == "A":
                 amp.setGain(metadata.get("GAINA"))
-                amp.setReadNoise(metadata.get("RDNOISEA"))
+                rdnA = metadata.get("RDNOISEA")
+                # Check if the noise value is making sense for this amp. If not, replace with value stored in RDNOISE slot
+                # this change is necessary to process some old CFHT images (visit : 7xxxxx) where RDNOISEA/B = 65535
+                if rdnA > 60000.0 :
+                    rdnA = metadata.get("RDNOISE")
+                amp.setReadNoise(rdnA)
             elif amp.getName() == "B":
                 amp.setGain(metadata.get("GAINB"))
-                amp.setReadNoise(metadata.get("RDNOISEB"))
+                rdnB = metadata.get("RDNOISEB")
+                # Check if the noise value is making sense for this amp. If not, replace with value stored in RDNOISE slot
+                # this change is necessary to process some old CFHT images (visit : 7xxxxx) where RDNOISEA/B = 65535
+                if rdnB > 60000.0 :
+                    rdnB = metadata.get("RDNOISE")
+                amp.setReadNoise(rdnB)
             else :
                 raise ValueError("Unexpected amplifier name : %s"%(amp.getName()))
 
