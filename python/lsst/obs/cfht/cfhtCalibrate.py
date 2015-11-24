@@ -10,12 +10,13 @@ import lsst.pipe.tasks.calibrate
 
 class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
     @pipeBase.timeMethod
-    def run(self, exposure, defects=None, idFactory=None):
+    def run(self, exposure, defects=None, idFactory=None, expId=0):
         """!Run the calibration task on an exposure
 
         \param[in,out]  exposure   Exposure to calibrate; measured PSF will be installed there as well
         \param[in]      defects    List of defects on exposure
         \param[in]      idFactory  afw.table.IdFactory to use for source catalog.
+        \param[in]      expId      Exposure id used for random number generation. Note: Unused
         \return a pipeBase.Struct with fields:
         - exposure: Repaired exposure
         - backgrounds: A list of background models applied in the calibration phase
