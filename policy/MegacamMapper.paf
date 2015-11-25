@@ -57,6 +57,15 @@ exposures: {
         columns:     "visit"
         columns:     "ccd"
     }
+    wcs: {
+        template:    "calexp/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/wcs-%(visit)d-%(ccd)02d.fits"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "raw"
+        columns:     "visit" "ccd"
+    }
     
     deepCoadd: {
         template:      "deepCoadd/%(filter)s/%(tract)d/%(patch)s.fits"
@@ -106,7 +115,6 @@ exposures: {
         columns:     "visit"
         columns:     "ccd"
     }
-    
 }
 
 calibrations: {
@@ -418,6 +426,12 @@ datasets: {
         python:        "lsst.pipe.tasks.makeCoaddTempExp.MakeCoaddTempExpConfig"
         persistable:      "Config"
         storage:    "ConfigStorage"
+    }
+    deep_safeClipAssembleCoadd_config: {
+        template:      "config/deep_safeClipAssembleCoadd.py"
+        python:        "lsst.pipe.tasks.assembleCoadd.AssembleCoaddConfig"
+        persistable:   "Config"
+        storage:       "ConfigStorage"
     }
     deep_makeCoaddTempExp_metadata: {
         template:      "deep_makeCoaddTempExp_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
