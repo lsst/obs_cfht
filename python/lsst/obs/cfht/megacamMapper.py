@@ -174,6 +174,9 @@ class MegacamMapper(CameraMapper):
             
     bypass_deepCoaddId = bypass_CoaddExposureId
     bypass_deepCoaddId_bits = bypass_CoaddExposureId_bits
+    
+    bypass_deepMergedCoaddId = bypass_CoaddExposureId
+    bypass_deepMergedCoaddId_bits = bypass_CoaddExposureId_bits
 
     def _computeStackExposureId(self, dataId):
         """Compute the 64-bit (long) identifier for a Stack exposure.
