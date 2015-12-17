@@ -172,10 +172,14 @@ class MegacamMapper(CameraMapper):
     def bypass_CoaddExposureId(self, datasetType, pythonType, location, dataId):
             return self._computeCoaddExposureId(dataId, True)
             
-    bypass_deepCoaddId = bypass_CoaddExposureId
+    def bypass_deepCoaddId(self, datasetType, pythonType, location, dataId):
+        return self._computeCoaddExposureId(dataId, True)
+
     bypass_deepCoaddId_bits = bypass_CoaddExposureId_bits
     
-    bypass_deepMergedCoaddId = bypass_CoaddExposureId
+    def bypass_deepMergedCoaddId(self, datasetType, pythonType, location, dataId):
+        return self._computeCoaddExposureId(dataId, False)
+
     bypass_deepMergedCoaddId_bits = bypass_CoaddExposureId_bits
 
     def _computeStackExposureId(self, dataId):
