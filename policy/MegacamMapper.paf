@@ -109,10 +109,9 @@ exposures: {
         python:      "lsst.afw.image.ExposureF"
         persistable: "ExposureF"
         storage:     "FitsStorage"
-        level:       "Ccd"
+        level:       "None"
         tables:      "raw"
-        columns:     "visit"
-        columns:     "ccd"
+        tables:      "raw_skyTile"
     }
 
     deepCoadd_calexp_det: {
@@ -120,10 +119,9 @@ exposures: {
         python:      "lsst.afw.image.ExposureF"
         persistable: "ExposureF"
         storage:     "FitsStorage"
-        level:       "Ccd"
+        level:       "None"
         tables:      "raw"
-        columns:     "visit"
-        columns:     "ccd"
+        tables:      "raw_skyTile"
     }
 }
 
