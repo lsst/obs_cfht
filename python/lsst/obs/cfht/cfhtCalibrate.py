@@ -1,3 +1,25 @@
+#
+# LSST Data Management System
+#
+# Copyright 2008-2016 AURA/LSST.
+#
+# This product includes software developed by the
+# LSST Project (http://www.lsst.org/).
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the LSST License Statement and
+# the GNU General Public License along with this program.  If not,
+# see <https://www.lsstcorp.org/LegalNotices/>.
+#
 import math
 
 import lsst.afw.math as afwMath
@@ -5,6 +27,9 @@ import lsst.afw.table as afwTable
 from lsst.meas.base import BasePlugin
 import lsst.meas.algorithms as measAlg
 import lsst.pipe.base as pipeBase
+from lsstDebug import getDebugFrame
+from lsst.afw.display import getDisplay
+from lsst.meas.astrom import displayAstrometry
 
 import lsst.pipe.tasks.calibrate
 
@@ -43,13 +68,17 @@ class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
         backgrounds = afwMath.BackgroundList()
         keepCRs = True                  # At least until we know the PSF
         self.repair.run(exposure, defects=defects, keepCRs=keepCRs)
-        self.display('repair', exposure=exposure)
+        frame = getDebugFrame(self._display, "repair")
+        if frame:
+            getDisplay(frame).mtv(exposure)
 
         if self.config.doBackground:
             with self.timer("background"):
                 bg, exposure = measAlg.estimateBackground(exposure, self.config.background, subtract=True)
                 backgrounds.append(bg)
-            self.display('background', exposure=exposure)
+            frame = getDebugFrame(self._display, "background")
+            if frame:
+                getDisplay(frame).mtv(exposure)
 
         # Make both tables from the same detRet, since detection can only be run once
         table1 = afwTable.SourceTable.make(self.schema1, idFactory)
@@ -83,7 +112,9 @@ class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
 
         if self.config.doPsf:
             self.repair.run(exposure, defects=defects, keepCRs=None)
-            self.display('PSF_repair', exposure=exposure)
+            frame = getDebugFrame(self._display, "PSF_repair")
+            if frame:
+                getDisplay(frame).mtv(exposure)
 
         if self.config.doBackground:
             # Background estimation ignores (by default) pixels with the
@@ -97,7 +128,9 @@ class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
                 self.log.info("Fit and subtracted background")
                 backgrounds.append(bg)
 
-            self.display('PSF_background', exposure=exposure)
+            frame = getDebugFrame(self._display, "PSF_background")
+            if frame:
+                getDisplay(frame).mtv(exposure)
 
         # make a second table with which to do the second measurement
         # the schemaMapper will copy the footprints and ids, which is all we need.
@@ -151,7 +184,11 @@ class CfhtCalibrateTask(lsst.pipe.tasks.calibrate.CalibrateTask) :
                 metadata.set('COLORTERM3', 0.0)
         else:
             photocalRet = None
-        self.display('calibrate', exposure=exposure, sources=sources, matches=matches)
+
+        frame = getDebugFrame(self._display, "calibrate")
+        if frame:
+            displayAstrometry(exposure=exposure, sourceCat=sources, matches=matches,
+                              frame=self.frame, pause=False)
 
         return pipeBase.Struct(
             exposure = exposure,
