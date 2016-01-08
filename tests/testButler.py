@@ -2,7 +2,7 @@
 
 #
 # LSST Data Management System
-# Copyright 2012 LSST Corporation.
+# Copyright 2012-2016 LSST Corporation.
 #
 # This product includes software developed by the
 # LSST Project (http://www.lsst.org/).
@@ -26,10 +26,13 @@ import os
 import sys
 
 import unittest
+import warnings
+from lsst.utils import getPackageDir
 import lsst.utils.tests as utilsTests
 import lsst.daf.persistence as dafPersist
 import lsst.afw.cameraGeom as cameraGeom
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
+import lsst.pex.exceptions as pexExcept
 
 try:
     type(display)
@@ -43,19 +46,14 @@ class GetRawTestCase(unittest.TestCase):
 
     def setUp(self):
         datadir = self.getTestDataDir()
-        if datadir:
-            self.butler = dafPersist.Butler(root=os.path.join(datadir, "DATA"),
-                                            calibRoot=os.path.join(datadir, "CALIB"))
-            self.size = (2112, 4644)
-            self.dataId = {'visit': 1038843}
-            self.filter = "i2"
-            self.runTests = True
-        else:
-            self.runTests = False
+        self.butler = dafPersist.Butler(root=os.path.join(datadir, "DATA"),
+                                        calibRoot=os.path.join(datadir, "CALIB"))
+        self.size = (2112, 4644)
+        self.dataId = {'visit': 1038843}
+        self.filter = "i2"
 
     def tearDown(self):
-        if self.runTests:
-            del self.butler
+        del self.butler
 
     def assertExposure(self, exp, ccd, checkFilter=True):
         print "dataId: ", self.dataId
@@ -82,16 +80,15 @@ class GetRawTestCase(unittest.TestCase):
             cameraGeomUtils.showCcd(ccd, ccdImage=exp, frame=frame)
 
     def getTestDataDir(self):
-        datadir = os.getenv("TESTDATA_CFHT_DIR")
-        if datadir:
-            return datadir
-        else:
-            print >> sys.stderr, "Skipping test as testdata_cfht is not setup"
+        try:
+            datadir = getPackageDir("testdata_cfht")
+        except pexExcept.NotFoundError as e:
+            warnings.warn(e.message)
+            raise unittest.SkipTest("Skipping test as testdata_cfht is not setup")
+        return datadir
 
     def testRaw(self):
         """Test retrieval of raw image"""
-        if not self.runTests:
-            return
         if display:
             global frame
             frame += 1
@@ -104,26 +101,18 @@ class GetRawTestCase(unittest.TestCase):
 
     def getDetrend(self, detrend):
         """Test retrieval of detrend image"""
-        if not self.runTests:
-            return
         for ccd in range(36):
             flat = self.butler.get(detrend, self.dataId, ccd=ccd)
 
             self.assertExposure(flat, ccd, checkFilter=False)
 
     def testFlat(self):
-        if not self.runTests:
-            return
         self.getDetrend("flat")
 
     def testBias(self):
-        if not self.runTests:
-            return
         self.getDetrend("bias")
 
     def testFringe(self):
-        if not self.runTests:
-            return
         self.getDetrend("fringe")
 
     def testPackageName(self):
