@@ -22,6 +22,8 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 
+from __future__ import print_function
+
 import os
 import sys
 
@@ -58,12 +60,12 @@ class GetRawTestCase(unittest.TestCase):
             del self.butler
 
     def assertExposure(self, exp, ccd, checkFilter=True):
-        print "dataId: ", self.dataId
-        print "ccd: ", ccd
-        print "width: ", exp.getWidth()
-        print "height: ", exp.getHeight()
-        print "detector name: ", exp.getDetector().getName()
-        print "filter name: ", exp.getFilter().getFilterProperty().getName()
+        print("dataId: ", self.dataId)
+        print("ccd: ", ccd)
+        print("width: ", exp.getWidth())
+        print("height: ", exp.getHeight())
+        print("detector name: ", exp.getDetector().getName())
+        print("filter name: ", exp.getFilter().getFilterProperty().getName())
 
         self.assertEqual(exp.getWidth(), self.size[0])
         self.assertEqual(exp.getHeight(), self.size[1])
@@ -77,8 +79,8 @@ class GetRawTestCase(unittest.TestCase):
             ccd = cameraGeom.cast_Ccd(exp.getDetector())
             for amp in ccd:
                 amp = cameraGeom.cast_Amp(amp)
-                print ccd.getId(), amp.getId(), amp.getDataSec().toString(), \
-                      amp.getBiasSec().toString(), amp.getElectronicParams().getGain()
+                print(ccd.getId(), amp.getId(), amp.getDataSec().toString(), \
+                      amp.getBiasSec().toString(), amp.getElectronicParams().getGain())
             cameraGeomUtils.showCcd(ccd, ccdImage=exp, frame=frame)
 
     def getTestDataDir(self):
@@ -86,7 +88,8 @@ class GetRawTestCase(unittest.TestCase):
         if datadir:
             return datadir
         else:
-            print >> sys.stderr, "Skipping test as testdata_cfht is not setup"
+            print("Skipping test as testdata_cfht is not setup", 
+                  file=sys.stderr) 
 
     def testRaw(self):
         """Test retrieval of raw image"""
@@ -107,7 +110,7 @@ class GetRawTestCase(unittest.TestCase):
         if not self.runTests:
             return
         for ccd in range(36):
-            flat = self.butler.get(detrend, self.dataId, ccd=ccd)
+            flat = self.butler.get(detrend, self.dataId, ccd=ccd, immediate=True)
 
             self.assertExposure(flat, ccd, checkFilter=False)
 
