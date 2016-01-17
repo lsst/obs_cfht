@@ -43,6 +43,7 @@ except NameError:
 
 frame = 0
 
+
 class GetRawTestCase(unittest.TestCase):
     """Testing butler raw image retrieval"""
 
@@ -77,7 +78,7 @@ class GetRawTestCase(unittest.TestCase):
             ccd = cameraGeom.cast_Ccd(exp.getDetector())
             for amp in ccd:
                 amp = cameraGeom.cast_Amp(amp)
-                print(ccd.getId(), amp.getId(), amp.getDataSec().toString(), \
+                print(ccd.getId(), amp.getId(), amp.getDataSec().toString(),
                       amp.getBiasSec().toString(), amp.getElectronicParams().getGain())
             cameraGeomUtils.showCcd(ccd, ccdImage=exp, frame=frame)
 
@@ -122,6 +123,7 @@ class GetRawTestCase(unittest.TestCase):
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+
 def suite():
     """Returns a suite containing all the test cases in this module."""
 
@@ -132,7 +134,8 @@ def suite():
     suites += unittest.makeSuite(utilsTests.MemoryTestCase)
     return unittest.TestSuite(suites)
 
-def run(shouldExit = False):
+
+def run(shouldExit=False):
     """Run the tests"""
     utilsTests.run(suite(), shouldExit)
 
