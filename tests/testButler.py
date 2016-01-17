@@ -130,6 +130,8 @@ class GetRawTestCase(unittest.TestCase):
         self.getDetrend("fringe")
 
     def testPackageName(self):
+        if not self.runTests:
+            return
         self.assertEqual(self.butler.mapper.packageName, "obs_cfht")
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
