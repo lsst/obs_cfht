@@ -15,7 +15,7 @@ class CfhtIsrTaskConfig(IsrTask.ConfigClass) :
 class CfhtIsrTask(IsrTask) :
     ConfigClass = CfhtIsrTaskConfig
     
-    def run(self, ccdExposure, bias=None, dark=None,  flat=None, defects=None, fringes=None):
+    def run(self, ccdExposure, bias=None, dark=None,  flat=None, defects=None, fringes=None, bfKernel=None):
         """Perform instrument signature removal on an exposure
         
         Steps include:
@@ -30,10 +30,14 @@ class CfhtIsrTask(IsrTask) :
         @param[in] flat -- exposure of flatfield
         @param[in] defects -- list of detects
         @param[in] fringes -- exposure of fringe frame or list of fringe exposure
+        @param[in] bfKernel - kernel used for brighter-fatter correction; currently unsupported
 
         @return a pipeBase.Struct with fields:
         - exposure: the exposure after application of ISR
         """
+        if bfKernel is not None:
+            raise ValueError("CFHT ISR does not currently support brighter-fatter correction.")
+
         ccd = ccdExposure.getDetector()
         floatExposure = self.convertIntToFloat(ccdExposure)
         metadata = floatExposure.getMetadata()
