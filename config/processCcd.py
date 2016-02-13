@@ -5,9 +5,6 @@ from lsst.utils import getPackageDir
 cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
 config.calibrate.photocal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
 
-from lsst.obs.cfht.cfhtCalibrate import CfhtCalibrateTask
-config.calibrate.retarget(CfhtCalibrateTask)
-
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
 config.isr.retarget(CfhtIsrTask)
 
@@ -39,10 +36,17 @@ config.calibrate.initialPsf.fwhm=1.0
 config.calibrate.measurePsf.starSelector.name = "objectSize"
 
 try :
-    config.calibrate.astrometry.refObjLoader.filterMap = { 'i2': 'i',
-                                                   }
+    # AstrometryTask, the default
+    config.calibrate.astrometry.refObjLoader.filterMap = {
+        'i2': 'i',
+    }
+    config.calibrate.astrometry.wcsFitter.order = 3
+    config.calibrate.astrometry.matcher.maxMatchDistArcSec=5
 except :
-    config.calibrate.astrometry.solver.filterMap = { 'i2': 'i',
-                                                   }
-                                                   
+    # ANetAstrometryTask
+    config.calibrate.astrometry.solver.filterMap = {
+        'i2': 'i',
+    }
 
+config.calibrate.photocal.applyColorTerms = True
+config.calibrate.photocal.photoCatName="e2v"
