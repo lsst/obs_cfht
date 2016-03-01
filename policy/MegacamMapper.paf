@@ -225,12 +225,52 @@ datasets: {
         tables:        raw
         tables:        raw_skyTile
     }
+    transformed_src: {
+        template:      "%(filter)s/output/TRSRC-%(visit)07d-%(ccd)03d.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+        tables:        "raw_visit"
+    }
+    transformed_src_schema: {
+        template:      "schema/transformed_src.fits"
+        python:        "lsst.afw.table.BaseCatalog"
+        persistable:   "SourceCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+        tables:        "raw_visit"
+    }
     icMatch: {
         template:      "icMatch/%(runId)s/%(object)s/%(date)s/%(filter)s/ICMATCH-%(visit)d-%(ccd)02d.fits"
         python:        "lsst.afw.table.BaseCatalog"
         persistable:   "BaseCatalog"
         storage:       "FitsCatalogStorage"
         tables:        "raw"
+    }
+    icMatchFull: {
+        template:      "%(filter)s/output/ML-%(visit)07d-%(ccd)03d.fits"
+        python:        "lsst.afw.table.BaseCatalog"
+        persistable:   "BaseCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+        tables:        "raw_visit"
+    }
+    srcMatch: {
+        template:      "%(filter)s/output/SRCMATCH-%(visit)07d-%(ccd)03d.fits"
+        python:        "lsst.afw.table.BaseCatalog"
+        persistable:   "BaseCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+        tables:        "raw_visit"
+    }
+    srcMatchFull: {
+        template:      "%(filter)s/output/SRCML-%(visit)07d-%(ccd)03d.fits"
+        python:        "lsst.afw.table.BaseCatalog"
+        persistable:   "BaseCatalog"
+        storage:       "FitsCatalogStorage"
+        tables:        "raw"
+        tables:        "raw_visit"
     }
     icSrc: {
         template:      "icSrc/%(runId)s/%(object)s/%(date)s/%(filter)s/ICSRC-%(visit)d-%(ccd)02d.fits"
@@ -676,6 +716,20 @@ datasets: {
         python:        "lsst.pipe.tasks.multiBand.MultiBandConfig"
         persistable:   "Config"
         storage:       "ConfigStorage"
+    }
+
+    # Plots for analysis QA
+    plotVisit: {
+        template:      "plots/%(filter)s/visit-%(visit)d/plot-v%(visit)d-%(description)s-%(style)s.png"
+        python:        __builtin__.str
+        persistable:   None
+        storage:       TextStorage
+    }
+    plotCompareVisit: {
+        template:      "plots/%(filter)s/visit-%(visit)d/compareVisit-v%(visit)d-%(description)s-%(style)s.png"
+        python:        __builtin__.str
+        persistable:   None
+        storage:       TextStorage
     }
 
 }
