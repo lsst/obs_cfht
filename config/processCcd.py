@@ -3,7 +3,7 @@ import os.path
 from lsst.utils import getPackageDir
 
 cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
-config.calibrate.photocal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
+config.calibrate.photoCal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
 
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
 config.isr.retarget(CfhtIsrTask)
@@ -23,17 +23,13 @@ config.isr.fringe.small = 1
 config.isr.fringe.large = 50
 config.isr.doAssembleIsrExposures = True
 
-config.calibrate.repair.doCosmicRay=True
-config.calibrate.repair.cosmicray.cond3_fac=2.5
-config.calibrate.repair.cosmicray.cond3_fac2=0.4
-config.calibrate.repair.cosmicray.niteration=3
-config.calibrate.repair.cosmicray.nCrPixelMax=100000
-config.calibrate.repair.cosmicray.minSigma=6.0
-config.calibrate.repair.cosmicray.min_DN=150.0
-
-config.calibrate.initialPsf.fwhm=1.0
-
-config.calibrate.measurePsf.starSelector.name = "objectSize"
+config.charImage.repair.doCosmicRay=True
+config.charImage.repair.cosmicray.cond3_fac=2.5
+config.charImage.repair.cosmicray.cond3_fac2=0.4
+config.charImage.repair.cosmicray.niteration=3
+config.charImage.repair.cosmicray.nCrPixelMax=100000
+config.charImage.repair.cosmicray.minSigma=6.0
+config.charImage.repair.cosmicray.min_DN=150.0
 
 try :
     # AstrometryTask, the default
@@ -48,5 +44,5 @@ except :
         'i2': 'i',
     }
 
-config.calibrate.photocal.applyColorTerms = True
-config.calibrate.photocal.photoCatName="e2v"
+config.calibrate.photoCal.applyColorTerms = True
+config.calibrate.photoCal.photoCatName="e2v"
