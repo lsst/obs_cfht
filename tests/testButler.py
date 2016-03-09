@@ -49,8 +49,10 @@ class GetRawTestCase(unittest.TestCase):
 
     def setUp(self):
         datadir = self.getTestDataDir()
-        self.butler = dafPersist.Butler(root=os.path.join(datadir, "DATA"),
-                                        calibRoot=os.path.join(datadir, "CALIB"))
+        self.repoPath = os.path.join(datadir, "DATA")
+        self.calibPath = os.path.join(datadir, "CALIB")
+        self.butler = dafPersist.Butler(root=self.repoPath,
+                                        calibRoot=self.calibPath)
         self.size = (2112, 4644)
         self.dataId = {'visit': 1038843}
         self.filter = "i2"
@@ -119,7 +121,8 @@ class GetRawTestCase(unittest.TestCase):
         self.getDetrend("fringe")
 
     def testPackageName(self):
-        self.assertEqual(self.butler.mapper.packageName, "obs_cfht")
+        name = dafPersist.Butler.getMapperClass(root=self.repoPath).packageName
+        self.assertEqual(name, "obs_cfht")
 
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
