@@ -15,7 +15,6 @@ config.isr.doFringe = False
 config.isr.fringeAfterFlat = False
 config.isr.doWrite = False
 config.isr.setGainAssembledCcd = True
-config.isr.assembleCcd.doRenorm = False
 config.isr.assembleCcd.setGain = False
 config.isr.fringe.filters = ['i', 'i2', 'z']
 config.isr.fringe.pedestal = True
