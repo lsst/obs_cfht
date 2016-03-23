@@ -37,15 +37,15 @@ import lsst.meas.algorithms
 class MegacamMapper(CameraMapper):
     packageName = "obs_cfht"
 
-    def __init__(self, **kwargs):
+    def __init__(self, root=None, **kwargs):
         policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.paf", "policy")
         policy = pexPolicy.Policy(policyFile)
-        super(MegacamMapper, self).__init__(policy, policyFile.getRepositoryPath(), **kwargs)
+        super(MegacamMapper, self).__init__(policy, policyFile.getRepositoryPath(), root=root, **kwargs)
 
         # The "ccd" provided by the user is translated through the registry into an extension name for the "raw"
         # template.  The template therefore doesn't include "ccd", so we need to ensure it's explicitly included
         # so the ArgumentParser can recognise and accept it.
-        
+
         self.exposures['raw'].keyDict['ccd'] = int
 
         afwImageUtils.defineFilter('u',  lambdaEff=350, alias="u.MP9301")
@@ -99,7 +99,7 @@ class MegacamMapper(CameraMapper):
                 return defectList
 
         raise RuntimeError("No defects for ccdSerial %s in %s" % (ccdSerial, defectsFitsPath))
-    
+
 
 
     def _defectLookup(self, dataId):
@@ -114,7 +114,7 @@ class MegacamMapper(CameraMapper):
                 [("visit", "?"),("ccd", "?")], None, (dataId['visit'], dataId['ccd']))
         if len(rows) == 0:
             return None
-        
+
         if len(rows) == 1:
             return os.path.join(self.defectPath, rows[0][0])
         else:
@@ -145,12 +145,12 @@ class MegacamMapper(CameraMapper):
     def bypass_ccdExposureId_bits(self, datasetType, pythonType, location, dataId):
         """Hook to retrieve number of bits in identifier for CCD"""
         return 32
-        
+
     def _computeCoaddExposureId(self, dataId, singleFilter):
         """Compute the 64-bit (long) identifier for a coadd.
 
         @param dataId (dict)       Data identifier with tract and patch.
-        @param singleFilter (bool) True means the desired ID is for a single- 
+        @param singleFilter (bool) True means the desired ID is for a single-
                                    filter coadd, in which case dataId
                                    must contain filter.
         """
@@ -168,10 +168,10 @@ class MegacamMapper(CameraMapper):
 
     def bypass_CoaddExposureId_bits(self, datasetType, pythonType, location, dataId):
         return 1 + 7 + 13*2 + 3
-        
+
     def bypass_CoaddExposureId(self, datasetType, pythonType, location, dataId):
             return self._computeCoaddExposureId(dataId, True)
-            
+
     bypass_deepCoaddId = bypass_CoaddExposureId
     bypass_deepCoaddId_bits = bypass_CoaddExposureId_bits
 
