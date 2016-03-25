@@ -76,7 +76,7 @@ exposures: {
         tables:      "raw"
         columns:     "visit" "ccd"
     }
-    
+
     deepCoadd: {
         template:      "deepCoadd/%(filter)s/%(tract)d/%(patch)s.fits"
         python:        "lsst.afw.image.ExposureF"
@@ -94,7 +94,7 @@ exposures: {
         level:       "Skytile"
         tables:      "raw"
     }
-       
+
     deep_processCoadd: {
         template:      "processCoadd/%(filter)s/%(tract)d/%(patch)s.fits"
         python:        "lsst.afw.image.ExposureF"
@@ -103,7 +103,7 @@ exposures: {
         level:         "Skytile"
         tables:        "raw"
     }
-    
+
     deepCoadd_calexp: {
         template:    "deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/calexp-%(filter)s-%(tract)d-%(patch)s.fits"
         python:      "lsst.afw.image.ExposureF"
@@ -111,7 +111,6 @@ exposures: {
         storage:     "FitsStorage"
         level:       "None"
         tables:      "raw"
-        tables:      "raw_skyTile"
     }
 
     deepCoadd_calexp_det: {
@@ -121,7 +120,6 @@ exposures: {
         storage:     "FitsStorage"
         level:       "None"
         tables:      "raw"
-        tables:      "raw_skyTile"
     }
 }
 
@@ -473,7 +471,13 @@ datasets: {
         storage:       "ConfigStorage"
     }
     deep_makeCoaddTempExp_metadata: {
-        template:      "deep_makeCoaddTempExp_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
+        template:      "deep_makeCoaddTempExp_metadat/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:        "PropertySet"
+        storage:    "BoostStorage"
+    }
+    deep_safeClipAssembleCoadd_metadata: {
+        template:      "deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
         python:        "lsst.daf.base.PropertySet"
         persistable:        "PropertySet"
         storage:    "BoostStorage"
@@ -610,7 +614,6 @@ datasets: {
         persistable:   "ignored"
         storage:       "FitsCatalogStorage"
         tables:        raw
-        tables:        raw_skyTile
     }
     deepCoadd_forced_src_schema: {
         template:      "schema/deepCoadd_forced_src.fits"
@@ -639,7 +642,6 @@ datasets: {
         persistable:   "ignored"
         storage:       "FitsCatalogStorage"
         tables:        raw
-        tables:        raw_skyTile
     }
     detectCoaddSources_config: {
         template:      "config/detect.py"
@@ -653,7 +655,6 @@ datasets: {
         persistable:   "PropertySet"
         storage:       "BoostStorage"
         tables:        raw
-        tables:        raw_skyTile
     }
     deepCoadd_det_schema: {
         template:      "schema/deepCoadd_det.fits"
