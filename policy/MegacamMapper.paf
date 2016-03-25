@@ -67,7 +67,16 @@ exposures: {
         columns:     "visit"
         columns:     "ccd"
     }
-    
+    wcs: {
+        template:    "calexp/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/wcs-%(visit)d-%(ccd)02d.fits"
+        python:      "lsst.afw.image.ExposureF"
+        persistable: "ExposureF"
+        storage:     "FitsStorage"
+        level:       "Ccd"
+        tables:      "raw"
+        columns:     "visit" "ccd"
+    }
+
     deepCoadd: {
         template:      "deepCoadd/%(filter)s/%(tract)d/%(patch)s.fits"
         python:        "lsst.afw.image.ExposureF"
@@ -85,7 +94,7 @@ exposures: {
         level:       "Skytile"
         tables:      "raw"
     }
-       
+
     deep_processCoadd: {
         template:      "processCoadd/%(filter)s/%(tract)d/%(patch)s.fits"
         python:        "lsst.afw.image.ExposureF"
@@ -94,16 +103,14 @@ exposures: {
         level:         "Skytile"
         tables:        "raw"
     }
-    
+
     deepCoadd_calexp: {
         template:    "deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/calexp-%(filter)s-%(tract)d-%(patch)s.fits"
         python:      "lsst.afw.image.ExposureF"
         persistable: "ExposureF"
         storage:     "FitsStorage"
-        level:       "Ccd"
+        level:       "None"
         tables:      "raw"
-        columns:     "visit"
-        columns:     "ccd"
     }
 
     deepCoadd_calexp_det: {
@@ -111,12 +118,9 @@ exposures: {
         python:      "lsst.afw.image.ExposureF"
         persistable: "ExposureF"
         storage:     "FitsStorage"
-        level:       "Ccd"
+        level:       "None"
         tables:      "raw"
-        columns:     "visit"
-        columns:     "ccd"
     }
-    
 }
 
 calibrations: {
@@ -265,7 +269,7 @@ datasets: {
         tables:        raw_skyTile
     }
     modelfits: {
-        template:      "modelfits/v%(visit)d-f%(filter)s/R%(raft)s/S%(sensor)s.fits"
+        template:      "modelfits/%(runId)s/%(object)s/%(date)s/%(filter)s/modelfits-%(visit)d-%(ccd)02d.fits"
         python:        "lsst.meas.multifit.ModelFitCatalog"
         persistable:        "ModelFitCatalog"
         storage:    "FitsCatalogStorage"
@@ -373,6 +377,22 @@ datasets: {
         storage:      "ignored"
         tables:       "raw"
     }
+    deepMergedCoaddId: {
+        template:     "ignored"
+        # Provide something to import, although we actually return an int
+        python:       "lsst.daf.base.PropertySet"
+        persistable:  "ignored"
+        storage:      "ignored"
+        tables:       "raw"
+    }
+    deepMergedCoaddId_bits: {
+        template:     "ignored"
+        # Provide something to import, although we actually return an int
+        python:       "lsst.daf.base.PropertySet"
+        persistable:  "ignored"
+        storage:      "ignored"
+        tables:       "raw"
+    }
     stackExposureId: {
         template:     "ignored"
         # Provide something to import, although we actually return a long
@@ -444,8 +464,20 @@ datasets: {
         persistable:      "Config"
         storage:    "ConfigStorage"
     }
+    deep_safeClipAssembleCoadd_config: {
+        template:      "config/deep_safeClipAssembleCoadd.py"
+        python:        "lsst.pipe.tasks.assembleCoadd.AssembleCoaddConfig"
+        persistable:   "Config"
+        storage:       "ConfigStorage"
+    }
     deep_makeCoaddTempExp_metadata: {
-        template:      "deep_makeCoaddTempExp_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
+        template:      "deep_makeCoaddTempExp_metadat/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:        "PropertySet"
+        storage:    "BoostStorage"
+    }
+    deep_safeClipAssembleCoadd_metadata: {
+        template:      "deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
         python:        "lsst.daf.base.PropertySet"
         persistable:        "PropertySet"
         storage:    "BoostStorage"
@@ -543,7 +575,7 @@ datasets: {
         tables:        "raw"
     }
     forced_src: {
-        template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/FORCEDSRC-%(visit)d-%(ccd)02d.fits"
+        template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/FORCEDSRC-%(visit)d-%(ccd)02d.fits"
         python:        "lsst.afw.table.SourceCatalog"
         persistable:   "ignored"
         storage:       "FitsCatalogStorage"
@@ -556,14 +588,47 @@ datasets: {
         persistable:   "ignored"
         storage:       "FitsCatalogStorage"
     }
-    forcedPhot_config: {
+    forcedPhotCcd_config: {
         template:      "config/forcedPhotCcd.py"
-        python:        "lsst.pipe.tasks.forcedPhotCcd.ForcedPhotCcdConfig"
+        python:        "lsst.meas.base.forcedPhotCcd.ForcedPhotCcdConfig"
+        persistable:   "Config"
+        storage:       "ConfigStorage"
+    }
+    forcedPhotCoadd_config: {
+        template:      "config/forcedPhotCoadd.py"
+        python:        "lsst.meas.base.forcedPhotCoadd.ForcedPhotCoaddConfig"
         persistable:   "Config"
         storage:       "ConfigStorage"
     }
     forcedPhot_metadata: {
-        template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/forcedPhotCcd_metadata/%(visit)d-%(ccd)02d.boost"
+        template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/forcedPhotCcd_metadata/%(visit)d-%(ccd)02d.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:   "PropertySet"
+        storage:       "BoostStorage"
+        tables:        raw
+        tables:        raw_visit
+    }
+    deepCoadd_forced_src: {
+        template:      "deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/forced_src-%(filter)s-%(tract)d-%(patch)s.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "ignored"
+        storage:       "FitsCatalogStorage"
+        tables:        raw
+    }
+    deepCoadd_forced_src_schema: {
+        template:      "schema/deepCoadd_forced_src.fits"
+        python:        "lsst.afw.table.SourceCatalog"
+        persistable:   "ignored"
+        storage:       "FitsCatalogStorage"
+    }
+    deepCoadd_forced_config: {
+        template:      "config/forcedPhotCoadd.py"
+        python:        "lsst.meas.base.forcedPhotCoadd.ForcedPhotCoaddConfig"
+        persistable:   "Config"
+        storage:       "ConfigStorage"
+    }
+    deepCoadd_forced_metadata: {
+        template:      "deepCoadd_forcedPhotCoadd_metadata/%(filter)s/%(tract)d/%(patch)s.boost"
         python:        "lsst.daf.base.PropertySet"
         persistable:   "PropertySet"
         storage:       "BoostStorage"
@@ -577,7 +642,6 @@ datasets: {
         persistable:   "ignored"
         storage:       "FitsCatalogStorage"
         tables:        raw
-        tables:        raw_skyTile
     }
     detectCoaddSources_config: {
         template:      "config/detect.py"
@@ -591,7 +655,6 @@ datasets: {
         persistable:   "PropertySet"
         storage:       "BoostStorage"
         tables:        raw
-        tables:        raw_skyTile
     }
     deepCoadd_det_schema: {
         template:      "schema/deepCoadd_det.fits"
