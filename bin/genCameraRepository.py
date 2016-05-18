@@ -1,3 +1,11 @@
+"""!Generate camera data for CFHT MegaCam
+
+Example:
+
+    python bin/genCameraRepository.py megacam/Full_Megacam_geom.paf megacam/camera
+
+If `megacam/camera` already exists the move it first, or add `--clobber`
+"""
 import argparse
 import eups
 import os
