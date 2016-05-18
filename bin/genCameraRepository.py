@@ -1,15 +1,15 @@
+import argparse
+import eups
+import os
+import copy
+import shutil
+
 import lsst.pex.policy as pexPolicy
 import lsst.afw.table as afwTable
 import lsst.afw.geom as afwGeom
 from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, PUPIL, CameraConfig, DetectorConfig,\
                                 makeCameraFromCatalogs
 from lsst.obs.cfht import MegacamMapper
-
-import argparse
-import eups
-import os
-import copy
-import shutil
 
 PIXELSIZE = 0.0135 #mm/pix
 def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=False, ccdToUse=None,

@@ -23,11 +23,11 @@
 
 import os
 import sqlite3
-import pyfits
 import argparse
 import datetime
 from collections import OrderedDict
 
+import pyfits
 
 # The schema to use for each table: 'name':'type'
 schema = OrderedDict()

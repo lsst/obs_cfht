@@ -21,6 +21,7 @@
 #
 
 import re
+
 from lsst.pipe.tasks.ingest import ParseTask
 
 filters = {'u.MP9301': 'u',

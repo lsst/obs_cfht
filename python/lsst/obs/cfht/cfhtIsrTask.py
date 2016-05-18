@@ -1,6 +1,7 @@
+import numpy as np
+
 import lsst.pex.config as pexConfig
 from lsst.ip.isr import IsrTask
-import numpy as np
 
 class CfhtIsrTaskConfig(IsrTask.ConfigClass) :
     safe = pexConfig.Field(
