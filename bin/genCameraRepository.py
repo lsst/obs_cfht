@@ -237,7 +237,8 @@ def addAmp(ampCatalog, amp, eparams):
     record.setReadoutCorner(afwTable.LR if amp['flipX'] else afwTable.LL)
     record.setGain(eparams['gain'])
     record.setReadNoise(eparams['readNoise'])
-    record.setSaturation(int(eparams['saturation']))
+    record.setSaturation(eparams['saturation'])
+    record.setSuspectLevel(float("nan"))  # SUSPECT level unknown
     #The files do not have any linearity information
     record.setLinearityType('Proportional')
     record.setLinearityCoeffs([1.,])
