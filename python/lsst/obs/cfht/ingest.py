@@ -42,7 +42,7 @@ class MegacamParseTask(ParseTask):
 
     def translate_filter(self, md):
         filtName = md.get("FILTER").strip()
-        if not filtName in filters:
+        if filtName not in filters:
             return "UNKNOWN"
         return filters[filtName]
 
