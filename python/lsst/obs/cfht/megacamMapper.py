@@ -32,7 +32,7 @@ from lsst.daf.butlerUtils import CameraMapper, exposureFromImage
 import lsst.pex.policy as pexPolicy
 
 # Solely to get boost serialization registrations for Measurement subclasses
-import lsst.meas.algorithms
+import lsst.meas.algorithms  # flake8: noqa
 
 class MegacamMapper(CameraMapper):
     packageName = "obs_cfht"

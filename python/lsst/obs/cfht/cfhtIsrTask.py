@@ -1,6 +1,7 @@
+import numpy as np
+
 import lsst.pex.config as pexConfig
 from lsst.ip.isr import IsrTask
-import numpy as np
 
 class CfhtIsrTaskConfig(IsrTask.ConfigClass) :
     safe = pexConfig.Field(
@@ -43,9 +44,10 @@ class CfhtIsrTask(IsrTask) :
         metadata = floatExposure.getMetadata()
         
         # Detect saturation
-        # Saturation values recorded in the fits hader is not reliable, try to estimate it from the pixel vales
-        # Find the peak location in the high end part the pixel values' histogram and set the saturation level at 
-        # safe * (peak location) where safe is a configurable parameter (typically 0.95)
+        # Saturation values recorded in the fits hader is not reliable, try to estimate it from
+        # the pixel vales
+        # Find the peak location in the high end part the pixel values' histogram and set the saturation
+        # level at safe * (peak location) where safe is a configurable parameter (typically 0.95)
         image = floatExposure.getMaskedImage().getImage()
         imageArray = image.getArray()
         maxValue = np.max(imageArray)
@@ -61,23 +63,25 @@ class CfhtIsrTask(IsrTask) :
             if amp.getName() == "A":
                 amp.setGain(metadata.get("GAINA"))
                 rdnA = metadata.get("RDNOISEA")
-                # Check if the noise value is making sense for this amp. If not, replace with value stored in RDNOISE slot
-                # this change is necessary to process some old CFHT images (visit : 7xxxxx) where RDNOISEA/B = 65535
+                # Check if the noise value is making sense for this amp. If not, replace with value
+                # stored in RDNOISE slot. This change is necessary to process some old CFHT images
+                # (visit : 7xxxxx) where RDNOISEA/B = 65535
                 if rdnA > 60000.0 :
                     rdnA = metadata.get("RDNOISE")
                 amp.setReadNoise(rdnA)
             elif amp.getName() == "B":
                 amp.setGain(metadata.get("GAINB"))
                 rdnB = metadata.get("RDNOISEB")
-                # Check if the noise value is making sense for this amp. If not, replace with value stored in RDNOISE slot
-                # this change is necessary to process some old CFHT images (visit : 7xxxxx) where RDNOISEA/B = 65535
+                # Check if the noise value is making sense for this amp. If not, replace with value
+                # stored in RDNOISE slot. This change is necessary to process some old CFHT images
+                # (visit : 7xxxxx) where RDNOISEA/B = 65535
                 if rdnB > 60000.0 :
                     rdnB = metadata.get("RDNOISE")
                 amp.setReadNoise(rdnB)
             else :
                 raise ValueError("Unexpected amplifier name : %s"%(amp.getName()))
 
-        return IsrTask.run(self, 
+        return IsrTask.run(self,
             ccdExposure = ccdExposure,
             bias = bias,
             dark = dark,

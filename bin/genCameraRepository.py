@@ -1,3 +1,17 @@
+"""!Generate camera data for CFHT MegaCam
+
+Example:
+
+    python bin/genCameraRepository.py megacam/Full_Megacam_geom.paf megacam/camera
+
+If `megacam/camera` already exists the move it first, or add `--clobber`
+"""
+import argparse
+import eups
+import os
+import copy
+import shutil
+
 import lsst.pex.policy as pexPolicy
 import lsst.afw.table as afwTable
 import lsst.afw.geom as afwGeom
@@ -5,14 +19,9 @@ from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, PUPIL, CameraConfig, Detec
                                 makeCameraFromCatalogs
 from lsst.obs.cfht import MegacamMapper
 
-import argparse
-import eups
-import os
-import copy
-import shutil
-
 PIXELSIZE = 0.0135 #mm/pix
-def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=False, ccdToUse=None, shortNameMethod=lambda x: x):
+def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=False, ccdToUse=None,
+    shortNameMethod=lambda x: x):
     """
     Make a Camera from a paf file
     @param filename: name of policy file to read
@@ -60,8 +69,9 @@ def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=Fa
 
         camConfigPath = os.path.join(outputDir, "camera.py")
         with open(camConfigPath, 'w') as outfile:
-            outfile.write("#!!!!This file is auto generated.----Do not edit!!!!\n"+\
-                          "#!!!!Edit input file and regenerate with $OBS_CFHT_DIR/bin/genCameraRepository.py\n")
+            outfile.write(
+                "#!!!!This file is auto generated.----Do not edit!!!!\n"+\
+                "#!!!!Edit input file and regenerate with $OBS_CFHT_DIR/bin/genCameraRepository.py\n")
             camConfig.saveToStream(outfile)
 
         for detectorName, ampTable in ccdInfoDict['ampInfo'].iteritems():
@@ -88,7 +98,7 @@ def parseCamera(policy):
     conv_1 = 14805.4
     conv_2 = 13619.3
     conv_3 = 426637.0
-    
+
     tConfig = afwGeom.TransformConfig()
     tConfig.transform.name = 'inverted'
     radialClass = afwGeom.xyTransformRegistry['radial']
@@ -153,7 +163,7 @@ def makeCcdParams(policy, ampParms):
         retParams[ptype] = tdict
     return retParams
 
-def makeEparams(policy): 
+def makeEparams(policy):
     """
     Construct electronic parameters for each amp in the mosaic.
     @param policy: Policy object to parse
@@ -176,13 +186,13 @@ def makeEparams(policy):
 
 def addAmp(ampCatalog, amp, eparams):
     """ Add an amplifier to an AmpInfoCatalog
-    
+
     @param ampCatalog: An instance of an AmpInfoCatalog object to fill with amp properties
     @param amp: Dictionary of amp geometric properties
     @param eparams: Dictionary of amp electronic properties for this amp
     """
     record = ampCatalog.addNew()
- 
+
     xtot = amp['ewidth']
     ytot = amp['eheight']
 
@@ -211,7 +221,7 @@ def addAmp(ampCatalog, amp, eparams):
         biasSec.flipLR(xtot)
         dataSec.flipLR(xtot)
         voscanSec.flipLR(xtot)
-        pscanSec.flipLR(xtot) 
+        pscanSec.flipLR(xtot)
 
     bbox = afwGeom.BoxI(afwGeom.PointI(0, 0), dataSec.getDimensions())
     bbox.shift(afwGeom.Extent2I(dataSec.getDimensions().getX()*eparams['index'][0], 0))
@@ -232,10 +242,11 @@ def addAmp(ampCatalog, amp, eparams):
         record.setName("B")
     else :
         raise ValueError("Unexpected index parameter %i, %i"%(eparams['index'][0], eparams['index'][1]))
-    record.setReadoutCorner(afwTable.LR if amp['flipX'] else afwTable.LL)    
+    record.setReadoutCorner(afwTable.LR if amp['flipX'] else afwTable.LL)
     record.setGain(eparams['gain'])
     record.setReadNoise(eparams['readNoise'])
-    record.setSaturation(int(eparams['saturation']))
+    record.setSaturation(eparams['saturation'])
+    record.setSuspectLevel(float("nan"))  # SUSPECT level unknown
     #The files do not have any linearity information
     record.setLinearityType('Proportional')
     record.setLinearityCoeffs([1.,])
@@ -254,7 +265,7 @@ def parseCcds(policy, ccdParams, ccdToUse=None):
     @param policy: Poicy object to parse
     @param ccdParams: CCD level parameters returned by makeCcdParams
     @param ccdToUse: Type of CCD to use to construct the config, use Policy value if None
-    @return a dictionary containing a list of DetectorConfigs and a dictionary of AmpInfoTable objects 
+    @return a dictionary containing a list of DetectorConfigs and a dictionary of AmpInfoTable objects
     keyed on CCD name
     """
     specialChipMap = {}
@@ -313,10 +324,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("LayoutPolicy", help="Policy file to parse for camera information")
-    parser.add_argument("OutputDir", help="Location for the persisted camerea") 
+    parser.add_argument("OutputDir", help="Location for the persisted camerea")
     parser.add_argument("--clobber", action="store_true", dest="clobber", default=False,
         help="remove and re-create the output directory if it exists")
     args = parser.parse_args()
 
-    camera = makeCameraFromPolicy(args.LayoutPolicy, writeRepo=True, outputDir=args.OutputDir, ccdToUse='bottom', doClobber=args.clobber, 
-        shortNameMethod=MegacamMapper.getShortCcdName)
+    camera = makeCameraFromPolicy(args.LayoutPolicy, writeRepo=True, outputDir=args.OutputDir,
+        ccdToUse='bottom', doClobber=args.clobber, shortNameMethod=MegacamMapper.getShortCcdName)

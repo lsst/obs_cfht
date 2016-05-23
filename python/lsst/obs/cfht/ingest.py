@@ -21,6 +21,7 @@
 #
 
 import re
+
 from lsst.pipe.tasks.ingest import ParseTask
 
 filters = {'u.MP9301': 'u',
@@ -42,7 +43,7 @@ class MegacamParseTask(ParseTask):
 
     def translate_filter(self, md):
         filtName = md.get("FILTER").strip()
-        if not filtName in filters:
+        if filtName not in filters:
             return "UNKNOWN"
         return filters[filtName]
 
