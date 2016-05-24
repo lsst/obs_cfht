@@ -1,5 +1,8 @@
 """!Generate camera data for CFHT MegaCam
 
+WARNING: this code is deprecated because it generates incorrect overscan;
+see DM-5524 which fixed the problem by editing the generated amp info catalogs directly.
+
 Example:
 
     python bin/genCameraRepository.py megacam/Full_Megacam_geom.paf megacam/camera
@@ -320,6 +323,7 @@ def parseCcds(policy, ccdParams, ccdToUse=None):
     return {"ccdInfo":ccdInfoList, "ampInfo":ampInfoDict}
 
 if __name__ == "__main__":
+    print "WARNING: this code generates incorrect vertical overscan; see DM-5524"
     baseDir = eups.productDir("obs_cfht")
 
     parser = argparse.ArgumentParser()
