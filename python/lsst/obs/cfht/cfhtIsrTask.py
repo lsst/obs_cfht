@@ -16,7 +16,8 @@ class CfhtIsrTaskConfig(IsrTask.ConfigClass) :
 class CfhtIsrTask(IsrTask) :
     ConfigClass = CfhtIsrTaskConfig
     
-    def run(self, ccdExposure, bias=None, dark=None,  flat=None, defects=None, fringes=None, bfKernel=None):
+    def run(self, ccdExposure, bias=None, linearizer=None, dark=None, flat=None, defects=None,
+            fringes=None, bfKernel=None):
         """Perform instrument signature removal on an exposure
         
         Steps include:
@@ -27,6 +28,7 @@ class CfhtIsrTask(IsrTask) :
 
         @param[in] ccdExposure  -- lsst.afw.image.exposure of detector data
         @param[in] bias -- exposure of bias frame
+        @param[in] linearizer -- linearizing functor; a subclass of lsst.ip.isr.LinearizeBase
         @param[in] dark -- exposure of dark frame
         @param[in] flat -- exposure of flatfield
         @param[in] defects -- list of detects
@@ -84,6 +86,7 @@ class CfhtIsrTask(IsrTask) :
         return IsrTask.run(self,
             ccdExposure = ccdExposure,
             bias = bias,
+            linearizer = linearizer,
             dark = dark,
             flat = flat,
             defects = defects,

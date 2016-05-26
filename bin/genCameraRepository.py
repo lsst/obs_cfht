@@ -19,7 +19,7 @@ import lsst.pex.policy as pexPolicy
 import lsst.afw.table as afwTable
 import lsst.afw.geom as afwGeom
 from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, PUPIL, CameraConfig, DetectorConfig,\
-                                makeCameraFromCatalogs
+                                makeCameraFromCatalogs, NullLinearityType
 from lsst.obs.cfht import MegacamMapper
 
 PIXELSIZE = 0.0135 #mm/pix
@@ -251,7 +251,7 @@ def addAmp(ampCatalog, amp, eparams):
     record.setSaturation(eparams['saturation'])
     record.setSuspectLevel(float("nan"))  # SUSPECT level unknown
     #The files do not have any linearity information
-    record.setLinearityType('Proportional')
+    record.setLinearityType(NullLinearityType)
     record.setLinearityCoeffs([1.,])
     record.setHasRawInfo(True)
     record.setRawFlipX(False)
