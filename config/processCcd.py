@@ -32,7 +32,7 @@ config.charImage.repair.cosmicray.min_DN=150.0
 
 try :
     # AstrometryTask, the default
-    config.calibrate.astrometry.refObjLoader.filterMap = {
+    config.calibrate.refObjLoader.filterMap = {
         'i2': 'i',
     }
     config.calibrate.astrometry.wcsFitter.order = 3
