@@ -402,12 +402,6 @@ datasets: {
         tables:       "raw"
     }
 
-    processCcd_config: {
-        template:      "config/processCcd.py"
-        python:        "lsst.pipe.tasks.processCcd.ProcessCcdConfig"
-        persistable:   "Config"
-        storage:       "ConfigStorage"
-    }
     processCcd_metadata: {
         template:      "metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(visit)d-%(ccd)02d.boost"
         python:        "lsst.daf.base.PropertySet"
@@ -415,6 +409,35 @@ datasets: {
         storage:       "BoostStorage"
         tables:        "raw"
     }
+    isr_config: {
+        template:      "config/isr.py"
+        python:        "lsst.obs.cfht.cfhtIsrTask.CfhtIsrTaskConfig"
+        persistable:      "Config"
+        storage:    "ConfigStorage"
+        tables:        raw
+    }
+    isr_metadata: {
+        template:      "metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-isr-%(visit)d-%(ccd)02d.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:        "PropertySet"
+        storage:    "BoostStorage"
+        tables:        raw
+    }
+    characterizeImage_metadata: {
+        template:      "metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-characterizeImage-%(visit)d-%(ccd)02d.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:        "PropertySet"
+        storage:    "BoostStorage"
+        tables:        raw
+    }
+    calibrate_metadata: {
+        template:      "metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-calibrate-%(visit)d-%(ccd)02d.boost"
+        python:        "lsst.daf.base.PropertySet"
+        persistable:        "PropertySet"
+        storage:    "BoostStorage"
+        tables:        raw
+    }
+
     deepCoadd_depth: {
         template:      "deepCoadd/%(tract)d/%(patch)s.depth.fits"
         python:        "lsst.afw.image.ImageF"
