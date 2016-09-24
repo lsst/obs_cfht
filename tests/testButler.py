@@ -23,7 +23,7 @@
 #
 
 from __future__ import print_function
-
+import math
 import os
 import sys
 
@@ -35,6 +35,11 @@ import lsst.daf.persistence as dafPersist
 import lsst.afw.cameraGeom as cameraGeom
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
 import lsst.pex.exceptions as pexExcept
+import lsst.utils.tests
+from lsst.daf.base import DateTime
+from lsst.afw.image import RotType_UNKNOWN
+from lsst.afw.coord import IcrsCoord, Coord
+from lsst.afw.geom import degrees
 
 try:
     type(display)
@@ -44,7 +49,7 @@ except NameError:
 frame = 0
 
 
-class GetRawTestCase(unittest.TestCase):
+class GetRawTestCase(lsst.utils.tests.TestCase):
     """Testing butler raw image retrieval"""
 
     def setUp(self):
@@ -56,6 +61,20 @@ class GetRawTestCase(unittest.TestCase):
         self.size = (2112, 4644)
         self.dataId = {'visit': 1038843}
         self.filter = "i2"
+        self.exposureTime = 615.037
+        self.darkTime = 615.0
+        dateObs = DateTime(54771.6066250, DateTime.MJD, DateTime.UTC)
+        self.dateAvg = DateTime(dateObs.nsecs(DateTime.TAI) + int(0.5e9*self.exposureTime), DateTime.TAI)
+        self.boresightRaDec = IcrsCoord(135.409417*degrees, -2.400000*degrees)
+        self.boresightAzAlt = Coord(122.34*degrees, 52.02*degrees)
+        self.boresightAirmass = 1.269
+        self.rotType = RotType_UNKNOWN
+        self.obs_longitude = -155.468876*degrees
+        self.obs_latitude = 19.825252*degrees
+        self.obs_elevation = 4204
+        self.weath_airTemperature = 0.90
+        self.weath_airPressure = 617.65*100  # 100 Pascal/millibar
+        self.weath_humidity = 39.77
 
     def tearDown(self):
         del self.butler
@@ -104,6 +123,24 @@ class GetRawTestCase(unittest.TestCase):
 
             self.assertExposure(raw, ccd)
 
+            visitInfo = raw.getInfo().getVisitInfo()
+            self.assertAlmostEqual(visitInfo.getDate().get(), self.dateAvg.get())
+            self.assertAlmostEqual(visitInfo.getExposureTime(), self.exposureTime)
+            self.assertAlmostEqual(visitInfo.getDarkTime(), self.darkTime)
+            self.assertCoordsNearlyEqual(visitInfo.getBoresightRaDec(), self.boresightRaDec)
+            self.assertCoordsNearlyEqual(visitInfo.getBoresightAzAlt(), self.boresightAzAlt)
+            self.assertAlmostEqual(visitInfo.getBoresightAirmass(), self.boresightAirmass)
+            self.assertTrue(math.isnan(visitInfo.getBoresightRotAngle()))
+            self.assertEqual(visitInfo.getRotType(), self.rotType)
+            observatory = visitInfo.getObservatory()
+            self.assertAnglesNearlyEqual(observatory.getLongitude(), self.obs_longitude)
+            self.assertAnglesNearlyEqual(observatory.getLatitude(), self.obs_latitude)
+            self.assertAlmostEqual(observatory.getElevation(), self.obs_elevation)
+            weather = visitInfo.getWeather()
+            self.assertAlmostEqual(weather.getAirTemperature(), self.weath_airTemperature)
+            self.assertAlmostEqual(weather.getAirPressure(), self.weath_airPressure)
+            self.assertAlmostEqual(weather.getHumidity(), self.weath_humidity)
+
     def getDetrend(self, detrend):
         """Test retrieval of detrend image"""
         for ccd in range(36):
@@ -123,8 +160,6 @@ class GetRawTestCase(unittest.TestCase):
     def testPackageName(self):
         name = dafPersist.Butler.getMapperClass(root=self.repoPath).packageName
         self.assertEqual(name, "obs_cfht")
-
-#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
 def suite():

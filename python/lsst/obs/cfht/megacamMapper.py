@@ -30,12 +30,15 @@ import lsst.afw.image.utils as afwImageUtils
 
 from lsst.daf.butlerUtils import CameraMapper, exposureFromImage
 import lsst.pex.policy as pexPolicy
+from .makeMegacamRawVisitInfo import MakeMegacamRawVisitInfo
 
 # Solely to get boost serialization registrations for Measurement subclasses
 import lsst.meas.algorithms  # flake8: noqa
 
 class MegacamMapper(CameraMapper):
     packageName = "obs_cfht"
+
+    MakeRawVisitInfoClass = MakeMegacamRawVisitInfo
 
     def __init__(self, **kwargs):
         policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.paf", "policy")

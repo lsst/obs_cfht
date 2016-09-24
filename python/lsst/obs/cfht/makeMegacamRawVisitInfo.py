@@ -30,8 +30,10 @@ __all__ = ["MakeMegacamRawVisitInfo"]
 
 
 class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
+
     """Make a VisitInfo from the FITS header of a raw Megacam image
     """
+
     def setArgDict(self, md, argDict):
         """Set an argument dict for makeVisitInfo and pop associated metadata
 
@@ -39,6 +41,7 @@ class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
         @param[in,out] argdict  a dict of arguments
         """
         MakeRawVisitInfo.setArgDict(self, md, argDict)
+        argDict["darkTime"] = self.popFloat(md, "DARKTIME")
         argDict["boresightAzAlt"] = Coord(
             self.popAngle(md, "TELAZ"),
             self.popAngle(md, "TELALT"),
@@ -56,7 +59,7 @@ class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
         argDict["weather"] = Weather(
             self.popFloat(md, "TEMPERAT"),
             self.popFloat(md, "PRESSURE")*100.0,  # 100 Pascal per millibar
-            self.popFloat(md, "RELHUMID")/100.0,
+            self.popFloat(md, "RELHUMID"),
         )
 
     def getDateAvg(self, md, exposureTime):
