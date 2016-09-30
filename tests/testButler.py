@@ -50,6 +50,7 @@ frame = 0
 
 
 class GetRawTestCase(lsst.utils.tests.TestCase):
+
     """Testing butler raw image retrieval"""
 
     def setUp(self):

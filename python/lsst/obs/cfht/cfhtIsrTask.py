@@ -3,23 +3,25 @@ import numpy as np
 import lsst.pex.config as pexConfig
 from lsst.ip.isr import IsrTask
 
-class CfhtIsrTaskConfig(IsrTask.ConfigClass) :
+
+class CfhtIsrTaskConfig(IsrTask.ConfigClass):
     safe = pexConfig.Field(
         dtype = float,
         doc = "Safety margin for CFHT sensors gain determination",
         default = 0.95,
     )
-    
+
     def setDefaults(self):
         IsrTask.ConfigClass.setDefaults(self)
 
-class CfhtIsrTask(IsrTask) :
+
+class CfhtIsrTask(IsrTask):
     ConfigClass = CfhtIsrTaskConfig
-    
+
     def run(self, ccdExposure, bias=None, linearizer=None, dark=None, flat=None, defects=None,
             fringes=None, bfKernel=None):
         """Perform instrument signature removal on an exposure
-        
+
         Steps include:
         - Detect saturation, apply overscan correction, bias, dark and flat
         - Perform CCD assembly
@@ -44,7 +46,7 @@ class CfhtIsrTask(IsrTask) :
         ccd = ccdExposure.getDetector()
         floatExposure = self.convertIntToFloat(ccdExposure)
         metadata = floatExposure.getMetadata()
-        
+
         # Detect saturation
         # Saturation values recorded in the fits hader is not reliable, try to estimate it from
         # the pixel vales
@@ -53,13 +55,13 @@ class CfhtIsrTask(IsrTask) :
         image = floatExposure.getMaskedImage().getImage()
         imageArray = image.getArray()
         maxValue = np.max(imageArray)
-        if maxValue > 60000.0 :
-            hist, bin_edges = np.histogram(imageArray.ravel(),bins=100,range=(60000.0,maxValue+1.0))
+        if maxValue > 60000.0:
+            hist, bin_edges = np.histogram(imageArray.ravel(), bins=100, range=(60000.0, maxValue+1.0))
             saturate = int(self.config.safe*bin_edges[np.argmax(hist)])
-        else :
+        else:
             saturate = metadata.get("SATURATE")
         self.log.info("Saturation set to %d" % saturate)
-        
+
         for amp in ccd:
             amp.setSaturation(saturate)
             if amp.getName() == "A":
@@ -68,7 +70,7 @@ class CfhtIsrTask(IsrTask) :
                 # Check if the noise value is making sense for this amp. If not, replace with value
                 # stored in RDNOISE slot. This change is necessary to process some old CFHT images
                 # (visit : 7xxxxx) where RDNOISEA/B = 65535
-                if rdnA > 60000.0 :
+                if rdnA > 60000.0:
                     rdnA = metadata.get("RDNOISE")
                 amp.setReadNoise(rdnA)
             elif amp.getName() == "B":
@@ -77,18 +79,18 @@ class CfhtIsrTask(IsrTask) :
                 # Check if the noise value is making sense for this amp. If not, replace with value
                 # stored in RDNOISE slot. This change is necessary to process some old CFHT images
                 # (visit : 7xxxxx) where RDNOISEA/B = 65535
-                if rdnB > 60000.0 :
+                if rdnB > 60000.0:
                     rdnB = metadata.get("RDNOISE")
                 amp.setReadNoise(rdnB)
-            else :
+            else:
                 raise ValueError("Unexpected amplifier name : %s"%(amp.getName()))
 
         return IsrTask.run(self,
-            ccdExposure = ccdExposure,
-            bias = bias,
-            linearizer = linearizer,
-            dark = dark,
-            flat = flat,
-            defects = defects,
-            fringes = fringes,
-        )
+                           ccdExposure = ccdExposure,
+                           bias = bias,
+                           linearizer = linearizer,
+                           dark = dark,
+                           flat = flat,
+                           defects = defects,
+                           fringes = fringes,
+                           )
