@@ -30,12 +30,11 @@ import sys
 import unittest
 import warnings
 from lsst.utils import getPackageDir
-import lsst.utils.tests as utilsTests
+import lsst.utils.tests
 import lsst.daf.persistence as dafPersist
 import lsst.afw.cameraGeom as cameraGeom
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
 import lsst.pex.exceptions as pexExcept
-import lsst.utils.tests
 from lsst.daf.base import DateTime
 from lsst.afw.image import RotType_UNKNOWN
 from lsst.afw.coord import IcrsCoord, Coord
@@ -163,22 +162,16 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         self.assertEqual(name, "obs_cfht")
 
 
-def suite():
-    """Returns a suite containing all the test cases in this module."""
-
-    utilsTests.init()
-
-    suites = []
-    suites += unittest.makeSuite(GetRawTestCase)
-    suites += unittest.makeSuite(utilsTests.MemoryTestCase)
-    return unittest.TestSuite(suites)
+def setup_module(module):
+    lsst.utils.tests.init()
 
 
-def run(shouldExit=False):
-    """Run the tests"""
-    utilsTests.run(suite(), shouldExit)
+class MemoryTester(lsst.utils.tests.MemoryTestCase):
+    pass
+
 
 if __name__ == "__main__":
     if "--display" in sys.argv:
         display = True
-    run(True)
+    lsst.utils.tests.init()
+    unittest.main()

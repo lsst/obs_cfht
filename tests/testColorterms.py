@@ -27,8 +27,6 @@ import unittest
 import lsst.utils.tests
 import lsst.pipe.tasks.photoCal as photoCal
 
-def setup_module(module):
-    lsst.utils.tests.init()
 
 class ColortermOverrideTestCase(unittest.TestCase):
 
@@ -50,6 +48,11 @@ class ColortermOverrideTestCase(unittest.TestCase):
             self.assertIsInstance(ct.c0, numbers.Number)
             self.assertIsInstance(ct.c1, numbers.Number)
             self.assertIsInstance(ct.c2, numbers.Number)
+
+
+def setup_module(module):
+    lsst.utils.tests.init()
+
 
 class MemoryTester(lsst.utils.tests.MemoryTestCase):
     pass
