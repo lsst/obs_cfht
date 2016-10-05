@@ -30,12 +30,16 @@ import lsst.afw.image.utils as afwImageUtils
 
 from lsst.daf.butlerUtils import CameraMapper, exposureFromImage
 import lsst.pex.policy as pexPolicy
+from .makeMegacamRawVisitInfo import MakeMegacamRawVisitInfo
 
 # Solely to get boost serialization registrations for Measurement subclasses
 import lsst.meas.algorithms  # flake8: noqa
 
+
 class MegacamMapper(CameraMapper):
     packageName = "obs_cfht"
+
+    MakeRawVisitInfoClass = MakeMegacamRawVisitInfo
 
     def __init__(self, **kwargs):
         policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.paf", "policy")
@@ -48,12 +52,12 @@ class MegacamMapper(CameraMapper):
 
         self.exposures['raw'].keyDict['ccd'] = int
 
-        afwImageUtils.defineFilter('u',  lambdaEff=350, alias="u.MP9301")
-        afwImageUtils.defineFilter('g',  lambdaEff=450, alias="g.MP9401")
-        afwImageUtils.defineFilter('r',  lambdaEff=600, alias="r.MP9601")
-        afwImageUtils.defineFilter('i',  lambdaEff=750, alias="i.MP9701")
+        afwImageUtils.defineFilter('u', lambdaEff=350, alias="u.MP9301")
+        afwImageUtils.defineFilter('g', lambdaEff=450, alias="g.MP9401")
+        afwImageUtils.defineFilter('r', lambdaEff=600, alias="r.MP9601")
+        afwImageUtils.defineFilter('i', lambdaEff=750, alias="i.MP9701")
         afwImageUtils.defineFilter('i2', lambdaEff=750, alias="i.MP9702")
-        afwImageUtils.defineFilter('z',  lambdaEff=900, alias="z.MP9801")
+        afwImageUtils.defineFilter('z', lambdaEff=900, alias="z.MP9801")
 
         # define filters?
         self.filterIdMap = dict(u=0, g=1, r=2, i=3, z=4, i2=5)
@@ -100,8 +104,6 @@ class MegacamMapper(CameraMapper):
 
         raise RuntimeError("No defects for ccdSerial %s in %s" % (ccdSerial, defectsFitsPath))
 
-
-
     def _defectLookup(self, dataId):
         """Find the defects for a given CCD.
         @param dataId (dict) Dataset identifier
@@ -110,8 +112,11 @@ class MegacamMapper(CameraMapper):
         if self.registry is None:
             raise RuntimeError, "No registry for defect lookup"
 
-        rows = self.registry.executeQuery(("defects",), ("raw",),
-                [("visit", "?"),("ccd", "?")], None, (dataId['visit'], dataId['ccd']))
+        rows = self.registry.executeQuery(
+            ("defects",),
+            ("raw",),
+            [("visit", "?"), ("ccd", "?")], None, (dataId['visit'], dataId['ccd']),
+        )
         if len(rows) == 0:
             return None
 
@@ -195,14 +200,15 @@ class MegacamMapper(CameraMapper):
 
     def bypass_stackExposureId_bits(self, datasetType, pythonType, location, dataId):
         """Hook to retrieve number of bits in identifier for stack/coadd"""
-        return 32 # not really, but this leaves plenty of space for sources
+        return 32  # not really, but this leaves plenty of space for sources
 
     def _standardizeDetrend(self, detrend, image, dataId, filter=False):
         """Hack up detrend images to remove troublesome keyword"""
         md = image.getMetadata()
-        removeKeyword(md, 'RADECSYS') # Irrelevant, and use of "GAPPT" breaks wcslib
+        removeKeyword(md, 'RADECSYS')  # Irrelevant, and use of "GAPPT" breaks wcslib
         exp = exposureFromImage(image)
-        return self._standardizeExposure(self.calibrations[detrend], exp, dataId, filter=filter, trimmed=False)
+        return self._standardizeExposure(self.calibrations[detrend], exp, dataId, filter=filter,
+                                         trimmed=False)
 
     def std_bias(self, image, dataId):
         return self._standardizeDetrend("bias", image, dataId, filter=False)

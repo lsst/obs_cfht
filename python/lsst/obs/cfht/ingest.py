@@ -19,7 +19,7 @@
 # the GNU General Public License along with this program.  If not,
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
-
+from __future__ import absolute_import, division, print_function
 import re
 
 from lsst.pipe.tasks.ingest import ParseTask
@@ -32,11 +32,13 @@ filters = {'u.MP9301': 'u',
            'z.MP9801': 'z',
            }
 
+
 class MegacamParseTask(ParseTask):
+
     def translate_ccd(self, md):
         try:
             extname = self.getExtensionName(md)
-            return int(extname[3:]) # chop off "ccd"
+            return int(extname[3:])  # chop off "ccd"
         except:
             # Dummy value, intended for PHU (need something to get filename)
             return 99
@@ -54,15 +56,16 @@ class MegacamParseTask(ParseTask):
         (sec1, sec2) = sec.split('.')
         return "%04d-%02d-%02dT%02d:%02d:%02d.%02d"%(int(yr), int(month), int(day),
                                                      int(hr), int(min), int(sec1), int(sec2))
+
     def translate_defects(self, md):
         maskName = md.get("IMRED_MK").strip()
         maskName, ccd = maskName.split(".fits")
         filter = md.get("FILTER").strip().split('.')[0]
-        if filter == "i" or filter == "i2" or filter == "z" :
+        if filter == "i" or filter == "i2" or filter == "z":
             maskName = maskName+"_enlarged"
         maskFile = maskName+".nn/"+ccd[1:6]+".fits"
         return maskFile
-        
+
     def getInfo(self, filename):
         phuInfo, infoList = super(MegacamParseTask, self).getInfo(filename)
         match = re.search(r"\d+(?P<state>o|p)\.fits.*", filename)
