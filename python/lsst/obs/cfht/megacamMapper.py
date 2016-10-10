@@ -28,7 +28,7 @@ import lsst.afw.geom as afwGeom
 import lsst.afw.image as afwImage
 import lsst.afw.image.utils as afwImageUtils
 
-from lsst.daf.butlerUtils import CameraMapper, exposureFromImage
+from lsst.obs.base import CameraMapper, exposureFromImage
 import lsst.pex.policy as pexPolicy
 from .makeMegacamRawVisitInfo import MakeMegacamRawVisitInfo
 

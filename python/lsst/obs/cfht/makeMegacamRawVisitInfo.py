@@ -24,7 +24,7 @@ from __future__ import division
 from __future__ import print_function
 
 from lsst.afw.coord import Coord, IcrsCoord, Observatory, Weather
-from lsst.daf.butlerUtils import MakeRawVisitInfo
+from lsst.obs.base import MakeRawVisitInfo
 
 __all__ = ["MakeMegacamRawVisitInfo"]
 
