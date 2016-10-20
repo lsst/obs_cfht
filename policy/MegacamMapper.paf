@@ -301,23 +301,17 @@ datasets: {
         storage:       "ConfigStorage"
         tables:        raw
     }
+    # dataset defined in obs_base modified in this mapper as follows:
     deep_safeClipAssembleCoadd_config: {
-        template:      "config/deep_safeClipAssembleCoadd.py"
         python:        "lsst.pipe.tasks.assembleCoadd.AssembleCoaddConfig"
-        persistable:   "Config"
-        storage:       "ConfigStorage"
     }
+    # dataset defined in obs_base modified in this mapper as follows:
     deep_makeCoaddTempExp_metadata: {
         template:      "deep_makeCoaddTempExp_metadat/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
-        python:        "lsst.daf.base.PropertySet"
-        persistable:        "PropertySet"
-        storage:    "BoostStorage"
     }
+    # dataset defined in obs_base modified in this mapper as follows:
     deep_safeClipAssembleCoadd_metadata: {
         template:      "deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
-        python:        "lsst.daf.base.PropertySet"
-        persistable:        "PropertySet"
-        storage:    "BoostStorage"
     }
     deepCoadd_icMatch: {
         template:      "deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/icMatch-%(filter)s-%(tract)d-%(patch)s.fits"
@@ -341,11 +335,9 @@ datasets: {
         tables:        raw
         tables:        raw_visit
     }
+    # dataset defined in obs_base modified in this mapper as follows:
     forced_src_schema: {
         template:      "schema/forced_src.fits"
-        python:        "lsst.afw.table.SourceCatalog"
-        persistable:   "ignored"
-        storage:       "FitsCatalogStorage"
     }
     forcedPhotCoadd_config: {
         template:      "config/forcedPhotCoadd.py"
