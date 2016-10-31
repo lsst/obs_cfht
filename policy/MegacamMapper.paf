@@ -83,14 +83,6 @@ exposures: {
         template:    "deepCoadd/%(filter)s/%(tract)d/%(patch)s/warp-%(filter)s-%(tract)d-%(patch)s-%(visit)d.fits"
     }
 
-    deep_processCoadd: {
-        template:      "processCoadd/%(filter)s/%(tract)d/%(patch)s.fits"
-        python:        "lsst.afw.image.ExposureF"
-        persistable:   "ExposureF"
-        storage:       "FitsStorage"
-        level:         "Skytile"
-        tables:        "raw"
-    }
 
 
 }
@@ -331,14 +323,6 @@ datasets: {
         persistable:   "Config"
         storage:       "ConfigStorage"
     }
-    forcedPhot_metadata: {
-        template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/forcedPhotCcd_metadata/%(visit)d-%(ccd)02d.boost"
-        python:        "lsst.daf.base.PropertySet"
-        persistable:   "PropertySet"
-        storage:       "BoostStorage"
-        tables:        raw
-        tables:        raw_visit
-    }
     # Detections on coadds
 
     # Merged detections on coadds
@@ -347,12 +331,6 @@ datasets: {
 
     # Reference catalog for coadds
 
-    multiband_config: {
-        template:      "config/multiband.py"
-        python:        "lsst.pipe.tasks.multiBand.MultiBandConfig"
-        persistable:   "Config"
-        storage:       "ConfigStorage"
-    }
     singleFrameDriver_metadata: {
         template:      "%(pointing)05d/%(filter)s/singleFrameDriver_metadata/%(visit)07d.boost"
         python:        "lsst.daf.base.PropertySet"
