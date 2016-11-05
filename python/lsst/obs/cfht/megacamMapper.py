@@ -195,14 +195,6 @@ class MegacamMapper(CameraMapper):
         nPatches = 1000000
         return (int(dataId["stack"]) * nPatches + int(dataId["patch"]))
 
-    def bypass_stackExposureId(self, datasetType, pythonType, location, dataId):
-        """Hook to retrieve identifier for stack/coadd"""
-        return self._computeStackExposureId(dataId)
-
-    def bypass_stackExposureId_bits(self, datasetType, pythonType, location, dataId):
-        """Hook to retrieve number of bits in identifier for stack/coadd"""
-        return 32  # not really, but this leaves plenty of space for sources
-
     def _standardizeDetrend(self, detrend, image, dataId, filter=False):
         """Hack up detrend images to remove troublesome keyword"""
         md = image.getMetadata()
