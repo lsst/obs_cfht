@@ -23,8 +23,6 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import astropy.units
-
 from lsst.afw.coord import Coord, IcrsCoord, Observatory, Weather
 from lsst.obs.base import MakeRawVisitInfo
 
@@ -63,10 +61,6 @@ class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
             self.popFloat(md, "PRESSURE")*100.0,  # 100 Pascal per millibar
             self.popFloat(md, "RELHUMID"),
         )
-        # Using LST to compute ERA until we get UT1 (see: DM-8053)
-        LST = self.popAngle(md, "LST-OBS", units=astropy.units.h)
-        argDict['era'] = self.eraFromLstAndLongitude(LST, argDict["observatory"].getLongitude())
-
 
     def getDateAvg(self, md, exposureTime):
         """Return date at the middle of the exposure
