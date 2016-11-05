@@ -76,6 +76,9 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         self.weath_airTemperature = 0.90
         self.weath_airPressure = 617.65*100  # 100 Pascal/millibar
         self.weath_humidity = 39.77
+        # NOTE: if we deal with DM-8053 and get UT1 implemented, ERA will change slightly.
+        lst = 104.16591666666666*degrees
+        self.era = lst - self.obs_longitude
 
     def tearDown(self):
         del self.butler
@@ -126,6 +129,7 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
 
             visitInfo = raw.getInfo().getVisitInfo()
             self.assertAlmostEqual(visitInfo.getDate().get(), self.dateAvg.get())
+            self.assertEqual(visitInfo.getEra(), self.era)
             self.assertAlmostEqual(visitInfo.getExposureTime(), self.exposureTime)
             self.assertAlmostEqual(visitInfo.getDarkTime(), self.darkTime)
             self.assertCoordsNearlyEqual(visitInfo.getBoresightRaDec(), self.boresightRaDec)
