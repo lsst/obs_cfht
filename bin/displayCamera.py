@@ -7,6 +7,7 @@ import lsst.obs.cfht as obs_cfht
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
 from lsst.afw.cameraGeom import Camera
 
+
 def checkStr(strVal, level):
     """Check if a string is a valid identifier
     @param[in] strVal: String containing the identifier
@@ -31,16 +32,16 @@ def checkStr(strVal, level):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Display the MegaCam camera')
-    parser.add_argument('--showAmp', help='Show an amplifier segment in ds9  May have multiple arguments. '\
-                                          'Format like ccd_name amp_name e.g. '\
+    parser.add_argument('--showAmp', help='Show an amplifier segment in ds9  May have multiple arguments. '
+                                          'Format like ccd_name amp_name e.g. '
                                           '\"ccd00 A\"', type=str, nargs='+')
-    parser.add_argument('--showCcd', help='Show a CCD from the mosaic in ds9.  May have multiple arguments. '\
+    parser.add_argument('--showCcd', help='Show a CCD from the mosaic in ds9.  May have multiple arguments. '
                                           'Format like ccd_name e.g. \"ccd16\"', type=str,
                                           nargs='+')
-    parser.add_argument('--showRaft', help='Show a Raft from the mosaic in ds9.  May have multiple arguments. '\
+    parser.add_argument('--showRaft', help='Show a Raft from the mosaic in ds9.  May have multiple arguments. '
                                            'Format like raft_name e.g. \"North\"', type=str, nargs='+')
     parser.add_argument('--showCamera', help='Show the camera mosaic in ds9.', action='store_true')
-    parser.add_argument('--cameraBinSize', type= int, default=20,
+    parser.add_argument('--cameraBinSize', type=int, default=20,
                         help='Size of binning when displaying the full camera mosaic')
     parser.add_argument('--plotFocalPlane', action='store_true',
                         help='Plot the focalplane in an interactive matplotlib window')
@@ -53,7 +54,7 @@ if __name__ == "__main__":
     mapper = obs_cfht.MegacamMapper()
     camera = mapper.camera
     frame = 0
-    ampMap = {'a':'0,0', 'b':'1,0'}
+    ampMap = {'a': '0,0', 'b': '1,0'}
     if args.showAmp:
         for ampStr in args.showAmp:
             if checkStr(ampStr, 'amp'):
@@ -70,8 +71,8 @@ if __name__ == "__main__":
                 cameraGeomUtils.showCcd(detector, frame=frame)
                 frame += 1
 
-    raftMap = {'north':['ccd%02d'%val for val in range(18)],
-               'south':['ccd%02d'%val for val in range(18, 36)]}
+    raftMap = {'north': ['ccd%02d'%val for val in range(18)],
+               'south': ['ccd%02d'%val for val in range(18, 36)]}
     if args.showRaft:
         for raftStr in args.showRaft:
             if checkStr(raftStr, 'raft'):

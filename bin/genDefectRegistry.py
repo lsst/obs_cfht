@@ -37,7 +37,7 @@ conn.execute(cmd)
 conn.commit()
 
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 f = file(sys.argv[1])
 root = sys.argv[2]
@@ -52,7 +52,7 @@ for line in f:
         print line
         continue
     path, runId, start, stop, filter, detrend, version, ccds = \
-            line.split()
+        line.split()
 
     if detrend != "mask":
         continue

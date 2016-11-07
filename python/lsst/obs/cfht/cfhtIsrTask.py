@@ -7,9 +7,9 @@ from lsst.ip.isr import IsrTask
 
 class CfhtIsrTaskConfig(IsrTask.ConfigClass):
     safe = pexConfig.Field(
-        dtype = float,
-        doc = "Safety margin for CFHT sensors gain determination",
-        default = 0.95,
+        dtype=float,
+        doc="Safety margin for CFHT sensors gain determination",
+        default=0.95,
     )
 
     def setDefaults(self):
@@ -87,11 +87,11 @@ class CfhtIsrTask(IsrTask):
                 raise ValueError("Unexpected amplifier name : %s"%(amp.getName()))
 
         return IsrTask.run(self,
-                           ccdExposure = ccdExposure,
-                           bias = bias,
-                           linearizer = linearizer,
-                           dark = dark,
-                           flat = flat,
-                           defects = defects,
-                           fringes = fringes,
+                           ccdExposure=ccdExposure,
+                           bias=bias,
+                           linearizer=linearizer,
+                           dark=dark,
+                           flat=flat,
+                           defects=defects,
+                           fringes=fringes,
                            )

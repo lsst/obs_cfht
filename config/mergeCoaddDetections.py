@@ -1,1 +1,1 @@
-config.priorityList = ["i", "r", "z", "g", "u",]
+config.priorityList = ["i", "r", "z", "g", "u", ]

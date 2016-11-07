@@ -47,7 +47,7 @@ imageTypes = {2: 'dark',
               4: 'flat',
               3: 'bias',
               6: 'fringe',
-#              5: 'mask',
+              # 5: 'mask',
               }
 
 # Key to filter names
@@ -60,6 +60,7 @@ filterNames = {0: 'NONE',
                6: 'i2',
                # Ignoring narrow-bands for now
                }
+
 
 def fixString(s):
     """Work around apparent pyfits bug: it's not terminating strings at the NULL"""
@@ -122,8 +123,8 @@ def parseDetrendDatabase(tableName, create=False):
     conn.close()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Parse the CFHT Elixir detrend database to create " + \
-                                         "a calibration registry")
+    parser = argparse.ArgumentParser(description="Parse the CFHT Elixir detrend database to create " +
+                                     "a calibration registry")
     parser.add_argument("table", nargs=1, help="FITS table to parse")
     parser.add_argument("--create", action="store_true", help="Create new registry?")
     args = parser.parse_args()
