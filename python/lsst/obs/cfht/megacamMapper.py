@@ -1,3 +1,4 @@
+from builtins import map
 #
 # LSST Data Management System
 # Copyright 2012 LSST Corporation.
@@ -139,8 +140,8 @@ class MegacamMapper(CameraMapper):
         @param dataId (dict) Data identifier with visit, ccd
         """
         pathId = self._transformId(dataId)
-        visit = long(pathId['visit'])
-        ccd = long(pathId['ccd'])
+        visit = int(pathId['visit'])
+        ccd = int(pathId['ccd'])
         return visit * 36 + ccd
 
     def bypass_ccdExposureId(self, datasetType, pythonType, location, dataId):
@@ -159,10 +160,10 @@ class MegacamMapper(CameraMapper):
                                    filter coadd, in which case dataId
                                    must contain filter.
         """
-        tract = long(dataId['tract'])
+        tract = int(dataId['tract'])
         if tract < 0 or tract >= 128:
             raise RuntimeError('tract not in range [0,128)')
-        patchX, patchY = map(int, dataId['patch'].split(','))
+        patchX, patchY = list(map(int, dataId['patch'].split(',')))
         for p in (patchX, patchY):
             if p < 0 or p >= 2**13:
                 raise RuntimeError('patch component not in range [0, 8192)')
@@ -192,7 +193,7 @@ class MegacamMapper(CameraMapper):
         @param dataId (dict) Data identifier with stack, patch, filter
         """
         nPatches = 1000000
-        return (long(dataId["stack"]) * nPatches + long(dataId["patch"]))
+        return (int(dataId["stack"]) * nPatches + int(dataId["patch"]))
 
     def bypass_stackExposureId(self, datasetType, pythonType, location, dataId):
         """Hook to retrieve identifier for stack/coadd"""

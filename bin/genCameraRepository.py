@@ -81,7 +81,7 @@ def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=Fa
                 "#!!!!Edit input file and regenerate with $OBS_CFHT_DIR/bin/genCameraRepository.py\n")
             camConfig.saveToStream(outfile)
 
-        for detectorName, ampTable in ccdInfoDict['ampInfo'].iteritems():
+        for detectorName, ampTable in ccdInfoDict['ampInfo'].items():
             shortDetectorName = shortNameMethod(detectorName)
             ampInfoPath = os.path.join(outputDir, shortDetectorName + ".fits")
             ampTable.writeFits(ampInfoPath)
