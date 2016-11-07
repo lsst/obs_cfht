@@ -9,6 +9,7 @@ Example:
 
 If `megacam/camera` already exists the move it first, or add `--clobber`
 """
+from __future__ import print_function
 import argparse
 import eups
 import os
@@ -63,11 +64,11 @@ def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=Fa
             """
             if os.path.exists(dirPath):
                 if doClobber and os.path.isdir(dirPath):
-                    print "Clobbering directory %r" % (dirPath,)
+                    print("Clobbering directory %r" % (dirPath,))
                     shutil.rmtree(dirPath)
                 else:
                     raise RuntimeError("Directory %r exists" % (dirPath,))
-            print "Creating directory %r" % (dirPath,)
+            print("Creating directory %r" % (dirPath,))
             os.makedirs(dirPath)
 
         # write data products
@@ -332,7 +333,7 @@ def parseCcds(policy, ccdParams, ccdToUse=None):
     return {"ccdInfo": ccdInfoList, "ampInfo": ampInfoDict}
 
 if __name__ == "__main__":
-    print "WARNING: this code generates incorrect vertical overscan; see DM-5524"
+    print("WARNING: this code generates incorrect vertical overscan; see DM-5524")
     baseDir = eups.productDir("obs_cfht")
 
     parser = argparse.ArgumentParser()

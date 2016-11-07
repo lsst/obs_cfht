@@ -110,7 +110,7 @@ class MegacamMapper(CameraMapper):
         @return (string) path to the defects file or None if not available"""
 
         if self.registry is None:
-            raise RuntimeError, "No registry for defect lookup"
+            raise RuntimeError("No registry for defect lookup")
 
         rows = self.registry.executeQuery(
             ("defects",),

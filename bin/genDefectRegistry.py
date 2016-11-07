@@ -1,3 +1,4 @@
+from __future__ import print_function
 #
 # LSST Data Management System
 # Copyright 2008, 2009, 2010 LSST Corporation.
@@ -48,8 +49,8 @@ for line in f:
     if len(words) == 0:
         continue
     elif len(words) != 8:
-        print "Warning: Unrecognized line:"
-        print line
+        print("Warning: Unrecognized line:")
+        print(line)
         continue
     path, runId, start, stop, filter, detrend, version, ccds = \
         line.split()
@@ -75,9 +76,9 @@ for line in f:
     for f in glob.glob(os.path.join(root, path, "defects*.fits")):
         m = re.search(r'defects(\d+)\.fits', f)
         if not m:
-            print >>sys.stderr, "Unrecognized file: %s" % (f,)
+            print("Unrecognized file: %s" % (f,), file=sys.stderr)
             continue
-        print f
+        print(f)
         conn.execute(cmd, (".".join(pathwords[:5]), f, version, int(m.group(1)), start, stop))
 
     conn.commit()

@@ -21,6 +21,7 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 
+from __future__ import print_function
 import os
 import sqlite3
 import argparse
@@ -80,7 +81,7 @@ def parseDetrendDatabase(tableName, create=False):
             createCmd = "CREATE TABLE " + imageType + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " + \
                 ", ".join([" ".join(kv) for kv in schema.items()]) + \
                 ")"
-            print createCmd
+            print(createCmd)
             conn.execute(createCmd)
         conn.commit()
 
