@@ -25,6 +25,12 @@ defaultSubLevels: {
     sensor: "none"
 }
 
+# exposures and datasets which are needed for all of the mappers are defined
+# in the obs_base package (in either exposures.yaml or datasets.yaml).
+# Where a modification to such a dataset is required for a particular camera,
+# (e.g., for a template or specialized python type), the modification will
+# appear below as a partial dataset definition.
+
 exposures: {
     raw: {
         template:    "raw/%(runId)s/%(object)s/%(date)s/%(filter)s/%(visit)d%(state)1s.fits.fz[%(extension)d]"
@@ -56,8 +62,6 @@ exposures: {
         columns:     "visit" "ccd"
     }
 
-
-    # dataset defined in obs_base modified in this mapper as follows:
     deepCoadd_tempExp: {
         template:    "deepCoadd/%(filter)s/%(tract)d/%(patch)s/warp-%(filter)s-%(tract)d-%(patch)s-%(visit)d.fits"
     }
@@ -204,7 +208,6 @@ datasets: {
     calibrate_metadata: {
         template:      "metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-calibrate-%(visit)d-%(ccd)02d.boost"
     }
-
     deep_makeSkyMap_config: {
         template:      "config/deep_makeSkyMap.py"
         python:        "lsst.pipe.tasks.makeSkyMap.MakeSkyMapTask.ConfigClass"
@@ -212,26 +215,21 @@ datasets: {
         storage:       "ConfigStorage"
         tables:        raw
     }
-    # dataset defined in obs_base modified in this mapper as follows:
     deep_safeClipAssembleCoadd_config: {
         python:        "lsst.pipe.tasks.assembleCoadd.AssembleCoaddConfig"
     }
-    # dataset defined in obs_base modified in this mapper as follows:
     deep_makeCoaddTempExp_metadata: {
         template:      "deep_makeCoaddTempExp_metadat/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
     }
-    # dataset defined in obs_base modified in this mapper as follows:
     deep_safeClipAssembleCoadd_metadata: {
         template:      "deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
     }
-    # dataset defined in obs_base modified in this mapper as follows:
     deepCoadd_srcMatch: {
         template:      "deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatch-%(filter)s-%(tract)d-%(patch)s.fits"
     }
     forced_src: {
         template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/FORCEDSRC-%(visit)d-%(ccd)02d.fits"
     }
-    # dataset defined in obs_base modified in this mapper as follows:
     forced_src_schema: {
         template:      "schema/forced_src.fits"
     }
