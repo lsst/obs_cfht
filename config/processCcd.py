@@ -30,18 +30,16 @@ config.charImage.repair.cosmicray.nCrPixelMax = 100000
 config.charImage.repair.cosmicray.minSigma = 6.0
 config.charImage.repair.cosmicray.min_DN = 150.0
 
-try:
-    # AstrometryTask, the default
-    config.calibrate.refObjLoader.filterMap = {
-        'i2': 'i',
-    }
-    config.calibrate.astrometry.wcsFitter.order = 3
-    config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
-except:
-    # ANetAstrometryTask
-    config.calibrate.astrometry.solver.filterMap = {
-        'i2': 'i',
-    }
+# Configuration for AstrometryTask, the default. If the user retargets to
+# ANetAstrometryTask, they must update the astrometry.solver.filterMap config
+# manually; doing it here is impossible because these overrides are applied
+# before any user overrides where retargeting could occur.
+for refObjLoader in (config.calibrate.astromRefObjLoader,
+                     config.calibrate.photoRefObjLoader,
+                     config.charImage.refObjLoader):
+    refObjLoader.filterMap = {'i2': 'i'}
+config.calibrate.astrometry.wcsFitter.order = 3
+config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
 
 config.calibrate.photoCal.applyColorTerms = True
 config.calibrate.photoCal.photoCatName = "e2v"
