@@ -33,11 +33,10 @@ import warnings
 from lsst.utils import getPackageDir
 import lsst.utils.tests
 import lsst.daf.persistence as dafPersist
-import lsst.afw.cameraGeom as cameraGeom
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
 import lsst.pex.exceptions as pexExcept
 from lsst.daf.base import DateTime
-from lsst.afw.image import RotType_UNKNOWN
+from lsst.afw.image import RotType
 from lsst.afw.coord import IcrsCoord, Coord
 from lsst.afw.geom import degrees
 
@@ -69,7 +68,7 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         self.boresightRaDec = IcrsCoord(135.409417*degrees, -2.400000*degrees)
         self.boresightAzAlt = Coord(122.34*degrees, 52.02*degrees)
         self.boresightAirmass = 1.269
-        self.rotType = RotType_UNKNOWN
+        self.rotType = RotType.UNKNOWN
         self.obs_longitude = -155.468876*degrees
         self.obs_latitude = 19.825252*degrees
         self.obs_elevation = 4204
@@ -100,9 +99,9 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         if display and ccd % 18 == 0:
             global frame
             frame += 1
-            ccd = cameraGeom.cast_Ccd(exp.getDetector())
+            ccd = exp.getDetector()
             for amp in ccd:
-                amp = cameraGeom.cast_Amp(amp)
+                amp = amp
                 print(ccd.getId(), amp.getId(), amp.getDataSec().toString(),
                       amp.getBiasSec().toString(), amp.getElectronicParams().getGain())
             cameraGeomUtils.showCcd(ccd, ccdImage=exp, frame=frame)
