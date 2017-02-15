@@ -111,7 +111,7 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         try:
             datadir = getPackageDir("testdata_cfht")
         except pexExcept.NotFoundError as e:
-            warnings.warn(e.message)
+            warnings.warn(e.args[0])
             raise unittest.SkipTest("Skipping test as testdata_cfht is not setup")
         return datadir
 
