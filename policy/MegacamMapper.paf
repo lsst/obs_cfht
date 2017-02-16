@@ -62,10 +62,10 @@ exposures: {
         columns:     "visit" "ccd"
     }
 
-    deepCoadd_tempExp: {
+    deepCoadd_directWarp: {
         template:    "deepCoadd/%(filter)s/%(tract)d/%(patch)s/warp-%(filter)s-%(tract)d-%(patch)s-%(visit)d.fits"
     }
-    deepCoadd_tempExpPsfMatched: {
+    deepCoadd_psfMatchedWarp: {
         template:    "deepCoadd/%(filter)s/%(tract)d/%(patch)s/psfMatchedWarp-%(filter)s-%(tract)d-%(patch)s-%(visit)d.fits"
     }
 
