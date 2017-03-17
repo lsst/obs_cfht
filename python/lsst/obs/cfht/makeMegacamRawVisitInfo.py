@@ -37,7 +37,7 @@ class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
     """
 
     def setArgDict(self, md, argDict):
-        """Set an argument dict for makeVisitInfo and pop associated metadata
+        """Set an argument dict for VisitInfo and pop associated metadata
 
         @param[in,out] md  metadata, as an lsst.daf.base.PropertyList or PropertySet
         @param[in,out] argdict  a dict of arguments
