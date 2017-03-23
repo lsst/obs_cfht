@@ -224,7 +224,7 @@ datasets: {
     deep_safeClipAssembleCoadd_metadata: {
         template:      "deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost"
     }
-    deepCoadd_srcMatch: {
+    deepCoadd_measMatch: {
         template:      "deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatch-%(filter)s-%(tract)d-%(patch)s.fits"
     }
     forced_src: {
