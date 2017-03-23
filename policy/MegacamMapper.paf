@@ -170,6 +170,9 @@ datasets: {
     srcMatch: {
         template:      "srcMatch/%(runId)s/%(object)s/%(date)s/%(filter)s/SRCMATCH-%(visit)d-%(ccd)02d.fits"
     }
+    srcMatchFull: {
+        template:      "srcMatch/%(runId)s/%(object)s/%(date)s/%(filter)s/SRCMATCHFULL-%(visit)d-%(ccd)02d.fits"
+    }
     icSrc: {
         template:      "icSrc/%(runId)s/%(object)s/%(date)s/%(filter)s/ICSRC-%(visit)d-%(ccd)02d.fits"
     }
@@ -226,6 +229,9 @@ datasets: {
     }
     deepCoadd_measMatch: {
         template:      "deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatch-%(filter)s-%(tract)d-%(patch)s.fits"
+    }
+    deepCoadd_measMatchFull: {
+        template:      "deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatchFull-%(filter)s-%(tract)d-%(patch)s.fits"
     }
     forced_src: {
         template:      "forced/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/FORCEDSRC-%(visit)d-%(ccd)02d.fits"
