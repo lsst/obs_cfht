@@ -33,6 +33,7 @@ from lsst.pipe.tasks.multiBand import MergeMeasurementsConfig
 from lsst.pipe.tasks.processCcd import ProcessCcdConfig
 from lsst.utils import getPackageDir
 
+
 class ConfigOverrideTestCase(lsst.utils.tests.TestCase):
     """Test that config overrides apply without error."""
     CONFIG_DIR = os.path.join(getPackageDir("obs_cfht"), "config")
@@ -59,11 +60,14 @@ class ConfigOverrideTestCase(lsst.utils.tests.TestCase):
                 # error, so we convert the exception appropriately.
                 self.fail(e)
 
+
 def setup_module(module):
     lsst.utils.tests.init()
 
+
 class MemoryTester(lsst.utils.tests.MemoryTestCase):
     pass
+
 
 if __name__ == "__main__":
     lsst.utils.tests.init()
