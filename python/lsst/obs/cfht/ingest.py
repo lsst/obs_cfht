@@ -77,3 +77,25 @@ class MegacamParseTask(ParseTask):
             info['state'] = match.group('state')
             info['extension'] = num + 1
         return phuInfo, infoList
+
+    def getExtensionName(self, md):
+        """ Get the name of an extension.
+        @param md: PropertySet like one obtained from afwImage.readMetadata)
+        @return Name of the extension if it exists.  None otherwise.
+        """
+        # We have to overwrite this method because some (mostly recent) Megacam
+        # images have a different header where the keword "EXTNAME" appears one
+        # time instead of two. In the later case ext is a tuple while in the
+        # other case it is a single value
+        try:
+            # This returns a tuple
+            ext = md.get("EXTNAME")
+            # Most of the time the EXTNAME keyword appears 2 times in the header
+            # (1st time to specify that the image is compressed) but sometimes
+            # it appears only once even if the image is compressed
+            if type(ext) == tuple or type(ext) == list:
+                return ext[1]
+            else:
+                return ext
+        except lsst.pex.exceptions.Exception:
+            return None
