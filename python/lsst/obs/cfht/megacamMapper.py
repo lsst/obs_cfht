@@ -117,8 +117,6 @@ class MegacamMapper(CameraMapper):
         @param dataId (dict) Dataset identifier
         @return (string) path to the defects file or None if not available"""
 
-        print("=====", self.registry)
-        print("*****", dir(self.registry))
         if self.registry is None:
             raise RuntimeError("No registry for defect lookup")
 
