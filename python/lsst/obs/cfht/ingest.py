@@ -25,11 +25,16 @@ import re
 from lsst.pipe.tasks.ingest import ParseTask
 
 filters = {'u.MP9301': 'u',
+           'u.MP9302': 'u2',
            'g.MP9401': 'g',
+           'g.MP9402': 'g2',
            'r.MP9601': 'r',
+           'r.MP9602': 'r2',
            'i.MP9701': 'i',
            'i.MP9702': 'i2',
+           'i.MP9703': 'i3',
            'z.MP9801': 'z',
+           'z.MP9901': 'z2',
            }
 
 
@@ -61,7 +66,7 @@ class MegacamParseTask(ParseTask):
         maskName = md.get("IMRED_MK").strip()
         maskName, ccd = maskName.split(".fits")
         filter = md.get("FILTER").strip().split('.')[0]
-        if filter == "i" or filter == "i2" or filter == "z":
+        if filter in [ "i", "i2", "i3", "z", "z2"]:
             maskName = maskName+"_enlarged"
         maskFile = maskName+".nn/"+ccd[1:6]+".fits"
         return maskFile
