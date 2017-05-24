@@ -94,7 +94,6 @@ class MegacamMapper(CameraMapper):
         into an object, which is what we want for now, since that conversion is a bit tricky.
         """
         (ccdKey, ccdSerial) = self._getCcdKeyVal(dataId)
-        print(butlerLocation.locationList)
         defectsFitsPath = butlerLocation.locationList[0]
         with pyfits.open(defectsFitsPath) as hduList:
             for hdu in hduList[1:]:
