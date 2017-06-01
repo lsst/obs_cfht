@@ -43,7 +43,7 @@ class MegacamMapper(CameraMapper):
     MakeRawVisitInfoClass = MakeMegacamRawVisitInfo
 
     def __init__(self, **kwargs):
-        policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.paf", "policy")
+        policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.yaml", "policy")
         policy = pexPolicy.Policy(policyFile)
         super(MegacamMapper, self).__init__(policy, policyFile.getRepositoryPath(), **kwargs)
 
