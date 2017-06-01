@@ -29,6 +29,7 @@ import lsst.afw.geom as afwGeom
 import lsst.afw.image as afwImage
 import lsst.afw.image.utils as afwImageUtils
 
+from lsst.daf.persistence import Policy
 from lsst.obs.base import CameraMapper, exposureFromImage
 import lsst.pex.policy as pexPolicy
 from .makeMegacamRawVisitInfo import MakeMegacamRawVisitInfo
@@ -43,9 +44,9 @@ class MegacamMapper(CameraMapper):
     MakeRawVisitInfoClass = MakeMegacamRawVisitInfo
 
     def __init__(self, **kwargs):
-        policyFile = pexPolicy.DefaultPolicyFile("obs_cfht", "MegacamMapper.paf", "policy")
-        policy = pexPolicy.Policy(policyFile)
-        super(MegacamMapper, self).__init__(policy, policyFile.getRepositoryPath(), **kwargs)
+        policyFile = Policy.defaultPolicyFile("obs_cfht", "MegacamMapper.yaml", "policy")
+        policy = Policy(policyFile)
+        super(MegacamMapper, self).__init__(policy, os.path.dirname(policyFile), **kwargs)
 
         # The "ccd" provided by the user is translated through the registry into an extension name for the "raw"
         # template.  The template therefore doesn't include "ccd", so we need to ensure it's explicitly included
