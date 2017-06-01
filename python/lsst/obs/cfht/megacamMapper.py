@@ -45,6 +45,7 @@ class MegacamMapper(CameraMapper):
 
     def __init__(self, **kwargs):
         policyFile = Policy.defaultPolicyFile("obs_cfht", "MegacamMapper.yaml", "policy")
+        policy = Policy(policyFile)
         super(MegacamMapper, self).__init__(policy, os.path.dirname(policyFile), **kwargs)
 
         # The "ccd" provided by the user is translated through the registry into an extension name for the "raw"
