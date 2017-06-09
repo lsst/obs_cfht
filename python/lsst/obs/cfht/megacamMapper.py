@@ -205,7 +205,7 @@ class MegacamMapper(CameraMapper):
         """Hack up detrend images to remove troublesome keyword"""
         md = image.getMetadata()
         removeKeyword(md, 'RADECSYS')  # Irrelevant, and use of "GAPPT" breaks wcslib
-        exp = exposureFromImage(image)
+        exp = exposureFromImage(image, logger=self.log)
         return self._standardizeExposure(self.calibrations[detrend], exp, dataId, filter=filter,
                                          trimmed=False)
 
