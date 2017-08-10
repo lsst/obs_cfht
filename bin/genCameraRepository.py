@@ -21,7 +21,7 @@ import shutil
 import lsst.pex.policy as pexPolicy
 import lsst.afw.table as afwTable
 import lsst.afw.geom as afwGeom
-from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, PUPIL, CameraConfig, DetectorConfig,\
+from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, FIELD_ANGLE, CameraConfig, DetectorConfig,\
     makeCameraFromCatalogs, NullLinearityType
 from lsst.obs.cfht import MegacamMapper
 
@@ -111,7 +111,7 @@ def parseCamera(policy):
 
     tConfig = afwGeom.TransformConfig()
     tConfig.transform.name = 'inverted'
-    radialClass = afwGeom.xyTransformRegistry['radial']
+    radialClass = afwGeom.transformRegistry['radial']
     tConfig.transform.active.transform.retarget(radialClass)
 
     coeffs = [0., conv_1, conv_2, conv_3]
@@ -119,7 +119,7 @@ def parseCamera(policy):
 
     tmc = afwGeom.TransformMapConfig()
     tmc.nativeSys = FOCAL_PLANE.getSysName()
-    tmc.transforms = {PUPIL.getSysName(): tConfig}
+    tmc.transforms = {FIELD_ANGLE.getSysName(): tConfig}
     camConfig.transformDict = tmc
     return camConfig
 
