@@ -3,6 +3,8 @@
 WARNING: this code is deprecated because it generates incorrect overscan;
 see DM-5524 which fixed the problem by editing the generated amp info catalogs directly.
 
+WARNING: this code is broken. See DM-11560.
+
 Example:
 
     python bin/genCameraRepository.py megacam/Full_Megacam_geom.paf megacam/camera
