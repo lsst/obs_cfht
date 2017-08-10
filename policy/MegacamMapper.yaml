@@ -184,6 +184,9 @@ datasets:
     python: str
     storage: None
     template: logs/%(runId)s/%(object)s/%(date)s/%(filter)s/
+  photoCalib:
+    template: jointcal-results/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/photoCalib-%(visit)d-%(ccd)02d.fits
+
   processCcd_metadata:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(visit)d-%(ccd)02d.boost
   isr_config:
