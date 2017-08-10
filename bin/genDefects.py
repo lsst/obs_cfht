@@ -1,4 +1,4 @@
-import os, sys
+import os
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 import lsst.afw.image as afwImage
@@ -8,7 +8,8 @@ from astropy.io import fits
 
 import numpy as np
 
-def makeBBList(mask, ccd) :
+
+def makeBBList(mask, ccd):
 
     # Create a bounding box corresponding to the useful part of the CCD (exclude overscan regions)
     bb = afwGeom.Box2I(afwGeom.Point2I(32, 0), afwGeom.Point2I(2079, 4611))
@@ -29,7 +30,7 @@ def makeBBList(mask, ccd) :
     for f in s.getFootprints():
         fpl = afwDetect.footprintToBBoxList(f)
         for i in fpl:
-            i.shift(afwGeom.Extent2I(-32,0))
+            i.shift(afwGeom.Extent2I(-32, 0))
 
             x0 = i.getBeginX()
             y0 = i.getBeginY()
@@ -40,29 +41,29 @@ def makeBBList(mask, ccd) :
             defect['w'].append(w0)
             defect['h'].append(h0)
 
-            if (x0 % 2 == 0) :
+            if (x0 % 2 == 0):
                 x1 = x0
-                if (w0 % 2 == 0) :
+                if (w0 % 2 == 0):
                     w1 = w0
-                else :
+                else:
                     w1 = w0 + 1
-            else :
+            else:
                 x1 = max(x0 - 1, 0)
-                if (w0 % 2 == 0) :
+                if (w0 % 2 == 0):
                     w1 = min(w0 + 2, 2048)
-                else :
+                else:
                     w1 = min(w0 + 1, 2048)
             if (y0 % 2 == 0):
                 y1 = y0
-                if (h0 % 2 == 0) :
+                if (h0 % 2 == 0):
                     h1 = h0
-                else :
+                else:
                     h1 = min(h0 + 1, 4612)
-            else :
+            else:
                 y1 = max(y0 - 1, 0)
-                if (h0 % 2 == 0) :
+                if (h0 % 2 == 0):
                     h1 = min(h0 + 2, 4612)
-                else :
+                else:
                     h1 = min(h0 + 1, 4612)
 
             defectE['x'].append(x1)
@@ -72,15 +73,16 @@ def makeBBList(mask, ccd) :
 
     return defect, defectE
 
-def writeFits(ccd, defect, fileOut) :
 
-    ccdSerial = ['834175',  '835234',  '8352153', '8261144', '8341174', '8351205',
-                '8351133', '835163',  '8261133', '917213',  '835244',  '8352155',
-                '8351204', '8351173', '8434135', '8341173', '8351114', '7432193',
-                '917243',  '8341165', '8352134', '8374175', '8351115', '835164',
-                '8351185', '8352185', '835173',  '8261165', '743233',  '8351164',
-                '8261195', '835183',  '8352104', '8352154', '826173',  '8261143',
-                '917224',  '835264',  '835235',  '8261155']
+def writeFits(ccd, defect, fileOut):
+
+    ccdSerial = ['834175', '835234', '8352153', '8261144', '8341174', '8351205',
+                 '8351133', '835163', '8261133', '917213', '835244', '8352155',
+                 '8351204', '8351173', '8434135', '8341173', '8351114', '7432193',
+                 '917243', '8341165', '8352134', '8374175', '8351115', '835164',
+                 '8351185', '8352185', '835173', '8261165', '743233', '8351164',
+                 '8261195', '835183', '8352104', '8352154', '826173', '8261143',
+                 '917224', '835264', '835235', '8261155']
 
     col1 = fits.Column(name="x0", format="I", array=np.asarray(defect['x']))
     col2 = fits.Column(name="y0", format="I", array=np.asarray(defect['y']))
@@ -96,7 +98,8 @@ def writeFits(ccd, defect, fileOut) :
 
     return
 
-def main(argv=None) :
+
+def main(argv=None):
 
     description = """Transforms Elixir defect masks to LSST format"""
     prog = "genDefects.py"
@@ -108,7 +111,7 @@ def main(argv=None) :
     parser.add_argument('--numccd', default=36, type=int, help='Number of CCD')
     args = parser.parse_args(argv)
 
-    if args.numccd != 36 :
+    if args.numccd != 36:
         print("Warning : LSST DM stack knows about 36 CCD only")
 
     dir1 = args.mask + ".nn"
@@ -118,11 +121,12 @@ def main(argv=None) :
     if not os.path.exists(dir2):
         os.makedirs(dir2)
 
-    for ccd in range(args.numccd) :
+    for ccd in range(args.numccd):
         print("Computing masks for ccd %i"%ccd)
         defect, defectE = makeBBList(args.mask, ccd)
         writeFits(ccd, defect, os.path.join(dir1, 'ccd%02i'%ccd + '.fits'))
         writeFits(ccd, defectE, os.path.join(dir2, 'ccd%02i'%ccd + '.fits'))
+
 
 if __name__ == "__main__":
     main()

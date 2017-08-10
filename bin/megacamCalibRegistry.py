@@ -87,7 +87,8 @@ def parseDetrendDatabase(tableName, create=False):
         conn.commit()
 
     # Parse FITS table into sqlite
-    convertUnixTime = lambda time: datetime.datetime.fromtimestamp(time).isoformat()
+    def convertUnixTime(time):
+        return datetime.datetime.fromtimestamp(time).isoformat()
     fits = pyfits.open(tableName)
     table = fits[1].data
     for row in table:
@@ -123,6 +124,7 @@ def parseDetrendDatabase(tableName, create=False):
     fits.close()
     conn.commit()
     conn.close()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parse the CFHT Elixir detrend database to create " +

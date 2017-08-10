@@ -25,7 +25,7 @@ from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, PUPIL, CameraConfig, Detec
     makeCameraFromCatalogs, NullLinearityType
 from lsst.obs.cfht import MegacamMapper
 
-PIXELSIZE = 0.0135 #mm/pix
+PIXELSIZE = 0.0135  # mm/pix
 
 
 def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=False, ccdToUse=None,
@@ -40,7 +40,7 @@ def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=Fa
     @param shortNameMethod: Method to compactify ccd names into names easily used in paths
     @return Camera object
     """
-    #This is all fragile as the CameraGeomDictionary.paf will go away.
+    # This is all fragile as the CameraGeomDictionary.paf will go away.
     policyFile = pexPolicy.DefaultPolicyFile("afw", "CameraGeomDictionary.paf", "policy")
     defPolicy = pexPolicy.Policy.createPolicy(policyFile, policyFile.getRepositoryPath(), True)
 
@@ -102,7 +102,7 @@ def parseCamera(policy):
     camConfig.name = camPolicy.get('name')
     # Using pixel scale 0.185 arcsec/pixel from:
     # http://arxiv.org/pdf/0908.3808v1.pdf
-    camConfig.plateScale = 13.70 #arcsec/mm
+    camConfig.plateScale = 13.70  # arcsec/mm
 
     # Radial distortion correction polynomial coeff.
     conv_1 = 14805.4
@@ -151,8 +151,8 @@ def makeCcdParams(policy, ampParms):
     for ccd in policy.getArray('Ccd'):
         ptype = ccd.get('ptype')
         tdict = {}
-        #The policy file has units of pixels, but to get to
-        #pupil coords we need to work in units of mm
+        # The policy file has units of pixels, but to get to
+        # FIELD_ANGLE coords we need to work in units of mm
         tdict['pixelSize'] = PIXELSIZE
         tdict['offsetUnit'] = 'mm'
         tdict['ampArr'] = []
@@ -163,11 +163,11 @@ def makeCcdParams(policy, ampParms):
             ampType = amp.get('ptype')
             parms = copy.copy(ampParms[ampType])
             xsize += parms['datasec'][2] - parms['datasec'][0] + 1
-            #I think the megacam chips only have a single row of amps
+            # I think the megacam chips only have a single row of amps
             ysize = parms['datasec'][3] - parms['datasec'][1] + 1
             parms['id'] = amp.get('serial')
             parms['flipX'] = amp.get('flipLR')
-            #As far as I know there is no bilateral symmetry in megacam
+            # As far as I know there is no bilateral symmetry in megacam
             parms['flipY'] = False
             tdict['ampArr'].append(parms)
         tdict['xsize'] = xsize
@@ -230,8 +230,8 @@ def addAmp(ampCatalog, amp, eparams):
                              afwGeom.Extent2I(dataSec.getDimensions().getX(), pscan))
 
     if amp['flipX']:
-        #No need to flip bbox or allPixels since they
-        #are at the origin and span the full pixel grid
+        # No need to flip bbox or allPixels since they
+        # are at the origin and span the full pixel grid
         biasSec.flipLR(xtot)
         dataSec.flipLR(xtot)
         voscanSec.flipLR(xtot)
@@ -249,7 +249,7 @@ def addAmp(ampCatalog, amp, eparams):
 
     record.setBBox(bbox)
     record.setRawXYOffset(afwGeom.ExtentI(0, 0))
-    #Set amplifier names according to the CFHT convention (A, B)
+    # Set amplifier names according to the CFHT convention (A, B)
     if eparams['index'][0] == 0 and eparams['index'][1] == 0:
         record.setName("A")
     elif eparams['index'][0] == 1 and eparams['index'][1] == 0:
@@ -261,7 +261,7 @@ def addAmp(ampCatalog, amp, eparams):
     record.setReadNoise(eparams['readNoise'])
     record.setSaturation(eparams['saturation'])
     record.setSuspectLevel(float("nan"))  # SUSPECT level unknown
-    #The files do not have any linearity information
+    # The files do not have any linearity information
     record.setLinearityType(NullLinearityType)
     record.setLinearityCoeffs([1., ])
     record.setHasRawInfo(True)
@@ -334,6 +334,7 @@ def parseCcds(policy, ccdParams, ccdToUse=None):
         ccdInfoList.append(detConfig)
     return {"ccdInfo": ccdInfoList, "ampInfo": ampInfoDict}
 
+
 if __name__ == "__main__":
     print("WARNING: this code generates incorrect vertical overscan; see DM-5524")
     baseDir = eups.productDir("obs_cfht")
@@ -346,4 +347,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     camera = makeCameraFromPolicy(args.LayoutPolicy, writeRepo=True, outputDir=args.OutputDir,
-                                  ccdToUse='bottom', doClobber=args.clobber, shortNameMethod=MegacamMapper.getShortCcdName)
+                                  ccdToUse='bottom', doClobber=args.clobber,
+                                  shortNameMethod=MegacamMapper.getShortCcdName)
