@@ -54,6 +54,7 @@ class MegacamMapper(CameraMapper):
 
         self.exposures['raw'].keyDict['ccd'] = int
 
+        afwImageUtils.resetFilters()
         afwImageUtils.defineFilter('u', lambdaEff=374, alias="u.MP9301")
         afwImageUtils.defineFilter('u2', lambdaEff=354, alias="u.MP9302")
         afwImageUtils.defineFilter('g', lambdaEff=487, alias="g.MP9401")
