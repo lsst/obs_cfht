@@ -23,6 +23,7 @@ from __future__ import absolute_import, division, print_function
 import re
 
 from lsst.pipe.tasks.ingest import ParseTask
+import lsst.pex.exceptions
 
 filters = {'u.MP9301': 'u',
            'u.MP9302': 'u2',
@@ -66,7 +67,7 @@ class MegacamParseTask(ParseTask):
         maskName = md.get("IMRED_MK").strip()
         maskName, ccd = maskName.split(".fits")
         filter = md.get("FILTER").strip().split('.')[0]
-        if filter in [ "i", "i2", "i3", "z", "z2"]:
+        if filter in ["i", "i2", "i3", "z", "z2"]:
             maskName = maskName+"_enlarged"
         maskFile = maskName+".nn/"+ccd[1:6]+".fits"
         return maskFile
