@@ -41,3 +41,5 @@ config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
 
 config.calibrate.photoCal.applyColorTerms = True
 config.calibrate.photoCal.photoCatName = "e2v"
+# this was the default prior to DM-11521.  New default is 2000.
+config.calibrate.deblend.maxFootprintSize=0
