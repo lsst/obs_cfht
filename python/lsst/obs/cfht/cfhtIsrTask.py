@@ -20,7 +20,7 @@ class CfhtIsrTask(IsrTask):
     ConfigClass = CfhtIsrTaskConfig
 
     def run(self, ccdExposure, bias=None, linearizer=None, dark=None, flat=None, defects=None,
-            fringes=None, bfKernel=None, **kwds):
+            fringes=None, bfKernel=None, camera=None, **kwds):
         """Perform instrument signature removal on an exposure
 
         Steps include:
@@ -37,6 +37,8 @@ class CfhtIsrTask(IsrTask):
         @param[in] defects -- list of detects
         @param[in] fringes -- exposure of fringe frame or list of fringe exposure
         @param[in] bfKernel - kernel used for brighter-fatter correction; currently unsupported
+        @param[in] camera -- camera geometry, an lsst.afw.cameraGeom.Camera;
+            used by addDistortionModel
         @param[in] **kwds     additional kwargs forwarded to IsrTask.run.
 
         @return a pipeBase.Struct with fields:
@@ -95,5 +97,6 @@ class CfhtIsrTask(IsrTask):
                            flat=flat,
                            defects=defects,
                            fringes=fringes,
+                           camera=camera,
                            **kwds
                            )

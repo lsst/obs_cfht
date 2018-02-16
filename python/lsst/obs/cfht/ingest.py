@@ -86,7 +86,7 @@ class MegacamParseTask(ParseTask):
 
     def getExtensionName(self, md):
         """ Get the name of an extension.
-        @param md: PropertySet like one obtained from afwImage.readMetadata)
+        @param md: PropertySet like one obtained from lsst.afw.fits.readMetadata)
         @return Name of the extension if it exists.  None otherwise.
         """
         # We have to overwrite this method because some (mostly recent) Megacam
