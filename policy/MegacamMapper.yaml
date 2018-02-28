@@ -61,7 +61,7 @@ exposures:
     - ccd
     persistable: ExposureF
     python: lsst.afw.image.ExposureF
-    template: calexp/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/wcs-%(visit)d-%(ccd)02d.fits
+    template: jointcal-results/%(tract)d/%(filter)s/wcs-%(visit)d-%(ccd)02d.fits
   deepCoadd_directWarp:
     template: deepCoadd/%(filter)s/%(tract)d/%(patch)s/warp-%(filter)s-%(tract)d-%(patch)s-%(visit)d.fits
   deepCoadd_psfMatchedWarp:
@@ -185,7 +185,7 @@ datasets:
     storage: None
     template: logs/%(runId)s/%(object)s/%(date)s/%(filter)s/
   photoCalib:
-    template: jointcal-results/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/photoCalib-%(visit)d-%(ccd)02d.fits
+    template: jointcal-results/%(tract)d/%(filter)s/photoCalib-%(visit)d-%(ccd)02d.fits
 
   processCcd_metadata:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(visit)d-%(ccd)02d.boost
