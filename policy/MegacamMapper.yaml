@@ -55,7 +55,7 @@ exposures:
     - visit
     - ccd
     template: calexp/%(runId)s/%(object)s/%(date)s/%(filter)s/calexp-%(visit)d-%(ccd)02d.fits
-  wcs:
+  wcs:  # deprecated in favor of jointcal_wcs, retained to read old outputs
     columns:
     - visit
     - ccd
@@ -184,9 +184,12 @@ datasets:
     python: str
     storage: None
     template: logs/%(runId)s/%(object)s/%(date)s/%(filter)s/
-  photoCalib:
+  photoCalib:  # deprecated in favor of jointcal_photoCalib, retained for reading old outputs
     template: jointcal-results/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/photoCalib-%(visit)d-%(ccd)02d.fits
-
+  jointcal_wcs:  # Astrometric calibration produced by meas_mosaic/jointcal
+    template: jointcal-results/%(filter)s/%(tract)04d/jointcal_wcs-%(visit)d-%(ccd)02d.fits
+  jointcal_photoCalib:  # Photometric calibration produced by meas_mosaic/jointcal
+    template: jointcal-results/%(filter)s/%(tract)04d/jointcal_photoCalib-%(visit)d-%(ccd)02d.fits
   processCcd_metadata:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(visit)d-%(ccd)02d.boost
   isr_config:
@@ -239,4 +242,3 @@ datasets:
     - raw
     - raw_visit
     template: '%(pointing)05d/%(filter)s/singleFrameDriver_metadata/%(visit)07d.boost'
-
