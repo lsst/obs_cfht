@@ -35,8 +35,7 @@ import lsst.afw.cameraGeom.utils as cameraGeomUtils
 import lsst.pex.exceptions as pexExcept
 from lsst.daf.base import DateTime
 from lsst.afw.image import RotType
-from lsst.afw.coord import IcrsCoord, Coord
-from lsst.afw.geom import degrees
+from lsst.afw.geom import degrees, SpherePoint
 
 try:
     type(display)
@@ -63,8 +62,8 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         self.darkTime = 615.0
         dateObs = DateTime(54771.6066250, DateTime.MJD, DateTime.UTC)
         self.dateAvg = DateTime(dateObs.nsecs(DateTime.TAI) + int(0.5e9*self.exposureTime), DateTime.TAI)
-        self.boresightRaDec = IcrsCoord(135.409417*degrees, -2.400000*degrees)
-        self.boresightAzAlt = Coord(122.34*degrees, 52.02*degrees)
+        self.boresightRaDec = SpherePoint(135.409417, -2.400000, degrees)
+        self.boresightAzAlt = SpherePoint(122.34, 52.02, degrees)
         self.boresightAirmass = 1.269
         self.rotType = RotType.UNKNOWN
         self.obs_longitude = -155.468876*degrees
@@ -129,8 +128,8 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
             self.assertEqual(visitInfo.getEra(), self.era)
             self.assertAlmostEqual(visitInfo.getExposureTime(), self.exposureTime)
             self.assertAlmostEqual(visitInfo.getDarkTime(), self.darkTime)
-            self.assertCoordsAlmostEqual(visitInfo.getBoresightRaDec(), self.boresightRaDec)
-            self.assertCoordsAlmostEqual(visitInfo.getBoresightAzAlt(), self.boresightAzAlt)
+            self.assertSpherePointsAlmostEqual(visitInfo.getBoresightRaDec(), self.boresightRaDec)
+            self.assertSpherePointsAlmostEqual(visitInfo.getBoresightAzAlt(), self.boresightAzAlt)
             self.assertAlmostEqual(visitInfo.getBoresightAirmass(), self.boresightAirmass)
             self.assertTrue(math.isnan(visitInfo.getBoresightRotAngle()))
             self.assertEqual(visitInfo.getRotType(), self.rotType)
