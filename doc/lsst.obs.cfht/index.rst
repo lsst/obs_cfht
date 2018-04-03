@@ -12,3 +12,6 @@ Python API reference
 ====================
 
 .. automodapi:: lsst.obs.cfht
+.. automodapi:: lsst.obs.cfht.makeMegacamRawVisitInfo
+.. automodapi:: lsst.obs.cfht.cfhtIsrTask
+.. automodapi:: lsst.obs.cfht.ingest

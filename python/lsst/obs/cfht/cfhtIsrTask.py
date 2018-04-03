@@ -1,4 +1,7 @@
 from __future__ import absolute_import, division, print_function
+
+__all__ = ["CfhtIsrTaskConfig", "CfhtIsrTask"]
+
 import numpy as np
 
 import lsst.pex.config as pexConfig
@@ -29,20 +32,33 @@ class CfhtIsrTask(IsrTask):
         - Interpolate over defects, saturated pixels and all NaNs
         - Persist the ISR-corrected exposure as "postISRCCD" if config.doWrite is True
 
-        @param[in] ccdExposure  -- lsst.afw.image.exposure of detector data
-        @param[in] bias -- exposure of bias frame
-        @param[in] linearizer -- linearizing functor; a subclass of lsst.ip.isr.LinearizeBase
-        @param[in] dark -- exposure of dark frame
-        @param[in] flat -- exposure of flatfield
-        @param[in] defects -- list of detects
-        @param[in] fringes -- exposure of fringe frame or list of fringe exposure
-        @param[in] bfKernel - kernel used for brighter-fatter correction; currently unsupported
-        @param[in] camera -- camera geometry, an lsst.afw.cameraGeom.Camera;
-            used by addDistortionModel
-        @param[in] **kwds     additional kwargs forwarded to IsrTask.run.
+        Parameters
+        ----------
+        ccdExposure : `lsst.afw.image.Exposure`
+            Detector data.
+        bias : `lsst.afw.image.exposure`
+            Exposure of bias frame.
+        linearizer : `lsst.ip.isr.LinearizeBase` callable
+            Linearizing functor; a subclass of lsst.ip.isr.LinearizeBase.
+        dark : `lsst.afw.image.exposure`
+            Exposure of dark frame.
+        flat : `lsst.afw.image.exposure`
+            Exposure of flatfield.
+        defects : `list`
+            list of detects
+        fringes : `lsst.afw.image.exposure` or `list` of `lsst.afw.image.exposure`
+            exposure of fringe frame or list of fringe exposure
+        bfKernel : None
+            kernel used for brighter-fatter correction; currently unsupported
+        camera : `lsst.afw.cameraGeom.Camera`
+            Camera geometry, used by addDistortionModel.
+        **kwds : `dict`
+            additional kwargs forwarded to IsrTask.run.
 
-        @return a pipeBase.Struct with fields:
-        - exposure: the exposure after application of ISR
+        Returns
+        -------
+        `lsst.pipe.base.Struct` with fields:
+            - exposure: the exposure after application of ISR
         """
         if bfKernel is not None:
             raise ValueError("CFHT ISR does not currently support brighter-fatter correction.")

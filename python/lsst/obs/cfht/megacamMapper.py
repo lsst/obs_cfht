@@ -21,6 +21,8 @@ from builtins import map
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 
+__all__ = ["MegacamMapper"]
+
 import os
 
 import pyfits
@@ -39,6 +41,7 @@ import lsst.meas.algorithms  # flake8: noqa
 
 
 class MegacamMapper(CameraMapper):
+    """Camera Mapper for CFHT MegaCam."""
     packageName = "obs_cfht"
 
     MakeRawVisitInfoClass = MakeMegacamRawVisitInfo
@@ -85,10 +88,14 @@ class MegacamMapper(CameraMapper):
             self.mappings[name].keyDict.update(keys)
 
     def bypass_defects(self, datasetType, pythonType, butlerLocation, dataId):
-        """Return a defect based on the butler location returned by map_defects
+        """Return a defect based on the butler location returned by map_defects.
 
-        @param[in] butlerLocation: a ButlerLocation with locationList = path to defects FITS file
-        @param[in] dataId: the usual data ID; "ccd" must be set
+        Parameters
+        ----------
+        butlerLocation : `lsst.daf.persistence.ButlerLocation`
+            A ButlerLocation with locationList = path to defects FITS file.
+        dataId : `dict`
+            The usual data ID; "ccd" must be set.
 
         Note: the name "bypass_XXX" means the butler makes no attempt to convert the ButlerLocation
         into an object, which is what we want for now, since that conversion is a bit tricky.
@@ -113,8 +120,17 @@ class MegacamMapper(CameraMapper):
 
     def _defectLookup(self, dataId):
         """Find the defects for a given CCD.
-        @param dataId (dict) Dataset identifier
-        @return (string) path to the defects file or None if not available"""
+
+        Parameters
+        ----------
+        dataId : `dict`
+            Dataset identifier.
+
+        Returns
+        -------
+        `str` or None
+            Path to the defects file or None if not available.
+        """
 
         if self.registry is None:
             raise RuntimeError("No registry for defect lookup")
@@ -143,7 +159,10 @@ class MegacamMapper(CameraMapper):
     def _computeCcdExposureId(self, dataId):
         """Compute the 64-bit (long) identifier for a CCD exposure.
 
-        @param dataId (dict) Data identifier with visit, ccd
+        Parameters
+        ----------
+        dataId : `dict`
+            Data identifier with visit, ccd.
         """
         pathId = self._transformId(dataId)
         visit = int(pathId['visit'])
@@ -161,10 +180,13 @@ class MegacamMapper(CameraMapper):
     def _computeCoaddExposureId(self, dataId, singleFilter):
         """Compute the 64-bit (long) identifier for a coadd.
 
-        @param dataId (dict)       Data identifier with tract and patch.
-        @param singleFilter (bool) True means the desired ID is for a single-
-                                   filter coadd, in which case dataId
-                                   must contain filter.
+        Parameters
+        ----------
+        dataId : `dict`
+            Data identifier with tract and patch.
+        singleFilter : `bool`
+            True means the desired ID is for a single-filter coadd,
+            in which case dataId must contain filter.
         """
         tract = int(dataId['tract'])
         if tract < 0 or tract >= 128:
@@ -196,7 +218,10 @@ class MegacamMapper(CameraMapper):
     def _computeStackExposureId(self, dataId):
         """Compute the 64-bit (long) identifier for a Stack exposure.
 
-        @param dataId (dict) Data identifier with stack, patch, filter
+        Parameters
+        ----------
+        dataId : `dict`
+            Data identifier with stack, patch, filter
         """
         nPatches = 1000000
         return (int(dataId["stack"]) * nPatches + int(dataId["patch"]))
