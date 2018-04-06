@@ -97,7 +97,7 @@ class MegacamParseTask(ParseTask):
 
         Returns
         -------
-        `str` or None
+        name : `str` or None
             Name of the extension if it exists.  None otherwise.
         """
         # We have to overwrite this method because some (mostly recent) Megacam

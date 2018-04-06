@@ -97,8 +97,11 @@ class MegacamMapper(CameraMapper):
         dataId : `dict`
             The usual data ID; "ccd" must be set.
 
-        Note: the name "bypass_XXX" means the butler makes no attempt to convert the ButlerLocation
-        into an object, which is what we want for now, since that conversion is a bit tricky.
+        Notes
+        -----
+        The name "bypass_XXX" means the butler makes no attempt to convert
+        the ButlerLocation into an object, which is what we want for now,
+        since that conversion is a bit tricky.
         """
         (ccdKey, ccdSerial) = self._getCcdKeyVal(dataId)
         defectsFitsPath = butlerLocation.locationList[0]

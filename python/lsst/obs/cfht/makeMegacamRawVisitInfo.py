@@ -43,9 +43,9 @@ class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
         Parameters
         ----------
         md : `lsst.daf.base.PropertyList` or `lsst.daf.base.PropertySet`
-            Metadata to extract from.
+            Metadata to extract from. Extracted values are removed.
         argdict : `dict`
-            A dict of arguments.
+            A dict of arguments to add to values to.
         """
         MakeRawVisitInfo.setArgDict(self, md, argDict)
         argDict["darkTime"] = self.popFloat(md, "DARKTIME")

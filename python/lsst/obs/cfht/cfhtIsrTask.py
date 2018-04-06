@@ -57,7 +57,7 @@ class CfhtIsrTask(IsrTask):
 
         Returns
         -------
-        `lsst.pipe.base.Struct` with fields:
+        struct : `lsst.pipe.base.Struct` with fields:
             - exposure: the exposure after application of ISR
         """
         if bfKernel is not None:
