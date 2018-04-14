@@ -20,6 +20,9 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 from __future__ import absolute_import, division, print_function
+
+__all__ = ["MegacamParseTask"]
+
 import re
 
 from lsst.pipe.tasks.ingest import ParseTask
@@ -85,9 +88,17 @@ class MegacamParseTask(ParseTask):
         return phuInfo, infoList
 
     def getExtensionName(self, md):
-        """ Get the name of an extension.
-        @param md: PropertySet like one obtained from lsst.afw.fits.readMetadata)
-        @return Name of the extension if it exists.  None otherwise.
+        """Get the name of an extension.
+
+        Parameters
+        ----------
+        md : `PropertySet`
+            Metadata to get the name from.
+
+        Returns
+        -------
+        name : `str` or None
+            Name of the extension if it exists.  None otherwise.
         """
         # We have to overwrite this method because some (mostly recent) Megacam
         # images have a different header where the keword "EXTNAME" appears one

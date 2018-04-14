@@ -40,8 +40,12 @@ class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
     def setArgDict(self, md, argDict):
         """Set an argument dict for VisitInfo and pop associated metadata
 
-        @param[in,out] md  metadata, as an lsst.daf.base.PropertyList or PropertySet
-        @param[in,out] argdict  a dict of arguments
+        Parameters
+        ----------
+        md : `lsst.daf.base.PropertyList` or `lsst.daf.base.PropertySet`
+            Metadata to extract from. Extracted values are removed.
+        argdict : `dict`
+            A dict of arguments to add to values to.
         """
         MakeRawVisitInfo.setArgDict(self, md, argDict)
         argDict["darkTime"] = self.popFloat(md, "DARKTIME")
@@ -71,8 +75,12 @@ class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
     def getDateAvg(self, md, exposureTime):
         """Return date at the middle of the exposure
 
-        @param[in,out] md  FITS metadata; changed in place
-        @param[in] exposureTime  exposure time in sec
+        Parameters
+        ----------
+        md : `lsst.daf.base.PropertyList` or `lsst.daf.base.PropertySet`
+            FITS metadata; changed in place
+        exposureTime : `float`
+            exposure time in sec
         """
         dateObs = self.popMjdDate(md, "MJD-OBS")
         return self.offsetDate(dateObs, 0.5*exposureTime)
