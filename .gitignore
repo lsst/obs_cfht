@@ -1,6 +1,7 @@
 _build.*
 .sconsign.dblite
 .cache
+.pytest_cache
 config.log
 .sconf_temp
 *.o
