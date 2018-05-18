@@ -47,7 +47,7 @@ class MegacamParseTask(ParseTask):
         try:
             extname = self.getExtensionName(md)
             return int(extname[3:])  # chop off "ccd"
-        except:
+        except LookupError:
             # Dummy value, intended for PHU (need something to get filename)
             return 99
 
