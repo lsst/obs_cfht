@@ -1,4 +1,3 @@
-from __future__ import print_function
 #
 # LSST Data Management System
 # Copyright 2008, 2009, 2010 LSST Corporation.
@@ -40,7 +39,7 @@ conn.commit()
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-f = file(sys.argv[1])
+f = open(sys.argv[1])
 root = sys.argv[2]
 for line in f:
     if line.startswith('#'):

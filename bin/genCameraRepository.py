@@ -11,7 +11,6 @@ Example:
 
 If `megacam/camera` already exists the move it first, or add `--clobber`
 """
-from __future__ import print_function
 import argparse
 import eups
 import os

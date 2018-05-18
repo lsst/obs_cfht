@@ -21,8 +21,6 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 
-from __future__ import print_function
-from builtins import range
 import os
 import sqlite3
 import argparse
