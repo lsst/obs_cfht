@@ -1,4 +1,3 @@
-from builtins import range
 #!/usr/bin/env python
 import argparse
 import re
@@ -39,8 +38,9 @@ if __name__ == "__main__":
     parser.add_argument('--showCcd', help='Show a CCD from the mosaic in ds9.  May have multiple arguments. '
                                           'Format like ccd_name e.g. \"ccd16\"', type=str,
                                           nargs='+')
-    parser.add_argument('--showRaft', help='Show a Raft from the mosaic in ds9.  May have multiple arguments. '
-                                           'Format like raft_name e.g. \"North\"', type=str, nargs='+')
+    parser.add_argument('--showRaft',
+                        help='Show a Raft from the mosaic in ds9.  May have multiple arguments. '
+                             'Format like raft_name e.g. \"North\"', type=str, nargs='+')
     parser.add_argument('--showCamera', help='Show the camera mosaic in ds9.', action='store_true')
     parser.add_argument('--cameraBinSize', type=int, default=20,
                         help='Size of binning when displaying the full camera mosaic')

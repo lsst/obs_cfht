@@ -1,6 +1,7 @@
 _build.*
 .sconsign.dblite
 .cache
+.pytest_cache
 config.log
 .sconf_temp
 *.o
@@ -12,6 +13,8 @@ config.log
 *Lib.py
 .cache
 pytest_session.txt
+bin/displayCamera.py
+bin/megacamCalibRegistry.py
 doc/html
 doc/*.tag
 doc/*.inc
