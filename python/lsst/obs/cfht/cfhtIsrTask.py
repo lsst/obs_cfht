@@ -78,28 +78,28 @@ class CfhtIsrTask(IsrTask):
             hist, bin_edges = np.histogram(imageArray.ravel(), bins=100, range=(60000.0, maxValue+1.0))
             saturate = int(self.config.safe*bin_edges[np.argmax(hist)])
         else:
-            saturate = metadata.get("SATURATE")
+            saturate = metadata.getScalar("SATURATE")
         self.log.info("Saturation set to %d" % saturate)
 
         for amp in ccd:
             amp.setSaturation(saturate)
             if amp.getName() == "A":
-                amp.setGain(metadata.get("GAINA"))
-                rdnA = metadata.get("RDNOISEA")
+                amp.setGain(metadata.getScalar("GAINA"))
+                rdnA = metadata.getScalar("RDNOISEA")
                 # Check if the noise value is making sense for this amp. If not, replace with value
                 # stored in RDNOISE slot. This change is necessary to process some old CFHT images
                 # (visit : 7xxxxx) where RDNOISEA/B = 65535
                 if rdnA > 60000.0:
-                    rdnA = metadata.get("RDNOISE")
+                    rdnA = metadata.getScalar("RDNOISE")
                 amp.setReadNoise(rdnA)
             elif amp.getName() == "B":
-                amp.setGain(metadata.get("GAINB"))
-                rdnB = metadata.get("RDNOISEB")
+                amp.setGain(metadata.getScalar("GAINB"))
+                rdnB = metadata.getScalar("RDNOISEB")
                 # Check if the noise value is making sense for this amp. If not, replace with value
                 # stored in RDNOISE slot. This change is necessary to process some old CFHT images
                 # (visit : 7xxxxx) where RDNOISEA/B = 65535
                 if rdnB > 60000.0:
-                    rdnB = metadata.get("RDNOISE")
+                    rdnB = metadata.getScalar("RDNOISE")
                 amp.setReadNoise(rdnB)
             else:
                 raise ValueError("Unexpected amplifier name : %s"%(amp.getName()))
