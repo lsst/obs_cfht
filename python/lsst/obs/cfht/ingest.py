@@ -52,23 +52,23 @@ class MegacamParseTask(ParseTask):
             return 99
 
     def translate_filter(self, md):
-        filtName = md.get("FILTER").strip()
+        filtName = md.getScalar("FILTER").strip()
         if filtName not in filters:
             return "UNKNOWN"
         return filters[filtName]
 
     def translate_taiObs(self, md):
         # Field name is "taiObs" but we're giving it UTC; shouldn't matter so long as we're consistent
-        (yr, month, day) = (md.get("DATE-OBS").strip()).split("-")
-        (hr, min, sec) = (md.get("UTC-OBS").strip()).split(":")
+        (yr, month, day) = (md.getScalar("DATE-OBS").strip()).split("-")
+        (hr, min, sec) = (md.getScalar("UTC-OBS").strip()).split(":")
         (sec1, sec2) = sec.split('.')
         return "%04d-%02d-%02dT%02d:%02d:%02d.%02d"%(int(yr), int(month), int(day),
                                                      int(hr), int(min), int(sec1), int(sec2))
 
     def translate_defects(self, md):
-        maskName = md.get("IMRED_MK").strip()
+        maskName = md.getScalar("IMRED_MK").strip()
         maskName, ccd = maskName.split(".fits")
-        filter = md.get("FILTER").strip().split('.')[0]
+        filter = md.getScalar("FILTER").strip().split('.')[0]
         if filter in ["i", "i2", "i3", "z", "z2"]:
             maskName = maskName+"_enlarged"
         maskFile = maskName+".nn/"+ccd[1:6]+".fits"
@@ -105,7 +105,7 @@ class MegacamParseTask(ParseTask):
         # other case it is a single value
         try:
             # This returns a tuple
-            ext = md.get("EXTNAME")
+            ext = md.getScalar("EXTNAME")
             # Most of the time the EXTNAME keyword appears 2 times in the header
             # (1st time to specify that the image is compressed) but sometimes
             # it appears only once even if the image is compressed
