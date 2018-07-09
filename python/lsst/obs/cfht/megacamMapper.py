@@ -24,7 +24,7 @@ __all__ = ["MegacamMapper"]
 
 import os
 
-import pyfits
+from astropy.io import fits
 
 import lsst.afw.geom as afwGeom
 import lsst.afw.image as afwImage
@@ -104,7 +104,7 @@ class MegacamMapper(CameraMapper):
         """
         (ccdKey, ccdSerial) = self._getCcdKeyVal(dataId)
         defectsFitsPath = butlerLocation.locationList[0]
-        with pyfits.open(defectsFitsPath) as hduList:
+        with fits.open(defectsFitsPath) as hduList:
             for hdu in hduList[1:]:
                 if str(hdu.header["SERIAL"]) != ccdSerial:
                     continue
