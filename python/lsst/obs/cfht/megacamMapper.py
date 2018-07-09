@@ -87,7 +87,8 @@ class MegacamMapper(CameraMapper):
             self.mappings[name].keyDict.update(keys)
 
     def bypass_defects(self, datasetType, pythonType, butlerLocation, dataId):
-        """Return a defect based on the butler location returned by map_defects.
+        """Return a defect based on the butler location returned by
+        map_defects.
 
         Parameters
         ----------
@@ -252,6 +253,7 @@ class MegacamMapper(CameraMapper):
 
 
 def removeKeyword(md, key):
-    """Remove a keyword from a header without raising an exception if it doesn't exist"""
+    """Remove a keyword from a header without raising an exception if it
+    doesn't exist"""
     if md.exists(key):
         md.remove(key)
