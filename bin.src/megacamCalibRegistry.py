@@ -27,7 +27,7 @@ import argparse
 import datetime
 from collections import OrderedDict
 
-import pyfits
+from astropy.io import fits
 
 # The schema to use for each table: 'name':'type'
 schema = OrderedDict()
@@ -87,8 +87,8 @@ def parseDetrendDatabase(tableName, create=False):
     # Parse FITS table into sqlite
     def convertUnixTime(time):
         return datetime.datetime.fromtimestamp(time).isoformat()
-    fits = pyfits.open(tableName)
-    table = fits[1].data
+    fitsFile = fits.open(tableName)
+    table = fitsFile[1].data
     for row in table:
         validStart = convertUnixTime(row['START_TIME'])
         validEnd = convertUnixTime(row['STOP_TIME'])
@@ -119,7 +119,7 @@ def parseDetrendDatabase(tableName, create=False):
             values = [path, ccdNum, version, expTime, filterName, label, validStart, validEnd,
                       registered, i+1]
             conn.execute(cmd, values)
-    fits.close()
+    fitsFile.close()
     conn.commit()
     conn.close()
 

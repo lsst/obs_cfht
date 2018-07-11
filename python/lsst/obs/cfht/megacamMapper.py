@@ -24,7 +24,7 @@ __all__ = ["MegacamMapper"]
 
 import os
 
-import pyfits
+from astropy.io import fits
 
 import lsst.afw.geom as afwGeom
 import lsst.afw.image as afwImage
@@ -87,7 +87,8 @@ class MegacamMapper(CameraMapper):
             self.mappings[name].keyDict.update(keys)
 
     def bypass_defects(self, datasetType, pythonType, butlerLocation, dataId):
-        """Return a defect based on the butler location returned by map_defects.
+        """Return a defect based on the butler location returned by
+        map_defects.
 
         Parameters
         ----------
@@ -104,7 +105,7 @@ class MegacamMapper(CameraMapper):
         """
         (ccdKey, ccdSerial) = self._getCcdKeyVal(dataId)
         defectsFitsPath = butlerLocation.locationList[0]
-        with pyfits.open(defectsFitsPath) as hduList:
+        with fits.open(defectsFitsPath) as hduList:
             for hdu in hduList[1:]:
                 if str(hdu.header["SERIAL"]) != ccdSerial:
                     continue
@@ -252,6 +253,7 @@ class MegacamMapper(CameraMapper):
 
 
 def removeKeyword(md, key):
-    """Remove a keyword from a header without raising an exception if it doesn't exist"""
+    """Remove a keyword from a header without raising an exception if it
+    doesn't exist"""
     if md.exists(key):
         md.remove(key)

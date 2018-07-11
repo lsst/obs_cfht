@@ -29,7 +29,8 @@ class CfhtIsrTask(IsrTask):
         - Detect saturation, apply overscan correction, bias, dark and flat
         - Perform CCD assembly
         - Interpolate over defects, saturated pixels and all NaNs
-        - Persist the ISR-corrected exposure as "postISRCCD" if config.doWrite is True
+        - Persist the ISR-corrected exposure as "postISRCCD" if
+          config.doWrite is True
 
         Parameters
         ----------
@@ -67,10 +68,11 @@ class CfhtIsrTask(IsrTask):
         metadata = floatExposure.getMetadata()
 
         # Detect saturation
-        # Saturation values recorded in the fits hader is not reliable, try to estimate it from
-        # the pixel vales
-        # Find the peak location in the high end part the pixel values' histogram and set the saturation
-        # level at safe * (peak location) where safe is a configurable parameter (typically 0.95)
+        # Saturation values recorded in the fits hader is not reliable, try to
+        # estimate it from the pixel values.
+        # Find the peak location in the high end part the pixel values'
+        # histogram and set the saturation level at safe * (peak location)
+        # where safe is a configurable parameter (typically 0.95)
         image = floatExposure.getMaskedImage().getImage()
         imageArray = image.getArray()
         maxValue = np.max(imageArray)
@@ -86,8 +88,9 @@ class CfhtIsrTask(IsrTask):
             if amp.getName() == "A":
                 amp.setGain(metadata.getScalar("GAINA"))
                 rdnA = metadata.getScalar("RDNOISEA")
-                # Check if the noise value is making sense for this amp. If not, replace with value
-                # stored in RDNOISE slot. This change is necessary to process some old CFHT images
+                # Check if the noise value is making sense for this amp. If
+                # not, replace with value stored in RDNOISE slot. This change
+                # is necessary to process some old CFHT images
                 # (visit : 7xxxxx) where RDNOISEA/B = 65535
                 if rdnA > 60000.0:
                     rdnA = metadata.getScalar("RDNOISE")
@@ -95,8 +98,10 @@ class CfhtIsrTask(IsrTask):
             elif amp.getName() == "B":
                 amp.setGain(metadata.getScalar("GAINB"))
                 rdnB = metadata.getScalar("RDNOISEB")
-                # Check if the noise value is making sense for this amp. If not, replace with value
-                # stored in RDNOISE slot. This change is necessary to process some old CFHT images
+                # Check if the noise value is making sense for this amp.
+                # If not, replace with value
+                # stored in RDNOISE slot. This change is necessary to process
+                # some old CFHT images
                 # (visit : 7xxxxx) where RDNOISEA/B = 65535
                 if rdnB > 60000.0:
                     rdnB = metadata.getScalar("RDNOISE")

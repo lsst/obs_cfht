@@ -58,7 +58,8 @@ class MegacamParseTask(ParseTask):
         return filters[filtName]
 
     def translate_taiObs(self, md):
-        # Field name is "taiObs" but we're giving it UTC; shouldn't matter so long as we're consistent
+        # Field name is "taiObs" but we're giving it UTC; shouldn't matter so
+        # long as we're consistent
         (yr, month, day) = (md.getScalar("DATE-OBS").strip()).split("-")
         (hr, min, sec) = (md.getScalar("UTC-OBS").strip()).split(":")
         (sec1, sec2) = sec.split('.')
@@ -106,9 +107,9 @@ class MegacamParseTask(ParseTask):
         try:
             # This returns a tuple
             ext = md.getScalar("EXTNAME")
-            # Most of the time the EXTNAME keyword appears 2 times in the header
-            # (1st time to specify that the image is compressed) but sometimes
-            # it appears only once even if the image is compressed
+            # Most of the time the EXTNAME keyword appears 2 times in the
+            # header (1st time to specify that the image is compressed) but
+            # sometimes it appears only once even if the image is compressed
             if type(ext) == tuple or type(ext) == list:
                 return ext[1]
             else:
