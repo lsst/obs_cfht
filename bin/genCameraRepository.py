@@ -209,11 +209,13 @@ def addAmp(ampCatalog, amp, eparams):
     xtot = amp['ewidth']
     ytot = amp['eheight']
 
-    allPixels = afwGeom.Box2I(afwGeom.Point2I(0, 0), afwGeom.Extent2I(xtot, ytot))
+    allPixels = afwGeom.Box2I(afwGeom.Point2I(0, 0), afwGeom.Extent2I(xtot, ytot), invert=False)
     biassl = amp['biassec']
-    biasSec = afwGeom.Box2I(afwGeom.Point2I(biassl[0], biassl[1]), afwGeom.Point2I(biassl[2], biassl[3]))
+    biasSec = afwGeom.Box2I(afwGeom.Point2I(biassl[0], biassl[1]), afwGeom.Point2I(biassl[2], biassl[3]),
+                            invert=False)
     datasl = amp['datasec']
-    dataSec = afwGeom.Box2I(afwGeom.Point2I(datasl[0], datasl[1]), afwGeom.Point2I(datasl[2], datasl[3]))
+    dataSec = afwGeom.Box2I(afwGeom.Point2I(datasl[0], datasl[1]), afwGeom.Point2I(datasl[2], datasl[3]),
+                            invert=False)
 
     extended = dataSec.getMin().getX()
     voverscan = ytot - dataSec.getMaxY()
@@ -221,12 +223,12 @@ def addAmp(ampCatalog, amp, eparams):
 
     if not voverscan:
         voscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, dataSec.getMax().getY()),
-                                  afwGeom.Extent2I(dataSec.getDimensions().getX(), 0))
+                                  afwGeom.Extent2I(dataSec.getDimensions().getX(), 0), invert=False)
     else:
         voscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, dataSec.getMax().getY()+1),
-                                  afwGeom.Extent2I(dataSec.getDimensions().getX(), voverscan))
+                                  afwGeom.Extent2I(dataSec.getDimensions().getX(), voverscan), invert=False)
     pscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, 0),
-                             afwGeom.Extent2I(dataSec.getDimensions().getX(), pscan))
+                             afwGeom.Extent2I(dataSec.getDimensions().getX(), pscan), invert=False)
 
     if amp['flipX']:
         # No need to flip bbox or allPixels since they
@@ -236,7 +238,7 @@ def addAmp(ampCatalog, amp, eparams):
         voscanSec.flipLR(xtot)
         pscanSec.flipLR(xtot)
 
-    bbox = afwGeom.BoxI(afwGeom.PointI(0, 0), dataSec.getDimensions())
+    bbox = afwGeom.BoxI(afwGeom.PointI(0, 0), dataSec.getDimensions(), invert=False)
     bbox.shift(afwGeom.Extent2I(dataSec.getDimensions().getX()*eparams['index'][0], 0))
 
     shiftp = afwGeom.Extent2I(xtot*eparams['index'][0], 0)

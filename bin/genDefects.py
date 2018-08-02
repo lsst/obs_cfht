@@ -12,7 +12,7 @@ import numpy as np
 def makeBBList(mask, ccd):
 
     # Create a bounding box corresponding to the useful part of the CCD (exclude overscan regions)
-    bb = afwGeom.Box2I(afwGeom.Point2I(32, 0), afwGeom.Point2I(2079, 4611))
+    bb = afwGeom.Box2I(afwGeom.Point2I(32, 0), afwGeom.Point2I(2079, 4611), invert=False)
     # Read mask file provided by Elixir team
     im = afwImage.ImageF('%s.fits['%mask + str(ccd+1) + ']', bbox=bb, origin=afwImage.ImageOrigin.PARENT)
     # Pixel values in mask files are 1 for background and 0 for bad pixels - Need to inverse this
