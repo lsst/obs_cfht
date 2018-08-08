@@ -1,24 +1,17 @@
+"""
+CFHT-specific overrides for processCcdTask
+"""
 import os.path
 
 from lsst.utils import getPackageDir
-
-cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
-config.calibrate.photoCal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
-
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
-config.isr.retarget(CfhtIsrTask)
 
-config.isr.doBias = False
-config.isr.doDark = False
-config.isr.doFlat = False
-config.isr.doFringe = False
-config.isr.fringeAfterFlat = False
-config.isr.doWrite = False
-config.isr.fringe.filters = ['i', 'i2', 'z']
-config.isr.fringe.pedestal = True
-config.isr.fringe.small = 1
-config.isr.fringe.large = 50
-config.isr.doAssembleIsrExposures = True
+obsConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
+
+config.isr.retarget(CfhtIsrTask)
+config.isr.load(os.path.join(obsConfigDir, "isr.py"))
+
+config.calibrate.photoCal.colorterms.load(os.path.join(obsConfigDir, 'colorterms.py'))
 
 config.charImage.repair.doCosmicRay = True
 config.charImage.repair.cosmicray.cond3_fac = 2.5
