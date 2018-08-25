@@ -191,15 +191,15 @@ datasets:
   jointcal_photoCalib:  # Photometric calibration produced by meas_mosaic/jointcal
     template: jointcal-results/%(filter)s/%(tract)04d/jointcal_photoCalib-%(visit)d-%(ccd)02d.fits
   processCcd_metadata:
-    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(visit)d-%(ccd)02d.boost
+    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-processCcd-%(visit)d-%(ccd)02d.yaml
   isr_config:
     python: lsst.obs.cfht.cfhtIsrTask.CfhtIsrTaskConfig
   isr_metadata:
-    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-isr-%(visit)d-%(ccd)02d.boost
+    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-isr-%(visit)d-%(ccd)02d.yaml
   characterizeImage_metadata:
-    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-characterizeImage-%(visit)d-%(ccd)02d.boost
+    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-characterizeImage-%(visit)d-%(ccd)02d.yaml
   calibrate_metadata:
-    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-calibrate-%(visit)d-%(ccd)02d.boost
+    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-calibrate-%(visit)d-%(ccd)02d.yaml
   deep_makeSkyMap_config:
     persistable: Config
     python: lsst.pipe.tasks.makeSkyMap.MakeSkyMapTask.ConfigClass
@@ -209,9 +209,9 @@ datasets:
   deep_safeClipAssembleCoadd_config:
     python: lsst.pipe.tasks.assembleCoadd.AssembleCoaddConfig
   deep_makeCoaddTempExp_metadata:
-    template: deep_makeCoaddTempExp_metadat/%(filter)s/%(tract)d/%(patch)s_metadata.boost
+    template: deep_makeCoaddTempExp_metadat/%(filter)s/%(tract)d/%(patch)s_metadata.yaml
   deep_safeClipAssembleCoadd_metadata:
-    template: deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.boost
+    template: deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.yaml
   deepCoadd_measMatch:
     template: deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatch-%(filter)s-%(tract)d-%(patch)s.fits
   deepCoadd_measMatchFull:
@@ -226,7 +226,7 @@ datasets:
     storage: ConfigStorage
     template: config/forcedPhotCoadd.py
   apPipe_metadata:
-    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-apPipe-%(visit)d-%(ccd)02d.boost
+    template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-apPipe-%(visit)d-%(ccd)02d.yaml
 
   # Detections on coadds
 
@@ -239,8 +239,8 @@ datasets:
   singleFrameDriver_metadata:
     persistable: PropertySet
     python: lsst.daf.base.PropertySet
-    storage: BoostStorage
+    storage: YamlStorage
     tables:
     - raw
     - raw_visit
-    template: '%(pointing)05d/%(filter)s/singleFrameDriver_metadata/%(visit)07d.boost'
+    template: '%(pointing)05d/%(filter)s/singleFrameDriver_metadata/%(visit)07d.yaml'
