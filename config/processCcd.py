@@ -6,7 +6,10 @@ import os.path
 from lsst.utils import getPackageDir
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
 
-obsConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
+from lsst.meas.algorithms import LoadIndexedReferenceObjectsTask
+
+cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
+config.calibrate.photoCal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
 
 config.isr.retarget(CfhtIsrTask)
 config.isr.load(os.path.join(obsConfigDir, "isr.py"))
@@ -21,18 +24,23 @@ config.charImage.repair.cosmicray.nCrPixelMax = 100000
 config.charImage.repair.cosmicray.minSigma = 6.0
 config.charImage.repair.cosmicray.min_DN = 150.0
 
-# Configuration for AstrometryTask, the default. If the user retargets to
-# ANetAstrometryTask, they must update the astrometry.solver.filterMap config
-# manually; doing it here is impossible because these overrides are applied
-# before any user overrides where retargeting could occur.
+# Astrometry
 for refObjLoader in (config.calibrate.astromRefObjLoader,
                      config.calibrate.photoRefObjLoader,
-                     config.charImage.refObjLoader):
+                     config.charImage.refObjLoader,
+                     ):
+    refObjLoader.retarget(LoadIndexedReferenceObjectsTask)
     refObjLoader.filterMap = {'i2': 'i'}
+    refObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
+
 config.calibrate.astrometry.wcsFitter.order = 3
 config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
 
 config.calibrate.photoCal.applyColorTerms = True
-config.calibrate.photoCal.photoCatName = "e2v"
+config.calibrate.photoCal.photoCatName = "ps1_pv3_3pi_20170110"
+
 # this was the default prior to DM-11521.  New default is 2000.
 config.calibrate.deblend.maxFootprintSize=0
+
+# Better astrometry matching
+config.calibrate.astrometry.matcher.numBrightStars = 150
