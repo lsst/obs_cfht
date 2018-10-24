@@ -212,10 +212,6 @@ datasets:
     template: deep_makeCoaddTempExp_metadat/%(filter)s/%(tract)d/%(patch)s_metadata.yaml
   deep_safeClipAssembleCoadd_metadata:
     template: deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.yaml
-  deepCoadd_measMatch:
-    template: deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatch-%(filter)s-%(tract)d-%(patch)s.fits
-  deepCoadd_measMatchFull:
-    template: deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatchFull-%(filter)s-%(tract)d-%(patch)s.fits
   forced_src:
     template: forced/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/FORCEDSRC-%(visit)d-%(ccd)02d.fits
   forced_src_schema:
