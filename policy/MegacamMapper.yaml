@@ -210,11 +210,6 @@ datasets:
     template: forced/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/FORCEDSRC-%(visit)d-%(ccd)02d.fits
   forced_src_schema:
     template: schema/forced_src.fits
-  forcedPhotCoadd_config:
-    persistable: Config
-    python: lsst.meas.base.forcedPhotCoadd.ForcedPhotCoaddConfig
-    storage: ConfigStorage
-    template: config/forcedPhotCoadd.py
   apPipe_metadata:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-apPipe-%(visit)d-%(ccd)02d.yaml
 
