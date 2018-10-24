@@ -125,7 +125,7 @@ def parseDetrendDatabase(tableName, create=False):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Parse the CFHT Elixir detrend database to create " +
+    parser = argparse.ArgumentParser(description="Parse the CFHT Elixir detrend database to create "
                                      "a calibration registry")
     parser.add_argument("table", nargs=1, help="FITS table to parse")
     parser.add_argument("--create", action="store_true", help="Create new registry?")
