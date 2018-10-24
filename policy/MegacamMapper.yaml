@@ -200,12 +200,6 @@ datasets:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-characterizeImage-%(visit)d-%(ccd)02d.yaml
   calibrate_metadata:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-calibrate-%(visit)d-%(ccd)02d.yaml
-  deep_makeSkyMap_config:
-    persistable: Config
-    python: lsst.pipe.tasks.makeSkyMap.MakeSkyMapTask.ConfigClass
-    storage: ConfigStorage
-    tables: raw
-    template: config/deep_makeSkyMap.py
   deep_safeClipAssembleCoadd_config:
     python: lsst.pipe.tasks.assembleCoadd.AssembleCoaddConfig
   deep_makeCoaddTempExp_metadata:
