@@ -200,31 +200,16 @@ datasets:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-characterizeImage-%(visit)d-%(ccd)02d.yaml
   calibrate_metadata:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-calibrate-%(visit)d-%(ccd)02d.yaml
-  deep_makeSkyMap_config:
-    persistable: Config
-    python: lsst.pipe.tasks.makeSkyMap.MakeSkyMapTask.ConfigClass
-    storage: ConfigStorage
-    tables: raw
-    template: config/deep_makeSkyMap.py
   deep_safeClipAssembleCoadd_config:
     python: lsst.pipe.tasks.assembleCoadd.AssembleCoaddConfig
   deep_makeCoaddTempExp_metadata:
     template: deep_makeCoaddTempExp_metadat/%(filter)s/%(tract)d/%(patch)s_metadata.yaml
   deep_safeClipAssembleCoadd_metadata:
     template: deep_assembleCoadd_metadata/%(filter)s/%(tract)d/%(patch)s_metadata.yaml
-  deepCoadd_measMatch:
-    template: deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatch-%(filter)s-%(tract)d-%(patch)s.fits
-  deepCoadd_measMatchFull:
-    template: deepCoadd-results/%(filter)s/%(tract)d/%(patch)s/srcMatchFull-%(filter)s-%(tract)d-%(patch)s.fits
   forced_src:
     template: forced/%(runId)s/%(object)s/%(date)s/%(filter)s/%(tract)d/FORCEDSRC-%(visit)d-%(ccd)02d.fits
   forced_src_schema:
     template: schema/forced_src.fits
-  forcedPhotCoadd_config:
-    persistable: Config
-    python: lsst.meas.base.forcedPhotCoadd.ForcedPhotCoaddConfig
-    storage: ConfigStorage
-    template: config/forcedPhotCoadd.py
   apPipe_metadata:
     template: metadata/%(runId)s/%(object)s/%(date)s/%(filter)s/MD-apPipe-%(visit)d-%(ccd)02d.yaml
 
