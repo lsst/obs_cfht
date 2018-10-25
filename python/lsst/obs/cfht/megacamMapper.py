@@ -32,11 +32,7 @@ import lsst.afw.image.utils as afwImageUtils
 
 from lsst.daf.persistence import Policy
 from lsst.obs.base import CameraMapper, exposureFromImage
-import lsst.pex.policy as pexPolicy
 from .makeMegacamRawVisitInfo import MakeMegacamRawVisitInfo
-
-# Solely to get boost serialization registrations for Measurement subclasses
-import lsst.meas.algorithms  # flake8: noqa
 
 
 class MegacamMapper(CameraMapper):
@@ -50,9 +46,11 @@ class MegacamMapper(CameraMapper):
         policy = Policy(policyFile)
         super(MegacamMapper, self).__init__(policy, os.path.dirname(policyFile), **kwargs)
 
-        # The "ccd" provided by the user is translated through the registry into an extension name for the "raw"
-        # template.  The template therefore doesn't include "ccd", so we need to ensure it's explicitly included
-        # so the ArgumentParser can recognise and accept it.
+        # The "ccd" provided by the user is translated through the registry
+        # into an extension name for the "raw" template.  The template
+        # therefore doesn't include "ccd", so we need to ensure it's
+        # explicitly included so the ArgumentParser can recognise and accept
+        # it.
 
         self.exposures['raw'].keyDict['ccd'] = int
 
@@ -71,7 +69,8 @@ class MegacamMapper(CameraMapper):
         # define filters?
         self.filterIdMap = dict(u=0, g=1, r=2, i=3, z=4, i2=5, u2=6, g2=7, r2=8, i3=9, z2=10)
 
-        # Ensure each dataset type of interest knows about the full range of keys available from the registry
+        # Ensure each dataset type of interest knows about the full range of
+        # keys available from the registry
         keys = {'runId': str,
                 'object': str,
                 'visit': int,

@@ -78,7 +78,7 @@ def makeCameraFromPolicy(filename, writeRepo=False, outputDir=None, doClobber=Fa
         camConfigPath = os.path.join(outputDir, "camera.py")
         with open(camConfigPath, 'w') as outfile:
             outfile.write(
-                "#!!!!This file is auto generated.----Do not edit!!!!\n" +
+                "#!!!!This file is auto generated.----Do not edit!!!!\n"
                 "#!!!!Edit input file and regenerate with $OBS_CFHT_DIR/bin/genCameraRepository.py\n")
             camConfig.saveToStream(outfile)
 
