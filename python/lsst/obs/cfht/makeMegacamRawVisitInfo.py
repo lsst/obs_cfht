@@ -20,64 +20,16 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 
-import astropy.units
-
-from lsst.afw.coord import Observatory, Weather
-from lsst.afw.geom import SpherePoint
-from lsst.obs.base import MakeRawVisitInfo
+from lsst.obs.base import MakeRawVisitInfoViaObsInfo
+from astro_metadata_translator import MegaPrimeTranslator
 
 __all__ = ["MakeMegacamRawVisitInfo"]
 
 
-class MakeMegacamRawVisitInfo(MakeRawVisitInfo):
+class MakeMegacamRawVisitInfo(MakeRawVisitInfoViaObsInfo):
 
     """Make a VisitInfo from the FITS header of a raw Megacam image
     """
 
-    def setArgDict(self, md, argDict):
-        """Set an argument dict for VisitInfo and pop associated metadata
-
-        Parameters
-        ----------
-        md : `lsst.daf.base.PropertyList` or `lsst.daf.base.PropertySet`
-            Metadata to extract from. Extracted values are removed.
-        argdict : `dict`
-            A dict of arguments to add to values to.
-        """
-        MakeRawVisitInfo.setArgDict(self, md, argDict)
-        argDict["darkTime"] = self.popFloat(md, "DARKTIME")
-        argDict["boresightAzAlt"] = SpherePoint(
-            self.popAngle(md, "TELAZ"),
-            self.popAngle(md, "TELALT"),
-        )
-        argDict["boresightRaDec"] = SpherePoint(
-            self.popAngle(md, "RA_DEG",),
-            self.popAngle(md, "DEC_DEG"),
-        )
-        argDict["boresightAirmass"] = self.popFloat(md, "AIRMASS")
-        argDict["observatory"] = Observatory(
-            self.popAngle(md, "LONGITUD"),
-            self.popAngle(md, "LATITUDE"),
-            4204,  # from Wikipedia
-        )
-        argDict["weather"] = Weather(
-            self.popFloat(md, "TEMPERAT"),
-            self.popFloat(md, "PRESSURE")*100.0,  # 100 Pascal per millibar
-            self.popFloat(md, "RELHUMID"),
-        )
-        # Using LST to compute ERA until we get UT1 (see: DM-8053)
-        LST = self.popAngle(md, "LST-OBS", units=astropy.units.h)
-        argDict['era'] = self.eraFromLstAndLongitude(LST, argDict["observatory"].getLongitude())
-
-    def getDateAvg(self, md, exposureTime):
-        """Return date at the middle of the exposure
-
-        Parameters
-        ----------
-        md : `lsst.daf.base.PropertyList` or `lsst.daf.base.PropertySet`
-            FITS metadata; changed in place
-        exposureTime : `float`
-            exposure time in sec
-        """
-        dateObs = self.popMjdDate(md, "MJD-OBS")
-        return self.offsetDate(dateObs, 0.5*exposureTime)
+    # Force MegaPrime translator
+    metadataTranslator = MegaPrimeTranslator

@@ -33,7 +33,7 @@ import lsst.afw.cameraGeom.utils as cameraGeomUtils
 import lsst.pex.exceptions as pexExcept
 from lsst.daf.base import DateTime
 from lsst.afw.image import RotType
-from lsst.afw.geom import degrees, SpherePoint
+from lsst.geom import degrees, radians, SpherePoint
 
 try:
     type(display)
@@ -58,21 +58,19 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         self.filter = "i2"
         self.exposureTime = 615.037
         self.darkTime = 615.0
-        dateObs = DateTime(54771.6066250, DateTime.MJD, DateTime.UTC)
-        self.dateAvg = DateTime(dateObs.nsecs(DateTime.TAI) + int(0.5e9*self.exposureTime), DateTime.TAI)
-        self.boresightRaDec = SpherePoint(135.409417, -2.400000, degrees)
+        self.dateAvg = DateTime(54771.610881712964, DateTime.MJD, DateTime.TAI)
+        self.boresightRaDec = SpherePoint(135.40941055, -2.39999432, degrees)
         self.boresightAzAlt = SpherePoint(122.34, 52.02, degrees)
         self.boresightAirmass = 1.269
         self.rotType = RotType.UNKNOWN
         self.obs_longitude = -155.468876*degrees
         self.obs_latitude = 19.825252*degrees
-        self.obs_elevation = 4204
+        self.obs_elevation = 4215
         self.weath_airTemperature = 0.90
         self.weath_airPressure = 617.65*100  # 100 Pascal/millibar
         self.weath_humidity = 39.77
         # NOTE: if we deal with DM-8053 and get UT1 implemented, ERA will change slightly.
-        lst = 104.16591666666666*degrees
-        self.era = lst - self.obs_longitude
+        self.era = 4.55388*radians
 
     def tearDown(self):
         del self.butler
@@ -123,7 +121,7 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
 
             visitInfo = raw.getInfo().getVisitInfo()
             self.assertAlmostEqual(visitInfo.getDate().get(), self.dateAvg.get())
-            self.assertEqual(visitInfo.getEra(), self.era)
+            self.assertAnglesAlmostEqual(visitInfo.getEra(), self.era, maxDiff=0.1*degrees)
             self.assertAlmostEqual(visitInfo.getExposureTime(), self.exposureTime)
             self.assertAlmostEqual(visitInfo.getDarkTime(), self.darkTime)
             self.assertSpherePointsAlmostEqual(visitInfo.getBoresightRaDec(), self.boresightRaDec)
