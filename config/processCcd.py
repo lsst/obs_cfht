@@ -12,9 +12,9 @@ cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
 config.calibrate.photoCal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
 
 config.isr.retarget(CfhtIsrTask)
-config.isr.load(os.path.join(obsConfigDir, "isr.py"))
+config.isr.load(os.path.join(cfhtConfigDir, "isr.py"))
 
-config.calibrate.photoCal.colorterms.load(os.path.join(obsConfigDir, 'colorterms.py'))
+config.calibrate.photoCal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
 
 config.charImage.repair.doCosmicRay = True
 config.charImage.repair.cosmicray.cond3_fac = 2.5
