@@ -25,10 +25,6 @@ config.charImage.repair.cosmicray.min_DN = 150.0
 # ANetAstrometryTask, they must update the astrometry.solver.filterMap config
 # manually; doing it here is impossible because these overrides are applied
 # before any user overrides where retargeting could occur.
-for refObjLoader in (config.calibrate.astromRefObjLoader,
-                     config.calibrate.photoRefObjLoader,
-                     config.charImage.refObjLoader):
-    refObjLoader.filterMap = {'i2': 'i'}
 config.calibrate.astrometry.wcsFitter.order = 3
 config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
 
