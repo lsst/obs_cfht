@@ -7,6 +7,7 @@ from lsst.utils import getPackageDir
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
 
 from lsst.meas.algorithms import LoadIndexedReferenceObjectsTask
+from lsst.meas.astrom import MatchOptimisticBTask
 
 cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
 config.calibrate.photoCal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
@@ -34,7 +35,8 @@ for refObjLoader in (config.calibrate.astromRefObjLoader,
     refObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
 
 config.calibrate.astrometry.wcsFitter.order = 3
-config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
+if isinstance(config.calibrate.astrometry.matcher, MatchOptimisticBTask):
+    config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
 
 config.calibrate.photoCal.applyColorTerms = True
 config.calibrate.photoCal.photoCatName = "ps1_pv3_3pi_20170110"
