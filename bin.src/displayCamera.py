@@ -27,19 +27,35 @@ import sys
 
 import lsst.obs.cfht as obs_cfht
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
-from lsst.afw.cameraGeom import Camera
+import lsst.afw.display as afwDisplay
 
 
 def checkStr(strVal, level):
     """Check if a string is a valid identifier
-    @param[in] strVal: String containing the identifier
-    @param[in] level: level of identifier: amp, ccd, raft
-    return True if valid
+
+    Parameters
+    ----------
+    strVal : `str`
+       String containing the identifier.
+    level : `str`
+       Level of the identifier: "amp", "ccd", or "raft".
+
+    Returns
+    -------
+    result : `bool`
+       `True` if valid.
+
+    Raises
+    ------
+    ValueError
+       Raised if an unknown ``level`` is provided or an unknown ``strVal`` is
+       given for the given ``level``.
     """
     if level == 'amp':
         matchStr = '^ccd[0-9][0-9] [aAbB]$'
         if not re.match(matchStr, strVal):
-            raise ValueError("Specify ccd name and amp name (either A or B): %s"%(strVal))
+            raise ValueError(("Specify both ccd name (e.g. ccd21) and amp name (either A or B) "
+                              "surrounded by quotes, e.g \"ccd21 A\": %s"%(strVal)))
     elif level == 'ccd':
         matchStr = '^ccd[0-9][0-9]$'
         if not re.match(matchStr, strVal):
@@ -54,16 +70,16 @@ def checkStr(strVal, level):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Display the MegaCam camera')
-    parser.add_argument('--showAmp', help='Show an amplifier segment in ds9  May have multiple arguments. '
-                                          'Format like ccd_name amp_name e.g. '
+    parser.add_argument('--showAmp', help='Display an amplifier segment.  May have multiple arguments. '
+                                          'Format like \"ccd_name amp_name\" e.g. '
                                           '\"ccd00 A\"', type=str, nargs='+')
-    parser.add_argument('--showCcd', help='Show a CCD from the mosaic in ds9.  May have multiple arguments. '
+    parser.add_argument('--showCcd', help='Display a CCD from the mosaic.  May have multiple arguments. '
                                           'Format like ccd_name e.g. \"ccd16\"', type=str,
                                           nargs='+')
     parser.add_argument('--showRaft',
-                        help='Show a Raft from the mosaic in ds9.  May have multiple arguments. '
+                        help='Display a Raft from the mosaic.  May have multiple arguments. '
                              'Format like raft_name e.g. \"North\"', type=str, nargs='+')
-    parser.add_argument('--showCamera', help='Show the camera mosaic in ds9.', action='store_true')
+    parser.add_argument('--showCamera', help='Display the camera mosaic.', action='store_true')
     parser.add_argument('--cameraBinSize', type=int, default=20,
                         help='Size of binning when displaying the full camera mosaic')
     parser.add_argument('--plotFocalPlane', action='store_true',
@@ -77,39 +93,41 @@ if __name__ == "__main__":
     mapper = obs_cfht.MegacamMapper()
     camera = mapper.camera
     frame = 0
-    ampMap = {'a': '0,0', 'b': '1,0'}
+    disp = afwDisplay.Display(frame=frame)
     if args.showAmp:
         for ampStr in args.showAmp:
             if checkStr(ampStr, 'amp'):
                 ccd, amp = ampStr.split()
                 detector = camera[ccd]
-                amplifier = detector[ampMap[amp.lower()]]
-                cameraGeomUtils.showAmp(amplifier, frame=frame)
+                amplifier = detector[amp]
+                cameraGeomUtils.showAmp(amplifier, display=disp)
                 frame += 1
+                disp = afwDisplay.Display(frame=frame)
 
     if args.showCcd:
         for ccdStr in args.showCcd:
             if checkStr(ccdStr, 'ccd'):
                 detector = camera[ccdStr]
-                cameraGeomUtils.showCcd(detector, frame=frame)
+                cameraGeomUtils.showCcd(detector, display=disp)
                 frame += 1
+                disp = afwDisplay.Display(frame=frame)
 
     raftMap = {'north': ['ccd%02d'%val for val in range(18)],
                'south': ['ccd%02d'%val for val in range(18, 36)]}
     if args.showRaft:
         for raftStr in args.showRaft:
             if checkStr(raftStr, 'raft'):
-                detectorList = []
+                detectorNameList = []
                 for detector in camera:
                     detName = detector.getName()
                     if detName in raftMap[raftStr.lower()]:
-                        detectorList.append(detector)
-                tmpCamera = Camera(raftStr, detectorList, camera._transformMap)
-                cameraGeomUtils.showCamera(tmpCamera, frame=frame, binSize=1)
+                        detectorNameList.append(detName)
+                cameraGeomUtils.showCamera(camera, detectorNameList=detectorNameList, display=disp, binSize=4)
                 frame += 1
+                disp = afwDisplay.Display(frame=frame)
 
     if args.showCamera:
-        cameraGeomUtils.showCamera(camera, frame=frame, binSize=args.cameraBinSize)
+        cameraGeomUtils.showCamera(camera, display=disp, binSize=args.cameraBinSize)
 
     if args.plotFocalPlane:
         cameraGeomUtils.plotFocalPlane(camera, 2., 2.)
