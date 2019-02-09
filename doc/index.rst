@@ -9,5 +9,4 @@ obs_cfht documentation preview
 .. toctree::
    :maxdepth: 1
 
-   obs_cfht/index
    lsst.obs.cfht/index
