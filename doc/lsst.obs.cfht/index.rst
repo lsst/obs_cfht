@@ -1,17 +1,31 @@
+.. py:currentmodule:: lsst.obs.cfht
+
 .. _lsst.obs.cfht:
 
 #############
 lsst.obs.cfht
 #############
 
-.. Paragraph that describes what this Python module does and links to related modules and frameworks.
+The ``lsst.obs.cfht`` module provides camera descriptions and metadata for the LSST Science Pipelines to operate with CFHT MegaCam data.
 
-.. Add subsections with toctree to individual topic pages.
+.. _lsst.obs.cfht-contributing:
+
+Contributing
+============
+
+``lsst.obs.cfht`` is developed at https://github.com/lsst/obs_cfht.
+You can find Jira issues for this module under the `obs_cfht <https://jira.lsstcorp.org/issues/?jql=project%20%3D%20DM%20AND%20component%20%3D%20obs_cfht>`_ component.
+
+.. _lsst.obs.cfht-pyapi:
 
 Python API reference
 ====================
 
 .. automodapi:: lsst.obs.cfht
+   :no-main-docstr:
 .. automodapi:: lsst.obs.cfht.makeMegacamRawVisitInfo
+   :no-main-docstr:
 .. automodapi:: lsst.obs.cfht.cfhtIsrTask
+   :no-main-docstr:
 .. automodapi:: lsst.obs.cfht.ingest
+   :no-main-docstr:
