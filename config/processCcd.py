@@ -6,7 +6,6 @@ import os.path
 from lsst.utils import getPackageDir
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
 
-from lsst.meas.algorithms import LoadIndexedReferenceObjectsTask
 from lsst.meas.astrom import MatchOptimisticBTask
 
 cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
@@ -30,7 +29,6 @@ for refObjLoader in (config.calibrate.astromRefObjLoader,
                      config.calibrate.photoRefObjLoader,
                      config.charImage.refObjLoader,
                      ):
-    refObjLoader.retarget(LoadIndexedReferenceObjectsTask)
     refObjLoader.filterMap = {'i2': 'i'}
     refObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
 
