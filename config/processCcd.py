@@ -6,15 +6,19 @@ import os.path
 from lsst.utils import getPackageDir
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
 
-from lsst.meas.astrom import MatchOptimisticBTask
+from lsst.meas.astrom import MatchOptimisticBConfig
 
-cfhtConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
-config.calibrate.photoCal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
+ObsConfigDir = os.path.join(getPackageDir("obs_cfht"), "config")
+
+#### Future
+#bgFile = os.path.join(ObsConfigDir, "background.py")
+
+config.calibrate.photoCal.colorterms.load(os.path.join(ObsConfigDir, 'colorterms.py'))
 
 config.isr.retarget(CfhtIsrTask)
-config.isr.load(os.path.join(cfhtConfigDir, "isr.py"))
+config.isr.load(os.path.join(ObsConfigDir, "isr.py"))
 
-config.calibrate.photoCal.colorterms.load(os.path.join(cfhtConfigDir, 'colorterms.py'))
+config.calibrate.photoCal.colorterms.load(os.path.join(ObsConfigDir, 'colorterms.py'))
 
 config.charImage.repair.doCosmicRay = True
 config.charImage.repair.cosmicray.cond3_fac = 2.5
@@ -47,7 +51,7 @@ for refObjLoader in (config.calibrate.astromRefObjLoader,
     refObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
 
 config.calibrate.astrometry.wcsFitter.order = 3
-if isinstance(config.calibrate.astrometry.matcher, MatchOptimisticBTask):
+if isinstance(config.calibrate.astrometry.matcher, MatchOptimisticBConfig):
     config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
 
 config.calibrate.photoCal.applyColorTerms = True
