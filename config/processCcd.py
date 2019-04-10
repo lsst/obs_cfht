@@ -35,6 +35,7 @@ for refObjLoader in (config.calibrate.astromRefObjLoader,
 config.calibrate.astrometry.wcsFitter.order = 3
 if isinstance(config.calibrate.astrometry.matcher, MatchOptimisticBTask):
     config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
+    config.calibrate.astrometry.sourceSelector['matcher'].excludePixelFlags = False
 
 config.calibrate.photoCal.applyColorTerms = True
 config.calibrate.photoCal.photoCatName = "ps1_pv3_3pi_20170110"
