@@ -27,8 +27,8 @@ import os
 from astropy.io import fits
 
 import lsst.afw.geom as afwGeom
-import lsst.afw.image as afwImage
 import lsst.afw.image.utils as afwImageUtils
+import lsst.meas.algorithms as measAlg
 
 from lsst.daf.persistence import Policy
 from lsst.obs.base import CameraMapper, exposureFromImage
@@ -109,13 +109,13 @@ class MegacamMapper(CameraMapper):
                 if str(hdu.header["SERIAL"]) != ccdSerial:
                     continue
 
-                defectList = []
+                defectList = measAlg.Defects()
                 for data in hdu.data:
                     bbox = afwGeom.Box2I(
                         afwGeom.Point2I(int(data['x0']), int(data['y0'])),
                         afwGeom.Extent2I(int(data['width']), int(data['height'])),
                     )
-                    defectList.append(afwImage.DefectBase(bbox))
+                    defectList.append(bbox)
                 return defectList
 
         raise RuntimeError("No defects for ccdSerial %s in %s" % (ccdSerial, defectsFitsPath))
