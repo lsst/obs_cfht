@@ -94,7 +94,8 @@ class MegacamMapper(CameraMapper):
         MegacamMapper._nbit_patch = 5
         MegacamMapper._nbit_filter = 6
 
-        MegacamMapper._nbit_id = 64 - (MegacamMapper._nbit_tract + 2*MegacamMapper._nbit_patch + MegacamMapper._nbit_filter)
+        MegacamMapper._nbit_id = 64 - (MegacamMapper._nbit_tract + 2*MegacamMapper._nbit_patch +
+                                       MegacamMapper._nbit_filter)
 
         if len(afwImageUtils.Filter.getNames()) >= 2**MegacamMapper._nbit_filter:
             raise RuntimeError("You have more filters defined than fit into the %d bits allocated" %
