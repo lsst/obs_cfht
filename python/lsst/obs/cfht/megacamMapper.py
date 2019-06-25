@@ -212,7 +212,7 @@ class MegacamMapper(CameraMapper):
         patchX, patchY = list(map(int, dataId['patch'].split(',')))
         for p in (patchX, patchY):
             if p < 0 or p >= 2**MegacamMapper._nbit_patch:
-                raise RuntimeError('tract not in range [0,%d)' % (2**MegacamMapper._nbit_tract))
+                raise RuntimeError('patch not in range [0,%d)' % (2**MegacamMapper._nbit_tract))
         oid = (((tract << MegacamMapper._nbit_patch) + patchX) << MegacamMapper._nbit_patch) + patchY
         if singleFilter:
             return (oid << MegacamMapper._nbit_filter) + afwImageUtils.Filter(dataId['filter']).getId()
