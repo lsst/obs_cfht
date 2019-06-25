@@ -110,7 +110,7 @@ class MegacamMapper(CameraMapper):
         if len(afwImageUtils.Filter.getNames()) >= 2**MegacamMapper._nbit_filter:
             raise RuntimeError("You have more filters defined than fit into the %d bits allocated" %
                                MegacamMapper._nbit_filter)
-            
+ 
     def map_defects(self, dataId, write=False):
         """Map defects dataset.
 
