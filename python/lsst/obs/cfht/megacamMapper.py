@@ -29,6 +29,7 @@ from astropy.io import fits
 import lsst.afw.geom as afwGeom
 import lsst.afw.image.utils as afwImageUtils
 import lsst.meas.algorithms as measAlg
+import lsst.daf.persistence as dafPersist
 
 from lsst.daf.persistence import Policy
 from lsst.obs.base import CameraMapper, exposureFromImage
@@ -44,7 +45,16 @@ class MegacamMapper(CameraMapper):
     def __init__(self, **kwargs):
         policyFile = Policy.defaultPolicyFile("obs_cfht", "MegacamMapper.yaml", "policy")
         policy = Policy(policyFile)
-        super(MegacamMapper, self).__init__(policy, os.path.dirname(policyFile), **kwargs)
+        repositoryDir = os.path.dirname(policyFile)
+        super(MegacamMapper, self).__init__(policy, repositoryDir, **kwargs)
+
+        # Defect registry and root. Defects are stored with the camera and the registry is loaded from the
+        # camera package, which is on the local filesystem.
+        self.defectRegistry = None
+        if 'defects' in policy:
+            self.defectPath = os.path.join(repositoryDir, policy['defects'])
+            defectRegistryLocation = os.path.join(self.defectPath, "defectRegistry.sqlite3")
+            self.defectRegistry = dafPersist.Registry.create(defectRegistryLocation)
 
         # The "ccd" provided by the user is translated through the registry
         # into an extension name for the "raw" template.  The template
@@ -100,6 +110,23 @@ class MegacamMapper(CameraMapper):
         if len(afwImageUtils.Filter.getNames()) >= 2**MegacamMapper._nbit_filter:
             raise RuntimeError("You have more filters defined than fit into the %d bits allocated" %
                                MegacamMapper._nbit_filter)
+            
+    def map_defects(self, dataId, write=False):
+        """Map defects dataset.
+
+        Returns
+        -------
+        `lsst.daf.butler.ButlerLocation`
+            Minimal ButlerLocation containing just the locationList field
+            (just enough information that bypass_defects can use it).
+        """
+        defectFitsPath = self._defectLookup(dataId=dataId)
+        if defectFitsPath is None:
+            raise RuntimeError("No defects available for dataId=%s" % (dataId,))
+
+        return dafPersist.ButlerLocation(None, None, None, defectFitsPath,
+                                         dataId, self,
+                                         storage=self.rootStorage)
 
     def bypass_defects(self, datasetType, pythonType, butlerLocation, dataId):
         """Return a defect based on the butler location returned by
