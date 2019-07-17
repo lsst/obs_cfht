@@ -3,7 +3,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 import lsst.afw.image as afwImage
 import lsst.afw.detection as afwDetect
-import lsst.afw.geom as afwGeom
+import lsst.geom as geom
 from astropy.io import fits
 
 import numpy as np
@@ -12,7 +12,7 @@ import numpy as np
 def makeBBList(mask, ccd):
 
     # Create a bounding box corresponding to the useful part of the CCD (exclude overscan regions)
-    bb = afwGeom.Box2I(afwGeom.Point2I(32, 0), afwGeom.Point2I(2079, 4611))
+    bb = geom.Box2I(geom.Point2I(32, 0), geom.Point2I(2079, 4611))
     # Read mask file provided by Elixir team
     im = afwImage.ImageF('%s.fits['%mask + str(ccd+1) + ']', bbox=bb, origin=afwImage.ImageOrigin.PARENT)
     # Pixel values in mask files are 1 for background and 0 for bad pixels - Need to inverse this
@@ -30,7 +30,7 @@ def makeBBList(mask, ccd):
     for f in s.getFootprints():
         fpl = afwDetect.footprintToBBoxList(f)
         for i in fpl:
-            i.shift(afwGeom.Extent2I(-32, 0))
+            i.shift(geom.Extent2I(-32, 0))
 
             x0 = i.getBeginX()
             y0 = i.getBeginY()
