@@ -1,3 +1,3 @@
 # -*- python -*-
 from lsst.sconsUtils import scripts
-scripts.BasicSConstruct("obs_cfht")
+scripts.BasicSConstruct("obs_cfht", disableCc=True)
