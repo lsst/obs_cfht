@@ -19,6 +19,7 @@ import shutil
 
 import lsst.pex.policy as pexPolicy
 import lsst.afw.table as afwTable
+import lsst.geom as geom
 import lsst.afw.geom as afwGeom
 from lsst.afw.cameraGeom import SCIENCE, FOCAL_PLANE, FIELD_ANGLE, CameraConfig, DetectorConfig,\
     makeCameraFromCatalogs, NullLinearityType
@@ -209,24 +210,24 @@ def addAmp(ampCatalog, amp, eparams):
     xtot = amp['ewidth']
     ytot = amp['eheight']
 
-    allPixels = afwGeom.Box2I(afwGeom.Point2I(0, 0), afwGeom.Extent2I(xtot, ytot))
+    allPixels = geom.Box2I(geom.Point2I(0, 0), geom.Extent2I(xtot, ytot))
     biassl = amp['biassec']
-    biasSec = afwGeom.Box2I(afwGeom.Point2I(biassl[0], biassl[1]), afwGeom.Point2I(biassl[2], biassl[3]))
+    biasSec = geom.Box2I(geom.Point2I(biassl[0], biassl[1]), geom.Point2I(biassl[2], biassl[3]))
     datasl = amp['datasec']
-    dataSec = afwGeom.Box2I(afwGeom.Point2I(datasl[0], datasl[1]), afwGeom.Point2I(datasl[2], datasl[3]))
+    dataSec = geom.Box2I(geom.Point2I(datasl[0], datasl[1]), geom.Point2I(datasl[2], datasl[3]))
 
     extended = dataSec.getMin().getX()
     voverscan = ytot - dataSec.getMaxY()
     pscan = dataSec.getMin().getY()
 
     if not voverscan:
-        voscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, dataSec.getMax().getY()),
-                                  afwGeom.Extent2I(dataSec.getDimensions().getX(), 0))
+        voscanSec = geom.Box2I(geom.Point2I(extended, dataSec.getMax().getY()),
+                               geom.Extent2I(dataSec.getDimensions().getX(), 0))
     else:
-        voscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, dataSec.getMax().getY()+1),
-                                  afwGeom.Extent2I(dataSec.getDimensions().getX(), voverscan))
-    pscanSec = afwGeom.Box2I(afwGeom.Point2I(extended, 0),
-                             afwGeom.Extent2I(dataSec.getDimensions().getX(), pscan))
+        voscanSec = geom.Box2I(geom.Point2I(extended, dataSec.getMax().getY()+1),
+                               geom.Extent2I(dataSec.getDimensions().getX(), voverscan))
+    pscanSec = geom.Box2I(geom.Point2I(extended, 0),
+                          geom.Extent2I(dataSec.getDimensions().getX(), pscan))
 
     if amp['flipX']:
         # No need to flip bbox or allPixels since they
@@ -236,10 +237,10 @@ def addAmp(ampCatalog, amp, eparams):
         voscanSec.flipLR(xtot)
         pscanSec.flipLR(xtot)
 
-    bbox = afwGeom.BoxI(afwGeom.PointI(0, 0), dataSec.getDimensions())
-    bbox.shift(afwGeom.Extent2I(dataSec.getDimensions().getX()*eparams['index'][0], 0))
+    bbox = geom.BoxI(geom.PointI(0, 0), dataSec.getDimensions())
+    bbox.shift(geom.Extent2I(dataSec.getDimensions().getX()*eparams['index'][0], 0))
 
-    shiftp = afwGeom.Extent2I(xtot*eparams['index'][0], 0)
+    shiftp = geom.Extent2I(xtot*eparams['index'][0], 0)
     allPixels.shift(shiftp)
     biasSec.shift(shiftp)
     dataSec.shift(shiftp)
@@ -247,7 +248,7 @@ def addAmp(ampCatalog, amp, eparams):
     pscanSec.shift(shiftp)
 
     record.setBBox(bbox)
-    record.setRawXYOffset(afwGeom.ExtentI(0, 0))
+    record.setRawXYOffset(geom.ExtentI(0, 0))
     # Set amplifier names according to the CFHT convention (A, B)
     if eparams['index'][0] == 0 and eparams['index'][1] == 0:
         record.setName("A")

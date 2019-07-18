@@ -5,6 +5,7 @@ setupRequired(meas_astrom)
 setupRequired(pipe_tasks)
 setupRequired(astropy)
 setupRequired(astro_metadata_translator)
+setupRequired(geom)
 
 setupOptional(testdata_cfht)
 

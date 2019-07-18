@@ -26,7 +26,7 @@ import os
 
 from astropy.io import fits
 
-import lsst.afw.geom as afwGeom
+import lsst.geom as geom
 import lsst.afw.image.utils as afwImageUtils
 import lsst.meas.algorithms as measAlg
 import lsst.daf.persistence as dafPersist
@@ -154,9 +154,9 @@ class MegacamMapper(CameraMapper):
 
                 defectList = measAlg.Defects()
                 for data in hdu.data:
-                    bbox = afwGeom.Box2I(
-                        afwGeom.Point2I(int(data['x0']), int(data['y0'])),
-                        afwGeom.Extent2I(int(data['width']), int(data['height'])),
+                    bbox = geom.Box2I(
+                        geom.Point2I(int(data['x0']), int(data['y0'])),
+                        geom.Extent2I(int(data['width']), int(data['height'])),
                     )
                     defectList.append(bbox)
                 return defectList
