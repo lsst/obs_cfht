@@ -3,7 +3,6 @@ setupRequired(obs_base)
 setupRequired(meas_algorithms)
 setupRequired(meas_astrom)
 setupRequired(pipe_tasks)
-setupRequired(astropy)
 setupRequired(astro_metadata_translator)
 setupRequired(geom)
 
