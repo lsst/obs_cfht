@@ -83,10 +83,13 @@ class CfhtIsrTask(IsrTask):
             saturate = metadata.getScalar("SATURATE")
         self.log.info("Saturation set to %d" % saturate)
 
+        tempCcd = ccd.rebuild()
+        tempCcd.clear()
         for amp in ccd:
-            amp.setSaturation(saturate)
-            if amp.getName() == "A":
-                amp.setGain(metadata.getScalar("GAINA"))
+            tempAmp = amp.rebuild()
+            tempAmp.setSaturation(saturate)
+            if tempAmp.getName() == "A":
+                tempAmp.setGain(metadata.getScalar("GAINA"))
                 rdnA = metadata.getScalar("RDNOISEA")
                 # Check if the noise value is making sense for this amp. If
                 # not, replace with value stored in RDNOISE slot. This change
@@ -94,9 +97,9 @@ class CfhtIsrTask(IsrTask):
                 # (visit : 7xxxxx) where RDNOISEA/B = 65535
                 if rdnA > 60000.0:
                     rdnA = metadata.getScalar("RDNOISE")
-                amp.setReadNoise(rdnA)
-            elif amp.getName() == "B":
-                amp.setGain(metadata.getScalar("GAINB"))
+                tempAmp.setReadNoise(rdnA)
+            elif tempAmp.getName() == "B":
+                tempAmp.setGain(metadata.getScalar("GAINB"))
                 rdnB = metadata.getScalar("RDNOISEB")
                 # Check if the noise value is making sense for this amp.
                 # If not, replace with value
@@ -105,10 +108,13 @@ class CfhtIsrTask(IsrTask):
                 # (visit : 7xxxxx) where RDNOISEA/B = 65535
                 if rdnB > 60000.0:
                     rdnB = metadata.getScalar("RDNOISE")
-                amp.setReadNoise(rdnB)
+                tempAmp.setReadNoise(rdnB)
             else:
                 raise ValueError("Unexpected amplifier name : %s"%(amp.getName()))
+            tempCcd.append(tempAmp)
 
+        ccd = tempCcd.finish()
+        ccdExposure.setDetector(ccd)
         return IsrTask.run(self,
                            ccdExposure=ccdExposure,
                            bias=bias,
