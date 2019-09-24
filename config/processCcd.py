@@ -32,6 +32,9 @@ for refObjLoader in (config.calibrate.astromRefObjLoader,
     refObjLoader.filterMap = {'i2': 'i'}
     refObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
 
+config.calibrate.connections.astromRefCat = "ps1_pv3_3pi_20170110"
+config.calibrate.connections.photoRefCat = "ps1_pv3_3pi_20170110"
+
 config.calibrate.astrometry.wcsFitter.order = 3
 if isinstance(config.calibrate.astrometry.matcher, MatchOptimisticBTask):
     config.calibrate.astrometry.matcher.maxMatchDistArcSec = 5
