@@ -51,7 +51,7 @@ class CfhtIsrTask(IsrTask):
         bfKernel : None
             kernel used for brighter-fatter correction; currently unsupported
         camera : `lsst.afw.cameraGeom.Camera`
-            Camera geometry, used by addDistortionModel.
+            Camera geometry.
         **kwds : `dict`
             additional kwargs forwarded to IsrTask.run.
 
