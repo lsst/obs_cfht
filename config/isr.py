@@ -12,4 +12,3 @@ config.fringe.pedestal = True
 config.fringe.small = 1
 config.fringe.large = 50
 config.doAssembleIsrExposures = True
-config.doSuspect = False

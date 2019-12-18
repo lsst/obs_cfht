@@ -1,3 +1,4 @@
+from builtins import range
 from lsst.obs.cfht.ingest import MegacamParseTask
 
 config.parse.retarget(MegacamParseTask)
