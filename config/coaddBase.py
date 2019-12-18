@@ -1,4 +1,6 @@
-# This file is part of obs_cfht.
+# Configs shared between makeCoaddTempExp and assemble
+
+# This file is part of obs_cfht
 #
 # Developed for the LSST Data Management System.
 # This product includes software developed by the LSST Project
@@ -20,5 +22,4 @@
 # the GNU General Public License along with this program.  If not,
 # see <http://www.lsstcorp.org/LegalNotices/>.
 
-
-config.priorityList = ["i", "r", "z", "g", "u", ]
+config.matchingKernelSize = 29

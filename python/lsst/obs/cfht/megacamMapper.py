@@ -27,8 +27,8 @@ import os
 from astropy.io import fits
 
 import lsst.afw.geom as afwGeom
-import lsst.afw.image as afwImage
 import lsst.afw.image.utils as afwImageUtils
+import lsst.meas.algorithms as measAlg
 
 from lsst.daf.persistence import Policy
 from lsst.obs.base import CameraMapper, exposureFromImage
@@ -85,6 +85,22 @@ class MegacamMapper(CameraMapper):
         for name in ("raw", "calexp", "postISRCCD", "src", "icSrc", "icMatch"):
             self.mappings[name].keyDict.update(keys)
 
+        #
+        # The number of bits allocated for fields in object IDs, appropriate for
+        # the default-configured Rings skymap.
+        #
+
+        MegacamMapper._nbit_tract = 16
+        MegacamMapper._nbit_patch = 5
+        MegacamMapper._nbit_filter = 6
+
+        MegacamMapper._nbit_id = 64 - (MegacamMapper._nbit_tract + 2*MegacamMapper._nbit_patch +
+                                       MegacamMapper._nbit_filter)
+
+        if len(afwImageUtils.Filter.getNames()) >= 2**MegacamMapper._nbit_filter:
+            raise RuntimeError("You have more filters defined than fit into the %d bits allocated" %
+                               MegacamMapper._nbit_filter)
+
     def bypass_defects(self, datasetType, pythonType, butlerLocation, dataId):
         """Return a defect based on the butler location returned by
         map_defects.
@@ -109,13 +125,13 @@ class MegacamMapper(CameraMapper):
                 if str(hdu.header["SERIAL"]) != ccdSerial:
                     continue
 
-                defectList = []
+                defectList = measAlg.Defects()
                 for data in hdu.data:
                     bbox = afwGeom.Box2I(
                         afwGeom.Point2I(int(data['x0']), int(data['y0'])),
                         afwGeom.Extent2I(int(data['width']), int(data['height'])),
                     )
-                    defectList.append(afwImage.DefectBase(bbox))
+                    defectList.append(bbox)
                 return defectList
 
         raise RuntimeError("No defects for ccdSerial %s in %s" % (ccdSerial, defectsFitsPath))
@@ -191,16 +207,16 @@ class MegacamMapper(CameraMapper):
             in which case dataId must contain filter.
         """
         tract = int(dataId['tract'])
-        if tract < 0 or tract >= 128:
-            raise RuntimeError('tract not in range [0,128)')
+        if tract < 0 or tract >= 2**MegacamMapper._nbit_tract:
+            raise RuntimeError('tract not in range [0,%d)' % (2**MegacamMapper._nbit_tract))
         patchX, patchY = list(map(int, dataId['patch'].split(',')))
         for p in (patchX, patchY):
-            if p < 0 or p >= 2**13:
-                raise RuntimeError('patch component not in range [0, 8192)')
-        id = (tract * 2**13 + patchX) * 2**13 + patchY
+            if p < 0 or p >= 2**MegacamMapper._nbit_patch:
+                raise RuntimeError('tract not in range [0,%d)' % (2**MegacamMapper._nbit_tract))
+        oid = (((tract << MegacamMapper._nbit_patch) + patchX) << MegacamMapper._nbit_patch) + patchY
         if singleFilter:
-            return id * 8 + self.filterIdMap[dataId['filter']]
-        return id
+            return (oid << MegacamMapper._nbit_filter) + afwImageUtils.Filter(dataId['filter']).getId()
+        return oid
 
     def bypass_CoaddExposureId_bits(self, datasetType, pythonType, location, dataId):
         return 1 + 7 + 13*2 + 3

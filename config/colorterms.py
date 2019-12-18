@@ -20,6 +20,7 @@ config.data = {
         "g": Colorterm(primary="G", secondary="R", c0=0.0, c1=-0.153),
         "r": Colorterm(primary="R", secondary="G", c0=0.0, c1=0.024),
         "i": Colorterm(primary="I", secondary="R", c0=0.0, c1=0.085),
+        "i2": Colorterm(primary="I", secondary="R", c0=0.0, c1=0.003),
         "z": Colorterm(primary="Z", secondary="I", c0=0.0, c1=-0.074),
     }),
 }
