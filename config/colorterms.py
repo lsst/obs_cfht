@@ -17,11 +17,10 @@ config.data = {
         "z": Colorterm(primary="z", secondary="i", c0=0.0, c1=-0.074),
     }),
     "e2v": ColortermDict(data={
-        "u": Colorterm(primary="U", secondary="G", c0=0.0, c1=-0.241),
-        "g": Colorterm(primary="G", secondary="R", c0=0.0, c1=-0.153),
-        "r": Colorterm(primary="R", secondary="G", c0=0.0, c1=0.024),
-        "i": Colorterm(primary="I", secondary="R", c0=0.0, c1=0.085),
-        "i2": Colorterm(primary="I", secondary="R", c0=0.0, c1=0.003),
-        "z": Colorterm(primary="Z", secondary="I", c0=0.0, c1=-0.074),
+        "u": Colorterm(primary="u", secondary="g", c0=0.0, c1=-0.241),
+        "g": Colorterm(primary="g", secondary="r", c0=0.0, c1=-0.153),
+        "r": Colorterm(primary="r", secondary="g", c0=0.0, c1=0.024),
+        "i": Colorterm(primary="i", secondary="r", c0=0.0, c1=0.085),
+        "z": Colorterm(primary="z", secondary="i", c0=0.0, c1=-0.074),
     }),
 }
