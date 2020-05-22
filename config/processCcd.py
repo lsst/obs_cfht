@@ -24,20 +24,15 @@ config.charImage.repair.cosmicray.nCrPixelMax = 100000
 config.charImage.repair.cosmicray.minSigma = 6.0
 config.charImage.repair.cosmicray.min_DN = 150.0
 
-# Use Gaia-DR2 for astrometric calibration, and Panstarrs-1 DR1 for photometric
-# calibration and for identifying stars for PSF measurements.
-config.calibrate.astromRefObjLoader.ref_dataset_name = "gaia_dr2_20200414"
-config.calibrate.astromRefObjLoader.filterMap = {"u": "phot_g_mean",
-                                                 "g": "phot_g_mean",
-                                                 "r": "phot_g_mean",
-                                                 "i": "phot_g_mean",
-                                                 "z": "phot_g_mean"}
-config.calibrate.photoRefObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
-config.calibrate.photoRefObjLoader.filterMap = {'i2': 'i'}
-config.charImage.refObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
-config.charImage.refObjLoader.filterMap = {'i2': 'i'}
-# gen3 consistency settings for the above
-config.calibrate.connections.astromRefCat = "gaia_dr2_20200414"
+# Astrometry
+for refObjLoader in (config.calibrate.astromRefObjLoader,
+                     config.calibrate.photoRefObjLoader,
+                     config.charImage.refObjLoader,
+                     ):
+    refObjLoader.filterMap = {'i2': 'i'}
+    refObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
+
+config.calibrate.connections.astromRefCat = "ps1_pv3_3pi_20170110"
 config.calibrate.connections.photoRefCat = "ps1_pv3_3pi_20170110"
 
 config.calibrate.astrometry.wcsFitter.order = 3
