@@ -20,12 +20,17 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 
-__all__ = ["MegacamParseTask"]
+__all__ = ["MegacamParseTask", "MegaPrimeRawIngestTask"]
 
 import re
 
+import lsst.obs.base
+from lsst.obs.base.ingest import RawFileData
+from astro_metadata_translator import fix_header
+
 from lsst.pipe.tasks.ingest import ParseTask
 import lsst.pex.exceptions
+from ._instrument import MegaPrime
 
 filters = {'u.MP9301': 'u',
            'u.MP9302': 'u2',
@@ -39,6 +44,34 @@ filters = {'u.MP9301': 'u',
            'z.MP9801': 'z',
            'z.MP9901': 'z2',
            }
+
+
+class MegaPrimeRawIngestTask(lsst.obs.base.RawIngestTask):
+    """Task for ingesting raw MegaPrime multi-extension FITS data into Gen3.
+    """
+    def extractMetadata(self, filename: str) -> RawFileData:
+        datasets = []
+        fitsData = lsst.afw.fits.Fits(filename, "r")
+
+        # NOTE: The primary header (HDU=0) does not contain detector data.
+        for i in range(1, fitsData.countHdus()):
+            fitsData.setHdu(i)
+            header = fitsData.readMetadata()
+            if not header["EXTNAME"].startswith("ccd"):
+                continue
+            fix_header(header)
+            datasets.append(self._calculate_dataset_info(header, filename))
+
+        # The data model currently assumes that whilst multiple datasets
+        # can be associated with a single file, they must all share the
+        # same formatter.
+        instrument = MegaPrime()
+        FormatterClass = instrument.getRawFormatter(datasets[0].dataId)
+
+        self.log.info(f"Found images for {len(datasets)} detectors in {filename}")
+        return RawFileData(datasets=datasets, filename=filename,
+                           FormatterClass=FormatterClass,
+                           instrumentClass=type(instrument))
 
 
 class MegacamParseTask(ParseTask):
