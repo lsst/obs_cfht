@@ -34,11 +34,13 @@ import lsst.daf.persistence as dafPersist
 from lsst.daf.persistence import Policy
 from lsst.obs.base import CameraMapper, exposureFromImage
 from .makeMegacamRawVisitInfo import MakeMegacamRawVisitInfo
+from ._instrument import MegaPrime
 
 
 class MegacamMapper(CameraMapper):
     """Camera Mapper for CFHT MegaCam."""
     packageName = "obs_cfht"
+    _gen3instrument = MegaPrime
 
     MakeRawVisitInfoClass = MakeMegacamRawVisitInfo
 
