@@ -69,7 +69,8 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         self.weath_airTemperature = 0.90
         self.weath_airPressure = 617.65*100  # 100 Pascal/millibar
         self.weath_humidity = 39.77
-        # NOTE: if we deal with DM-8053 and get UT1 implemented, ERA will change slightly.
+        # NOTE: if we deal with DM-8053 and get UT1 implemented,
+        # ERA will change slightly.
         self.era = 4.55388*radians
 
     def tearDown(self):

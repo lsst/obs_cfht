@@ -102,8 +102,8 @@ class MegaPrime(Instrument):
         factory = TranslatorFactory()
         factory.addGenericInstrumentRules(self.getName(), calibFilterType="abstract_filter")
 
-        # calibRegistry entries are abstract_filters, but we need physical_filter
-        # in the gen3 registry.
+        # calibRegistry entries are abstract_filters, but we need
+        # physical_filter in the gen3 registry.
         factory.addRule(AbstractToPhysicalFilterKeyHandler(self.filterDefinitions),
                         instrument=self.getName(),
                         gen2keys=("filter",),

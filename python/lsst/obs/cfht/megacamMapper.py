@@ -50,8 +50,9 @@ class MegacamMapper(CameraMapper):
         repositoryDir = os.path.dirname(policyFile)
         super(MegacamMapper, self).__init__(policy, repositoryDir, **kwargs)
 
-        # Defect registry and root. Defects are stored with the camera and the registry is loaded from the
-        # camera package, which is on the local filesystem.
+        # Defect registry and root. Defects are stored with the camera and the
+        #  registry is loaded from the camera package, which is on the local
+        # filesystem.
         self.defectRegistry = None
         if 'defects' in policy:
             self.defectPath = os.path.join(repositoryDir, policy['defects'])
@@ -98,16 +99,16 @@ class MegacamMapper(CameraMapper):
             self.mappings[name].keyDict.update(keys)
 
         #
-        # The number of bits allocated for fields in object IDs, appropriate for
-        # the default-configured Rings skymap.
+        # The number of bits allocated for fields in object IDs, appropriate
+        # for the default-configured Rings skymap.
         #
 
         MegacamMapper._nbit_tract = 16
         MegacamMapper._nbit_patch = 5
         MegacamMapper._nbit_filter = 6
 
-        MegacamMapper._nbit_id = 64 - (MegacamMapper._nbit_tract + 2*MegacamMapper._nbit_patch +
-                                       MegacamMapper._nbit_filter)
+        MegacamMapper._nbit_id = 64 - (MegacamMapper._nbit_tract + 2*MegacamMapper._nbit_patch
+                                       + MegacamMapper._nbit_filter)
 
         if len(afwImageUtils.Filter.getNames()) >= 2**MegacamMapper._nbit_filter:
             raise RuntimeError("You have more filters defined than fit into the %d bits allocated" %
