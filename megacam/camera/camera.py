@@ -2230,4 +2230,4 @@ config.detectorList[35].id = 35
 config.radialCoeffs = None
 
 # Name of this camera
-config.name = 'CFHT MegaCam'
+config.name = 'MegaPrime'

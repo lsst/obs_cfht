@@ -46,7 +46,7 @@ class CfhtIsrTask(IsrTask):
             Exposure of flatfield.
         defects : `list`
             list of detects
-        fringes : `lsst.afw.image.exposure` or `list` of `lsst.afw.image.exposure`
+        fringes : `lsst.afw.image.Exposure` or list `lsst.afw.image.Exposure`
             exposure of fringe frame or list of fringe exposure
         bfKernel : None
             kernel used for brighter-fatter correction; currently unsupported

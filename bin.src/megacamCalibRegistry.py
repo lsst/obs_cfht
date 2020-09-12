@@ -63,7 +63,8 @@ filterNames = {0: 'NONE',
 
 
 def fixString(s):
-    """Work around apparent pyfits bug: it's not terminating strings at the NULL"""
+    """Work around apparent pyfits bug: it's not terminating strings at the
+    NULL"""
     c = s.find('\0')
     return s if c == -1 else s[:c]
 
@@ -106,8 +107,8 @@ def parseDetrendDatabase(tableName, create=False):
         imageType = imageTypes[imageType]
         filterName = filterNames[filtNum]
 
-        # Remove multiple versions, since our own software doesn't yet handle selection
-        # among multiple versions
+        # Remove multiple versions, since our own software doesn't yet handle
+        # selection among multiple versions
         cur = conn.cursor()
         cmd = "DELETE FROM " + imageType + \
             " WHERE FILTER = ? AND validStart = ? AND validEnd = ? AND version <= ?"

@@ -21,3 +21,5 @@
 #
 from .version import *
 from .megacamMapper import *
+from ._instrument import MegaPrime
+from .ingest import MegaPrimeRawIngestTask
