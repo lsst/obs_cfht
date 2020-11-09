@@ -28,7 +28,7 @@ from astropy.io import fits
 
 import lsst.geom as geom
 import lsst.afw.image.utils as afwImageUtils
-import lsst.meas.algorithms as measAlg
+import lsst.ip.isr as ipIsr
 import lsst.daf.persistence as dafPersist
 
 from lsst.daf.persistence import Policy
@@ -155,7 +155,7 @@ class MegacamMapper(CameraMapper):
                 if str(hdu.header["SERIAL"]) != ccdSerial:
                     continue
 
-                defectList = measAlg.Defects()
+                defectList = ipIsr.Defects()
                 for data in hdu.data:
                     bbox = geom.Box2I(
                         geom.Point2I(int(data['x0']), int(data['y0'])),
