@@ -43,6 +43,7 @@ class MegaPrimeIngestTestCase(IngestTestBase, lsst.utils.tests.TestCase):
     ingestDir = os.path.dirname(__file__)
     instrumentClassName = "lsst.obs.cfht.MegaPrime"
     rawIngestTask = "lsst.obs.cfht.MegaPrimeRawIngestTask"
+    filterLabel = lsst.afw.image.FilterLabel(physical="i.MP9702", band="i2")
 
     @property
     def file(self):
