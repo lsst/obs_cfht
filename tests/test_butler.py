@@ -82,13 +82,19 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
         print("width: ", exp.getWidth())
         print("height: ", exp.getHeight())
         print("detector name: ", exp.getDetector().getName())
-        print("filter name: ", exp.getFilter().getCanonicalName())
+        with warnings.catch_warnings():
+            # surpress Filter warnings; we already know this is deprecated
+            warnings.simplefilter('ignore', category=FutureWarning)
+            print("filter name: ", exp.getFilter().getCanonicalName())
 
         self.assertEqual(exp.getWidth(), self.size[0])
         self.assertEqual(exp.getHeight(), self.size[1])
         self.assertEqual(exp.getDetector().getName(), "ccd%02d" % ccd)
         if checkFilter:
-            self.assertEqual(exp.getFilter().getCanonicalName(), self.filter)
+            with warnings.catch_warnings():
+                # suppress Filter warnings; we already know this is deprecated
+                warnings.simplefilter('ignore', category=FutureWarning)
+                self.assertEqual(exp.getFilter().getCanonicalName(), self.filter)
 
         if display and ccd % 18 == 0:
             global frame
