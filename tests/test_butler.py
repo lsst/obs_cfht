@@ -31,7 +31,7 @@ import lsst.daf.persistence as dafPersist
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
 import lsst.pex.exceptions as pexExcept
 from lsst.daf.base import DateTime
-from lsst.afw.image import RotType
+from lsst.afw.image import RotType, FilterLabel
 from lsst.geom import degrees, radians, SpherePoint
 
 try:
@@ -54,7 +54,8 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
                                         calibRoot=self.calibPath)
         self.size = (2112, 4644)
         self.dataId = {'visit': 1038843}
-        self.filter = "i2"
+        self.filter = "i"
+        self.filterLabel = FilterLabel.fromBandPhysical("i", "i.MP9702")
         self.exposureTime = 615.037
         self.darkTime = 615.0
         self.dateAvg = DateTime(54771.610881712964, DateTime.MJD, DateTime.TAI)
@@ -86,11 +87,14 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
             # surpress Filter warnings; we already know this is deprecated
             warnings.simplefilter('ignore', category=FutureWarning)
             print("filter name: ", exp.getFilter().getCanonicalName())
+        print("filter label: ", exp.getFilterLabel())
 
         self.assertEqual(exp.getWidth(), self.size[0])
         self.assertEqual(exp.getHeight(), self.size[1])
         self.assertEqual(exp.getDetector().getName(), "ccd%02d" % ccd)
+
         if checkFilter:
+            self.assertEqual(exp.getFilterLabel(), self.filterLabel)
             with warnings.catch_warnings():
                 # suppress Filter warnings; we already know this is deprecated
                 warnings.simplefilter('ignore', category=FutureWarning)
