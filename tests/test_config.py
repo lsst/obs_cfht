@@ -26,7 +26,6 @@ import lsst.utils.tests
 
 from lsst.pipe.tasks.ingest import IngestConfig
 from lsst.pipe.tasks.makeSkyMap import MakeSkyMapConfig
-from lsst.pipe.tasks.makeCoaddTempExp import MakeCoaddTempExpConfig
 from lsst.pipe.tasks.multiBand import MergeDetectionsConfig
 from lsst.pipe.tasks.multiBand import MergeMeasurementsConfig
 from lsst.pipe.tasks.processCcd import ProcessCcdConfig
@@ -45,7 +44,6 @@ class ConfigOverrideTestCase(lsst.utils.tests.TestCase):
         # dependency of this package.
         for configClass, overrideFilename in {
             IngestConfig: "ingest.py",
-            MakeCoaddTempExpConfig: "makeCoaddTempExp.py",
             MakeSkyMapConfig: "makeSkyMap.py",
             MergeDetectionsConfig: "mergeCoaddDetections.py",
             MergeMeasurementsConfig: "mergeCoaddMeasurements.py",
