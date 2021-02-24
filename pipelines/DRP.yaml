@@ -1,0 +1,6 @@
+description: DRP specialized for CFHT
+instrument: lsst.obs.cfht.MegaPrime
+imports:
+  - location: $PIPE_TASKS_DIR/pipelines/DRP.yaml
+    exclude:
+      - sourceTable
