@@ -38,12 +38,12 @@ class ColortermOverrideTestCase(unittest.TestCase):
 
     def testColorterms(self):
         """Test that the colorterm libraries are formatted correctly"""
-        refBands = ["u", "g", "r", "i", "z"]
-        cfhtBands = ["u", "g", "r", "i", "z"]
-        for band in cfhtBands:
-            ct = self.photoCalConf.colorterms.getColorterm(band, photoCatName="e2v")  # exact match
-            self.assertIn(ct.primary, refBands)
-            self.assertIn(ct.secondary, refBands)
+        refFilters = ["u", "g", "r", "i", "z"]
+        cfhtPhysicalFilters = ["u.MP9301", "g.MP9401", "r.MP9601", "i.MP9701", "z.MP9801"]
+        for filter in cfhtPhysicalFilters:
+            ct = self.photoCalConf.colorterms.getColorterm(filter, photoCatName="e2v")  # exact match
+            self.assertIn(ct.primary, refFilters)
+            self.assertIn(ct.secondary, refFilters)
             self.assertIsInstance(ct.c0, numbers.Number)
             self.assertIsInstance(ct.c1, numbers.Number)
             self.assertIsInstance(ct.c2, numbers.Number)
