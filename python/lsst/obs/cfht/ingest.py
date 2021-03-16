@@ -24,6 +24,7 @@ __all__ = ["MegacamParseTask", "MegaPrimeRawIngestTask"]
 
 import re
 
+from lsst.daf.butler import ButlerURI
 import lsst.obs.base
 from lsst.obs.base.ingest import RawFileData
 from astro_metadata_translator import fix_header
@@ -49,18 +50,20 @@ filters = {'u.MP9301': 'u',
 class MegaPrimeRawIngestTask(lsst.obs.base.RawIngestTask):
     """Task for ingesting raw MegaPrime multi-extension FITS data into Gen3.
     """
-    def extractMetadata(self, filename: str) -> RawFileData:
+    def extractMetadata(self, filename: ButlerURI) -> RawFileData:
         datasets = []
-        fitsData = lsst.afw.fits.Fits(filename, "r")
 
-        # NOTE: The primary header (HDU=0) does not contain detector data.
-        for i in range(1, fitsData.countHdus()):
-            fitsData.setHdu(i)
-            header = fitsData.readMetadata()
-            if not header["EXTNAME"].startswith("ccd"):
-                continue
-            fix_header(header)
-            datasets.append(self._calculate_dataset_info(header, filename))
+        with filename.as_local() as local_file:
+            fitsData = lsst.afw.fits.Fits(local_file.ospath, "r")
+
+            # NOTE: The primary header (HDU=0) does not contain detector data.
+            for i in range(1, fitsData.countHdus()):
+                fitsData.setHdu(i)
+                header = fitsData.readMetadata()
+                if not header["EXTNAME"].startswith("ccd"):
+                    continue
+                fix_header(header)
+                datasets.append(self._calculate_dataset_info(header, filename))
 
         # The data model currently assumes that whilst multiple datasets
         # can be associated with a single file, they must all share the
