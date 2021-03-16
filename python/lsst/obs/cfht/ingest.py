@@ -31,7 +31,6 @@ from astro_metadata_translator import fix_header
 
 from lsst.pipe.tasks.ingest import ParseTask
 import lsst.pex.exceptions
-from ._instrument import MegaPrime
 
 filters = {'u.MP9301': 'u',
            'u.MP9302': 'u2',
@@ -68,12 +67,13 @@ class MegaPrimeRawIngestTask(lsst.obs.base.RawIngestTask):
         # The data model currently assumes that whilst multiple datasets
         # can be associated with a single file, they must all share the
         # same formatter.
-        instrument = MegaPrime()
-        FormatterClass = instrument.getRawFormatter(datasets[0].dataId)
+        instrument, formatterClass = self._determine_instrument_formatter(datasets[0].dataId, filename)
+        if instrument is None:
+            datasets = []
 
         self.log.info(f"Found images for {len(datasets)} detectors in {filename}")
         return RawFileData(datasets=datasets, filename=filename,
-                           FormatterClass=FormatterClass,
+                           FormatterClass=formatterClass,
                            instrumentClass=type(instrument))
 
 
