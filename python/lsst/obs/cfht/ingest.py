@@ -86,7 +86,7 @@ class MegaPrimeRawIngestTask(lsst.obs.base.RawIngestTask):
         self.log.info(f"Found images for {len(datasets)} detectors in {filename}")
         return RawFileData(datasets=datasets, filename=filename,
                            FormatterClass=formatterClass,
-                           instrumentClass=type(instrument))
+                           instrument=instrument)
 
 
 class MegacamParseTask(ParseTask):
