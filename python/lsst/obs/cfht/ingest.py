@@ -24,13 +24,13 @@ __all__ = ["MegacamParseTask", "MegaPrimeRawIngestTask"]
 
 import re
 
+from lsst.daf.butler import ButlerURI, Formatter
 import lsst.obs.base
 from lsst.obs.base.ingest import RawFileData
 from astro_metadata_translator import fix_header
 
 from lsst.pipe.tasks.ingest import ParseTask
 import lsst.pex.exceptions
-from ._instrument import MegaPrime
 
 filters = {'u.MP9301': 'u',
            'u.MP9302': 'u2',
@@ -49,28 +49,43 @@ filters = {'u.MP9301': 'u',
 class MegaPrimeRawIngestTask(lsst.obs.base.RawIngestTask):
     """Task for ingesting raw MegaPrime multi-extension FITS data into Gen3.
     """
-    def extractMetadata(self, filename: str) -> RawFileData:
+    def extractMetadata(self, filename: ButlerURI) -> RawFileData:
         datasets = []
-        fitsData = lsst.afw.fits.Fits(filename, "r")
 
-        # NOTE: The primary header (HDU=0) does not contain detector data.
-        for i in range(1, fitsData.countHdus()):
-            fitsData.setHdu(i)
-            header = fitsData.readMetadata()
-            if not header["EXTNAME"].startswith("ccd"):
-                continue
-            fix_header(header)
-            datasets.append(self._calculate_dataset_info(header, filename))
+        try:
+            with filename.as_local() as local_file:
+                fitsData = lsst.afw.fits.Fits(local_file.ospath, "r")
 
-        # The data model currently assumes that whilst multiple datasets
-        # can be associated with a single file, they must all share the
-        # same formatter.
-        instrument = MegaPrime()
-        FormatterClass = instrument.getRawFormatter(datasets[0].dataId)
+                # NOTE: The primary header (HDU=0) does not contain detector
+                # data.
+                for i in range(1, fitsData.countHdus()):
+                    fitsData.setHdu(i)
+                    header = fitsData.readMetadata()
+                    if not header["EXTNAME"].startswith("ccd"):
+                        continue
+                    fix_header(header)
+                    datasets.append(self._calculate_dataset_info(header, filename))
+        except Exception as e:
+            self.log.debug("Problem extracting metadata from %s: %s", filename, e)
+            # Indicate to the caller that we failed to read.
+            # Do not try to ingest partial contents of file.
+            datasets = []
+            formatterClass = Formatter
+            instrument = None
+            self._on_metadata_failure(filename, e)
+            if self.config.failFast:
+                raise RuntimeError(f"Problem extracting metadata for file {filename}") from e
+        else:
+            # The data model currently assumes that whilst multiple datasets
+            # can be associated with a single file, they must all share the
+            # same formatter.
+            instrument, formatterClass = self._determine_instrument_formatter(datasets[0].dataId, filename)
+            if instrument is None:
+                datasets = []
 
         self.log.info(f"Found images for {len(datasets)} detectors in {filename}")
         return RawFileData(datasets=datasets, filename=filename,
-                           FormatterClass=FormatterClass,
+                           FormatterClass=formatterClass,
                            instrumentClass=type(instrument))
 
 
