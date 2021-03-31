@@ -36,6 +36,7 @@ from lsst.daf.persistence import Policy
 from lsst.obs.base import CameraMapper, exposureFromImage
 from .makeMegacamRawVisitInfo import MakeMegacamRawVisitInfo
 from ._instrument import MegaPrime
+from .cfhtFilters import MEGAPRIME_FILTER_DEFINITIONS
 
 
 class MegacamMapper(CameraMapper):
@@ -68,24 +69,7 @@ class MegacamMapper(CameraMapper):
 
         self.exposures['raw'].keyDict['ccd'] = int
 
-        with warnings.catch_warnings():
-            # suppress Filter warnings; we already know this is deprecated
-            warnings.simplefilter('ignore', category=FutureWarning)
-
-            afwImageUtils.defineFilter('u', lambdaEff=374, alias="u.MP9301")
-            afwImageUtils.defineFilter('u2', lambdaEff=354, alias="u.MP9302")
-            afwImageUtils.defineFilter('g', lambdaEff=487, alias="g.MP9401")
-            afwImageUtils.defineFilter('g2', lambdaEff=472, alias="g.MP9402")
-            afwImageUtils.defineFilter('r', lambdaEff=628, alias="r.MP9601")
-            afwImageUtils.defineFilter('r2', lambdaEff=640, alias="r.MP9602")
-            afwImageUtils.defineFilter('i', lambdaEff=778, alias="i.MP9701")
-            afwImageUtils.defineFilter('i2', lambdaEff=764, alias="i.MP9702")
-            afwImageUtils.defineFilter('i3', lambdaEff=776, alias="i.MP9703")
-            afwImageUtils.defineFilter('z', lambdaEff=1170, alias="z.MP9801")
-            afwImageUtils.defineFilter('z2', lambdaEff=926, alias="z.MP9901")
-
-        # define filters?
-        self.filterIdMap = dict(u=0, g=1, r=2, i=3, z=4, i2=5, u2=6, g2=7, r2=8, i3=9, z2=10)
+        MEGAPRIME_FILTER_DEFINITIONS.defineFilters()
 
         # Ensure each dataset type of interest knows about the full range of
         # keys available from the registry
