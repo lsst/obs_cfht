@@ -79,7 +79,7 @@ class CfhtIsrTask(IsrTask):
             saturate = int(self.config.safe*bin_edges[np.argmax(hist)])
         else:
             saturate = metadata.getScalar("SATURATE")
-        self.log.info("Saturation set to %d" % saturate)
+        self.log.info("Saturation set to %d", saturate)
 
         tempCcd = ccd.rebuild()
         tempCcd.clear()
