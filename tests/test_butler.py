@@ -29,7 +29,6 @@ from lsst.utils import getPackageDir
 import lsst.utils.tests
 import lsst.daf.persistence as dafPersist
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
-import lsst.pex.exceptions as pexExcept
 from lsst.daf.base import DateTime
 from lsst.afw.image import RotType, FilterLabel
 from lsst.geom import degrees, radians, SpherePoint
@@ -113,7 +112,7 @@ class GetRawTestCase(lsst.utils.tests.TestCase):
     def getTestDataDir(self):
         try:
             datadir = getPackageDir("testdata_cfht")
-        except pexExcept.NotFoundError as e:
+        except LookupError as e:
             warnings.warn(e.args[0])
             raise unittest.SkipTest("Skipping test as testdata_cfht is not setup")
         return datadir
