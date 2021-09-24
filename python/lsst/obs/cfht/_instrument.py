@@ -67,7 +67,7 @@ class MegaPrime(Instrument):
             shortNameFunc=lambda name: name.replace(" ", "_"),
         )
 
-    def register(self, registry):
+    def register(self, registry, update=False):
         camera = self.getCamera()
         obsMax = 2**31
         with registry.transaction():
@@ -76,7 +76,8 @@ class MegaPrime(Instrument):
                 {
                     "name": self.getName(), "detector_max": 36, "visit_max": obsMax, "exposure_max": obsMax,
                     "class_name": getFullTypeName(self),
-                }
+                },
+                update=update
             )
 
             for detector in camera:
@@ -89,10 +90,11 @@ class MegaPrime(Instrument):
                         "name_in_raft": detector.getName(),
                         "raft": None,  # MegaPrime does not have rafts
                         "purpose": str(detector.getType()).split(".")[-1],
-                    }
+                    },
+                    update=update
                 )
 
-            self._registerFilters(registry)
+            self._registerFilters(registry, update=update)
 
     def getRawFormatter(self, dataId):
         # local import to prevent circular dependency
