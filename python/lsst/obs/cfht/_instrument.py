@@ -32,7 +32,7 @@ from lsst.obs.base import Instrument
 from lsst.obs.base.gen2to3 import TranslatorFactory, BandToPhysicalFilterKeyHandler
 from .cfhtFilters import MEGAPRIME_FILTER_DEFINITIONS
 
-from lsst.daf.butler.core.utils import getFullTypeName
+from lsst.utils.introspection import get_full_type_name
 from lsst.utils import getPackageDir
 
 
@@ -75,7 +75,7 @@ class MegaPrime(Instrument):
                 "instrument",
                 {
                     "name": self.getName(), "detector_max": 36, "visit_max": obsMax, "exposure_max": obsMax,
-                    "class_name": getFullTypeName(self),
+                    "class_name": get_full_type_name(self),
                 },
                 update=update
             )
