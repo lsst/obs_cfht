@@ -158,6 +158,14 @@ calibrations:
 datasets:
   src:
     template: src/%(runId)s/%(object)s/%(date)s/%(filter)s/SRC-%(visit)d-%(ccd)02d.fits
+  source:
+    template: src/%(runId)s/%(object)s/%(date)s/%(filter)s/SRC-%(visit)d-%(ccd)02d.parq
+  sourceTable:
+    template: 'src/%(runId)s/%(object)s/%(date)s/%(filter)s/sourceTable-%(visit)d-%(ccd)02d.parq'
+  sourceTable_visit:
+    template: 'src/%(runId)s/%(object)s/%(date)s/%(filter)s/sourceTable-%(visit)d.parq'
+  visitSummary:
+    template: 'calexp/%(runId)s/%(object)s/%(date)s/%(filter)s/visitSummary-%(visit)d.fits'
   icMatch:
     persistable: BaseCatalog
     python: lsst.afw.table.BaseCatalog
