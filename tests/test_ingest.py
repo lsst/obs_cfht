@@ -69,7 +69,7 @@ class MegaPrimeIngestTestCase(IngestTestBase, lsst.utils.tests.TestCase):
 
     def checkRepo(self, files=None):
         # We ignore `files` because there's only one raw file in
-        # testdata_subaru, and we know it's a science frame.
+        # testdata_cfht, and we know it's a science frame.
         # If we ever add more, this test will need to change.
         butler = Butler(self.root, collections=[self.outputRun])
         expanded = butler.registry.expandDataId(self.dataIds[0])
