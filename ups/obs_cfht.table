@@ -6,6 +6,11 @@ setupRequired(pipe_tasks)
 setupRequired(astro_metadata_translator)
 setupRequired(geom)
 
+# Required by config/calibrate.py, for gen3 DRP pipeline.
+# These can be removed after DM-30891 is finished
+setupRequired(meas_extensions_photometryKron)
+setupRequired(meas_extensions_shapeHSM)
+
 setupOptional(testdata_cfht)
 
 envPrepend(PYTHONPATH, ${PRODUCT_DIR}/python)
