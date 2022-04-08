@@ -24,7 +24,6 @@ import os
 import unittest
 import lsst.utils.tests
 
-from lsst.pipe.tasks.ingest import IngestConfig
 from lsst.pipe.tasks.makeSkyMap import MakeSkyMapConfig
 from lsst.pipe.tasks.multiBand import MergeDetectionsConfig
 from lsst.pipe.tasks.multiBand import MergeMeasurementsConfig
@@ -43,7 +42,6 @@ class ConfigOverrideTestCase(lsst.utils.tests.TestCase):
         # singleFrameDriver.py: Requires pipe_drivers, which is not a
         # dependency of this package.
         for configClass, overrideFilename in {
-            IngestConfig: "ingest.py",
             MakeSkyMapConfig: "makeSkyMap.py",
             MergeDetectionsConfig: "mergeCoaddDetections.py",
             MergeMeasurementsConfig: "mergeCoaddMeasurements.py",

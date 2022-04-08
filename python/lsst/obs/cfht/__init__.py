@@ -20,6 +20,4 @@
 # see <http://www.lsstcorp.org/LegalNotices/>.
 #
 from .version import *
-from .megacamMapper import *
 from ._instrument import MegaPrime
-from .ingest import MegaPrimeRawIngestTask
