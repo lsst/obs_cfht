@@ -23,6 +23,7 @@ import os
 import numbers
 import unittest
 
+from lsst.utils import getPackageDir
 import lsst.utils.tests
 import lsst.pipe.tasks.photoCal as photoCal
 
@@ -32,7 +33,7 @@ class ColortermOverrideTestCase(unittest.TestCase):
     """Test that colorterms specific to CFHT override correctly"""
 
     def setUp(self):
-        colortermsFile = os.path.join(os.environ["OBS_CFHT_DIR"], "config", "colorterms.py")
+        colortermsFile = os.path.join(getPackageDir("obs_cfht"), "config", "colorterms.py")
         self.photoCalConf = photoCal.PhotoCalConfig()
         self.photoCalConf.colorterms.load(colortermsFile)
 
