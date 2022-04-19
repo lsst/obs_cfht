@@ -6,19 +6,8 @@ configDir = os.path.dirname(__file__)
 
 config.photoCal.colorterms.load(os.path.join(configDir, 'colorterms.py'))
 
-config.astromRefObjLoader.ref_dataset_name = "gaia_dr2_20200414"
-# TODO DM-27843: workaround for gen3 not supporting anyFilterMapsToThis
-config.astromRefObjLoader.filterMap = {'g': 'phot_g_mean',
-                                       'r': 'phot_g_mean',
-                                       'i': 'phot_g_mean',
-                                       'z': 'phot_g_mean',
-                                       'y': 'phot_g_mean'}
 
 config.photoRefObjLoader.filterMap = {'i2': 'i'}
-config.photoRefObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
-
-config.connections.astromRefCat = "gaia_dr2_20200414"
-config.connections.photoRefCat = "ps1_pv3_3pi_20170110"
 
 config.astrometry.wcsFitter.order = 3
 if isinstance(config.astrometry.matcher, MatchOptimisticBTask):
@@ -26,7 +15,6 @@ if isinstance(config.astrometry.matcher, MatchOptimisticBTask):
     config.astrometry.sourceSelector['matcher'].excludePixelFlags = False
 
 config.photoCal.applyColorTerms = True
-config.photoCal.photoCatName = "ps1_pv3_3pi_20170110"
 
 # this was the default prior to DM-11521.  New default is 2000.
 config.deblend.maxFootprintSize=0
