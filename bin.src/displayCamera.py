@@ -25,9 +25,9 @@ import argparse
 import re
 import sys
 
-import lsst.obs.cfht as obs_cfht
 import lsst.afw.cameraGeom.utils as cameraGeomUtils
 import lsst.afw.display as afwDisplay
+from lsst.obs.cfht import MegaPrime
 
 
 def checkStr(strVal, level):
@@ -90,8 +90,8 @@ if __name__ == "__main__":
         parser.print_help()
         sys.exit(1)
 
-    mapper = obs_cfht.MegacamMapper()
-    camera = mapper.camera
+    instrument = MegaPrime()
+    camera = instrument.getCamera()
     frame = 0
     disp = afwDisplay.Display(frame=frame)
     if args.showAmp:
