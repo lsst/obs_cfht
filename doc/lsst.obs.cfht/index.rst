@@ -23,9 +23,5 @@ Python API reference
 
 .. automodapi:: lsst.obs.cfht
    :no-main-docstr:
-.. automodapi:: lsst.obs.cfht.makeMegacamRawVisitInfo
-   :no-main-docstr:
 .. automodapi:: lsst.obs.cfht.cfhtIsrTask
-   :no-main-docstr:
-.. automodapi:: lsst.obs.cfht.ingest
    :no-main-docstr:
