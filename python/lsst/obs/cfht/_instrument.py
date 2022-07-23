@@ -29,7 +29,6 @@ from functools import lru_cache
 
 from lsst.afw.cameraGeom import makeCameraFromPath, CameraConfig
 from lsst.obs.base import Instrument, VisitSystem
-from lsst.obs.base.gen2to3 import TranslatorFactory, BandToPhysicalFilterKeyHandler
 from .cfhtFilters import MEGAPRIME_FILTER_DEFINITIONS
 
 from lsst.utils.introspection import get_full_type_name
@@ -102,16 +101,3 @@ class MegaPrime(Instrument):
         # local import to prevent circular dependency
         from .rawFormatter import MegaPrimeRawFormatter
         return MegaPrimeRawFormatter
-
-    def makeDataIdTranslatorFactory(self) -> TranslatorFactory:
-        # Docstring inherited from lsst.obs.base.Instrument.
-        factory = TranslatorFactory()
-        factory.addGenericInstrumentRules(self.getName(), calibFilterType="band")
-
-        # calibRegistry entries are bands, but we need
-        # physical_filter in the gen3 registry.
-        factory.addRule(BandToPhysicalFilterKeyHandler(self.filterDefinitions),
-                        instrument=self.getName(),
-                        gen2keys=("filter",),
-                        consume=("filter",))
-        return factory
