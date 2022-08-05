@@ -71,6 +71,9 @@ config.detectorList[0].offset_x = -114.399
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[0].offset_y = 99.46125
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[0].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[0].transposeDetector = None
 
@@ -131,6 +134,9 @@ config.detectorList[1].offset_x = -85.806
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[1].offset_y = 99.47475
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[1].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[1].transposeDetector = None
@@ -193,6 +199,9 @@ config.detectorList[2].offset_x = -57.24
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[2].offset_y = 99.48825
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[2].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[2].transposeDetector = None
 
@@ -253,6 +262,9 @@ config.detectorList[3].offset_x = -28.6875
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[3].offset_y = 99.50175
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[3].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[3].transposeDetector = None
@@ -315,6 +327,9 @@ config.detectorList[4].offset_x = -0.054
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[4].offset_y = 99.50175
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[4].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[4].transposeDetector = None
 
@@ -375,6 +390,9 @@ config.detectorList[5].offset_x = 28.431
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[5].offset_y = 99.48825
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[5].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[5].transposeDetector = None
@@ -437,6 +455,9 @@ config.detectorList[6].offset_x = 57.078
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[6].offset_y = 99.46125
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[6].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[6].transposeDetector = None
 
@@ -497,6 +518,9 @@ config.detectorList[7].offset_x = 85.6575
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[7].offset_y = 99.43425
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[7].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[7].transposeDetector = None
@@ -559,6 +583,9 @@ config.detectorList[8].offset_x = 114.2505
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[8].offset_y = 99.44775
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[8].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[8].transposeDetector = None
 
@@ -619,6 +646,9 @@ config.detectorList[9].offset_x = -114.3855
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[9].offset_y = 31.51575
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[9].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[9].transposeDetector = None
@@ -681,6 +711,9 @@ config.detectorList[10].offset_x = -85.7925
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[10].offset_y = 31.50225
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[10].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[10].transposeDetector = None
 
@@ -741,6 +774,9 @@ config.detectorList[11].offset_x = -57.24
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[11].offset_y = 31.48875
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[11].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[11].transposeDetector = None
@@ -803,6 +839,9 @@ config.detectorList[12].offset_x = -28.6605
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[12].offset_y = 31.52925
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[12].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[12].transposeDetector = None
 
@@ -863,6 +902,9 @@ config.detectorList[13].offset_x = -0.081
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[13].offset_y = 31.54275
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[13].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[13].transposeDetector = None
@@ -925,6 +967,9 @@ config.detectorList[14].offset_x = 28.4985
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[14].offset_y = 31.48875
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[14].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[14].transposeDetector = None
 
@@ -985,6 +1030,9 @@ config.detectorList[15].offset_x = 57.0915
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[15].offset_y = 31.48875
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[15].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[15].transposeDetector = None
@@ -1047,6 +1095,9 @@ config.detectorList[16].offset_x = 85.644
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[16].offset_y = 31.54275
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[16].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[16].transposeDetector = None
 
@@ -1107,6 +1158,9 @@ config.detectorList[17].offset_x = 114.2505
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[17].offset_y = 31.39425
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[17].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[17].transposeDetector = None
@@ -1169,6 +1223,9 @@ config.detectorList[18].offset_x = -114.3855
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[18].offset_y = -31.47525
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[18].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[18].transposeDetector = None
 
@@ -1229,6 +1286,9 @@ config.detectorList[19].offset_x = -85.806
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[19].offset_y = -31.44825
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[19].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[19].transposeDetector = None
@@ -1291,6 +1351,9 @@ config.detectorList[20].offset_x = -57.24
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[20].offset_y = -31.46175
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[20].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[20].transposeDetector = None
 
@@ -1351,6 +1414,9 @@ config.detectorList[21].offset_x = -28.647
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[21].offset_y = -31.44825
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[21].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[21].transposeDetector = None
@@ -1413,6 +1479,9 @@ config.detectorList[22].offset_x = -0.081
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[22].offset_y = -31.46175
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[22].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[22].transposeDetector = None
 
@@ -1473,6 +1542,9 @@ config.detectorList[23].offset_x = 28.566
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[23].offset_y = -31.42125
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[23].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[23].transposeDetector = None
@@ -1535,6 +1607,9 @@ config.detectorList[24].offset_x = 57.078
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[24].offset_y = -31.43475
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[24].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[24].transposeDetector = None
 
@@ -1595,6 +1670,9 @@ config.detectorList[25].offset_x = 85.671
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[25].offset_y = -31.38075
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[25].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[25].transposeDetector = None
@@ -1657,6 +1735,9 @@ config.detectorList[26].offset_x = 114.1965
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[26].offset_y = -31.47525
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[26].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[26].transposeDetector = None
 
@@ -1717,6 +1798,9 @@ config.detectorList[27].offset_x = -114.291
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[27].offset_y = -99.50175
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[27].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[27].transposeDetector = None
@@ -1779,6 +1863,9 @@ config.detectorList[28].offset_x = -85.8195
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[28].offset_y = -99.35325
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[28].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[28].transposeDetector = None
 
@@ -1839,6 +1926,9 @@ config.detectorList[29].offset_x = -57.213
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[29].offset_y = -99.36675
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[29].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[29].transposeDetector = None
@@ -1901,6 +1991,9 @@ config.detectorList[30].offset_x = -28.6065
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[30].offset_y = -99.43425
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[30].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[30].transposeDetector = None
 
@@ -1961,6 +2054,9 @@ config.detectorList[31].offset_x = -0.054
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[31].offset_y = -99.40725
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[31].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[31].transposeDetector = None
@@ -2023,6 +2119,9 @@ config.detectorList[32].offset_x = 28.5255
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[32].offset_y = -99.42075
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[32].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[32].transposeDetector = None
 
@@ -2083,6 +2182,9 @@ config.detectorList[33].offset_x = 57.1185
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[33].offset_y = -99.36675
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[33].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[33].transposeDetector = None
@@ -2145,6 +2247,9 @@ config.detectorList[34].offset_x = 85.6845
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[34].offset_y = -99.38025
 
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[34].offset_z = 0.0
+
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[34].transposeDetector = None
 
@@ -2205,6 +2310,9 @@ config.detectorList[35].offset_x = 114.1695
 
 # y offset from the origin of the camera in mm in the transposed system.
 config.detectorList[35].offset_y = -99.51525
+
+# z offset from the origin of the camera in mm in the transposed system.
+config.detectorList[35].offset_z = 0.0
 
 # Transpose the pixel grid before orienting in focal plane?
 config.detectorList[35].transposeDetector = None
