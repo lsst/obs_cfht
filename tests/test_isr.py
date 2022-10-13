@@ -1,4 +1,3 @@
-#
 # This file is part of obs_cfht.
 #
 # Developed for the LSST Data Management System.
@@ -22,7 +21,6 @@
 #
 import os
 import unittest
-import warnings
 
 import lsst.afw.image as afwImage
 import lsst.utils.tests
@@ -31,37 +29,67 @@ from lsst.obs.cfht import MegaPrime
 from lsst.obs.cfht.cfhtIsrTask import CfhtIsrTask
 
 
+testDataPackage = "testdata_cfht"
+try:
+    testDataDirectory = lsst.utils.getPackageDir(testDataPackage)
+except LookupError:
+    testDataDirectory = None
+
+
+@unittest.skipIf(testDataDirectory is None, "Skipping tests as testdata_cfht is not setup")
 class CfhtIsrTestCase(lsst.utils.tests.TestCase):
     """Test for the CFHT IsrTask wrapper."""
 
     def setUp(self):
-        testDataPackage = "testdata_cfht"
-        try:
-            testDataDirectory = lsst.utils.getPackageDir(testDataPackage)
-        except LookupError as e:
-            warnings.warn(e.args[0])
-            raise unittest.SkipTest("Skipping tests as testdata_cfht is not setup")
-
         # We'll need a detector, so get the first one.
         self.camera = MegaPrime().getCamera()
         detector = self.camera[0]
 
         # Get the override.
-        self.configPath = os.path.join(lsst.utils.getPackageDir("obs_lsst"), "config",
+        self.configPath = os.path.join(lsst.utils.getPackageDir("obs_cfht"), "config",
                                        "isr.py")
         # Read the image data.
         imageLocation = os.path.join(testDataDirectory, "DATA/raw/08BL05/w2.+2+2/2008-11-01/i2",
                                      "1038843o.fits.fz")
         self.exposure = self.imageHandler(imageLocation, detector)
 
+    @staticmethod
+    def imageHandler(location, detector=None):
+        """Quick method to handle image reading.
+
+        Parameters
+        ----------
+        location : `str`
+            FITS file location.
+        detector : `lsst.afw.cameraGeom.Detector`, optional
+            Detector to attach to the exposure.
+
+        Returns
+        -------
+        exp : `lsst.afw.image.Exposure`
+            Fully constructed exposure.
+        """
+        if detector:
+            hdu = detector.getId() + 1
+        else:
+            hdu = 1
+
+        reader = afwImage.ExposureFitsReader(location)
+        imReader = afwImage.ImageFitsReader(location, hdu=hdu)
+
+        exp = afwImage.makeExposure(afwImage.makeMaskedImage(imReader.read()))
+        exp.setMetadata(reader.readMetadata())
+        exp.setInfo(reader.readExposureInfo())
+
+        if detector:
+            exp.setDetector(detector)
+
+        return exp
+
     def test_processing(self):
         # Process image and confirm it doesn't fail.
 
         config = CfhtIsrTask.ConfigClass()
-        # copy = CfhtIsrTask.ConfigClass()
-        # # Why does load not load the config?  ;_;
-        # copy.load(self.configPath)
-        # config.compare(copy)
 
         # Manually fix config.
         config.doDark = False
@@ -93,38 +121,6 @@ class CfhtIsrTestCase(lsst.utils.tests.TestCase):
         self.assertEqual(md['GAINB'], amplifiers[1].getGain())
         self.assertEqual(md['RDNOISEA'], amplifiers[0].getReadNoise())
         self.assertEqual(md['RDNOISEB'], amplifiers[1].getReadNoise())
-
-    def imageHandler(self, location, detector=None):
-        """Quick method to handle image reading.
-
-        Parameters
-        ----------
-        location : `str`
-            FITS file location.
-        detector : `lsst.afw.cameraGeom.Detector`, optional
-            Detector to attach to the exposure.
-
-        Returns
-        -------
-        exp : `lsst.afw.image.Exposure`
-            Fully constructed exposure.
-        """
-        if detector:
-            hdu = detector.getId() + 1
-        else:
-            hdu = 1
-
-        reader = afwImage.ExposureFitsReader(location)
-        imReader = afwImage.ImageFitsReader(location, hdu=hdu)
-
-        exp = afwImage.makeExposure(afwImage.makeMaskedImage(imReader.read()))
-        exp.setMetadata(reader.readMetadata())
-        exp.setInfo(reader.readExposureInfo())
-
-        if detector:
-            exp.setDetector(detector)
-
-        return exp
 
 
 class MemoryTester(lsst.utils.tests.MemoryTestCase):
