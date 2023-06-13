@@ -57,12 +57,12 @@ class MegaPrimeIngestTestCase(IngestTestBase, lsst.utils.tests.TestCase):
             DataCoordinate.standardize(
                 instrument="MegaPrime",
                 visit=1038843,
-                universe=butler.registry.dimensions
+                universe=butler.dimensions
             ): [
                 DataCoordinate.standardize(
                     instrument="MegaPrime",
                     exposure=1038843,
-                    universe=butler.registry.dimensions
+                    universe=butler.dimensions
                 )
             ]
         }
