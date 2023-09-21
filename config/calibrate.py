@@ -16,12 +16,6 @@ if isinstance(config.astrometry.matcher, MatchOptimisticBTask):
 
 config.photoCal.applyColorTerms = True
 
-# this was the default prior to DM-11521.  New default is 2000.
-config.deblend.maxFootprintSize=0
-
-# Better astrometry matching
-config.astrometry.matcher.numBrightStars = 150
-
 # ====================================
 # TODO DM-31063: below are things taken from obs_subaru that should be moved
 # into a generic pipeline config once gen2 is gone.
