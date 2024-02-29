@@ -27,6 +27,7 @@ __all__ = ("MegaPrime",)
 import os
 from functools import lru_cache
 
+from astro_metadata_translator import MegaPrimeTranslator
 from lsst.afw.cameraGeom import makeCameraFromPath, CameraConfig
 from lsst.obs.base import Instrument, VisitSystem
 from .cfhtFilters import MEGAPRIME_FILTER_DEFINITIONS
@@ -39,6 +40,7 @@ class MegaPrime(Instrument):
     filterDefinitions = MEGAPRIME_FILTER_DEFINITIONS
     policyName = "megacam"
     obsDataPackage = None
+    translatorClass = MegaPrimeTranslator
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
