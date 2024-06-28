@@ -114,10 +114,11 @@ class MegaPrimeRawFormatter(FitsRawFormatterBase):
         ValueError
             Raised if detectorId is not found in any of the file HDUs
         """
-        filename = self.fileDescriptor.location.path
+        filename = self._reader_path
         # We start by assuming that ccdN is HDU N+1
         index = detectorId + 1
-        metadata = lsst.afw.fits.readMetadata(filename, index)
+        reader = self.ReaderClass(filename, hdu=index)
+        metadata = reader.readMetadata()
 
         # There may be two EXTNAME headers but the second one is the one
         # we want (the first indicates compression).
@@ -130,11 +131,11 @@ class MegaPrimeRawFormatter(FitsRawFormatterBase):
 
     def readMetadata(self):
         # Headers are duplicated so no need to merge with primary
-        index, metadata = self._determineHDU(self.dataId["detector"])
+        index, metadata = self._determineHDU(self.data_id["detector"])
         fix_header(metadata)
         return metadata
 
     def readImage(self):
-        index, metadata = self._determineHDU(self.dataId["detector"])
-        reader = lsst.afw.image.ImageFitsReader(self.fileDescriptor.location.path, hdu=index)
+        index, metadata = self._determineHDU(self.data_id["detector"])
+        reader = self.ReaderClass(self._reader_path, hdu=index)
         return reader.read()
