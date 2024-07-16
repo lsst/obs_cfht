@@ -2,7 +2,7 @@
 
 config.skyMap = "discrete"
 
-config.skyMap["discrete"].projection = 'STG'
+config.skyMap["discrete"].projection = "STG"
 config.skyMap["discrete"].raList = [214.263, 215.463]
 config.skyMap["discrete"].decList = [52.082, 53.282]
 config.skyMap["discrete"].radiusList = [0.0, 0.0]

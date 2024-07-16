@@ -2,8 +2,10 @@
 # However, that script is broken (see DM-11560) and this file
 # is manually maintained, at least until that ticket is fixed.
 import lsst.afw.cameraGeom.cameraConfig
-assert type(config) == lsst.afw.cameraGeom.cameraConfig.CameraConfig, 'config is of type %s.%s instead of lsst.afw.cameraGeom.cameraConfig.CameraConfig' % (
-    type(config).__module__, type(config).__name__)
+assert type(config) is lsst.afw.cameraGeom.cameraConfig.CameraConfig, (
+    f"config is of type {type(config).__module__}.{type(config).__name__} "
+    "instead of lsst.afw.cameraGeom.cameraConfig.CameraConfig"
+)
 # Plate scale of the camera in arcsec/mm
 config.plateScale = 13.7
 
