@@ -21,3 +21,5 @@ doc/*.inc
 doc/doxygen.conf
 tests/.tests
 version.py
+python/*.dist-info/
+.coverage*
