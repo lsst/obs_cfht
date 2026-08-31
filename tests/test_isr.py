@@ -46,8 +46,7 @@ class CfhtIsrTestCase(lsst.utils.tests.TestCase):
         detector = self.camera[0]
 
         # Get the override.
-        self.configPath = os.path.join(lsst.utils.getPackageDir("obs_cfht"), "config",
-                                       "isr.py")
+        self.configPath = "eups://obs_cfht/config/isr.py"
         # Read the image data.
         imageLocation = os.path.join(testDataDirectory, "DATA/raw/08BL05/w2.+2+2/2008-11-01/i2",
                                      "1038843o.fits.fz")

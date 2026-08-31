@@ -44,8 +44,7 @@ class MegaPrime(Instrument):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        packageDir = getPackageDir("obs_cfht")
-        self.configPaths = [os.path.join(packageDir, "config")]
+        self.configPaths = ["eups://obs_cfht/config"]
 
     @classmethod
     def getName(cls):

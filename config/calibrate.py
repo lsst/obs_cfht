@@ -1,12 +1,7 @@
-import os.path
-
 from lsst.meas.astrom import MatchOptimisticBTask
 import lsst.meas.extensions.photometryKron  # noqa: F401 required for KronFlux below
-from lsst.utils import getPackageDir
 
-configDir = os.path.dirname(__file__)
-
-config.photoCal.colorterms.load(os.path.join(configDir, "colorterms.py"))
+config.photoCal.colorterms.load("colorterms.py")
 
 
 config.photoRefObjLoader.filterMap = {"i2": "i"}
@@ -39,7 +34,7 @@ config.measurement.plugins["base_CircularApertureFlux"].maxSincRadius = 12.0
 
 config.measurement.plugins.names |= ["ext_photometryKron_KronFlux"]
 
-config.measurement.load(os.path.join(getPackageDir("meas_extensions_shapeHSM"), "config", "enable.py"))
+config.measurement.load("eups://meas_extensions_shapeHSM/config/enable.py")
 config.measurement.plugins["ext_shapeHSM_HsmShapeRegauss"].deblendNChild = "deblend_nChild"
 # Enable debiased moments
 config.measurement.plugins.names |= ["ext_shapeHSM_HsmPsfMomentsDebiased"]
