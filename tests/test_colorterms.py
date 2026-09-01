@@ -32,7 +32,7 @@ class ColortermOverrideTestCase(unittest.TestCase):
 
     def setUp(self):
         self.photoCalConf = photoCal.PhotoCalConfig()
-        self.photoCalConf.colorterms.load("eups://obs_cfht/config/colorterms.py")
+        self.photoCalConf.colorterms.load("resource://lsst.obs.cfht/resources/config/colorterms.py")
 
     def testColorterms(self):
         """Test that the colorterm libraries are formatted correctly"""

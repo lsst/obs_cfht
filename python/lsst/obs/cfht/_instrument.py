@@ -44,7 +44,7 @@ class MegaPrime(Instrument):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.configPaths = ["eups://obs_cfht/config"]
+        self.configPaths = ["resource://lsst.obs.cfht/resources/config"]
 
     @classmethod
     def getName(cls):

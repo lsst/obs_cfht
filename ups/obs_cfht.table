@@ -10,6 +10,8 @@ setupRequired(geom)
 setupRequired(meas_extensions_photometryKron)
 setupRequired(meas_extensions_shapeHSM)
 
+setupRequired(resources)
+
 setupOptional(testdata_cfht)
 
 envPrepend(PYTHONPATH, ${PRODUCT_DIR}/python)
