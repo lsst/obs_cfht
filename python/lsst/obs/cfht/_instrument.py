@@ -24,6 +24,7 @@
 
 __all__ = ("MegaPrime",)
 
+import importlib.resources
 import os
 from functools import lru_cache
 
@@ -33,7 +34,6 @@ from lsst.obs.base import Instrument, VisitSystem
 from .cfhtFilters import MEGAPRIME_FILTER_DEFINITIONS
 
 from lsst.utils.introspection import get_full_type_name
-from lsst.utils import getPackageDir
 
 
 class MegaPrime(Instrument):
@@ -51,8 +51,16 @@ class MegaPrime(Instrument):
         return "MegaPrime"
 
     def getCamera(self):
-        path = os.path.join(getPackageDir("obs_cfht"), self.policyName, "camera")
-        return self._getCameraFromPath(path)
+        # The camera geometry is a directory of files (camera.py plus per-amp
+        # FITS) consumed by makeCameraFromPath, so it must be presented as a
+        # local directory. importlib.resources.as_file yields that path
+        # without requiring an EUPS environment (unlike getPackageDir).
+        with importlib.resources.as_file(
+            importlib.resources.files("lsst.obs.cfht").joinpath(
+                f"resources/{self.policyName}/camera"
+            )
+        ) as path:
+            return self._getCameraFromPath(str(path))
 
     @staticmethod
     @lru_cache()
